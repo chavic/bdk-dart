@@ -1,0 +1,15 @@
+namespace bdk {};
+
+enum Network {
+  "Bitcoin",
+  "Testnet", 
+  "Signet",
+  "Regtest",
+  "Testnet4",
+};
+
+interface NetworkExample {
+    constructor();
+    Network get_signet();
+    string network_name(Network network);
+};

@@ -1,0 +1,6 @@
+[submodule "uniffi-dart"]
+	path = uniffi-dart
+	url = https://github.com/NiallBunting/uniffi-rs-dart.git
+[submodule "bdk-ffi"]
+	path = bdk-ffi
+	url = https://github.com/bitcoindevkit/bdk-ffi.git

@@ -1,0 +1,25 @@
+# Rust
+/target
+**/*.rs.bk
+Cargo.lock
+
+# Flutter/Dart
+**/build/
+**/.dart_tool/
+**/.packages
+**/.pub-cache/
+**/.pub/
+**/pubspec.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
