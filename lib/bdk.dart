@@ -12,6 +12,7 @@ class AddressInfo {
   final int index;
   final Address address;
   final KeychainKind keychain;
+
   AddressInfo(
     this.index,
     this.address,
@@ -26,6 +27,7 @@ class FfiConverterAddressInfo {
 
   static LiftRetVal<AddressInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final index_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final index = index_lifted.value;
@@ -58,6 +60,7 @@ class FfiConverterAddressInfo {
 
   static int write(AddressInfo value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterUInt32.write(
         value.index, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -78,6 +81,7 @@ class FfiConverterAddressInfo {
 class Anchor {
   final ConfirmationBlockTime confirmationBlockTime;
   final Txid txid;
+
   Anchor(
     this.confirmationBlockTime,
     this.txid,
@@ -91,6 +95,7 @@ class FfiConverterAnchor {
 
   static LiftRetVal<Anchor> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final confirmationBlockTime_lifted = FfiConverterConfirmationBlockTime.read(
         Uint8List.view(buf.buffer, new_offset));
     final confirmationBlockTime = confirmationBlockTime_lifted.value;
@@ -118,6 +123,7 @@ class FfiConverterAnchor {
 
   static int write(Anchor value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterConfirmationBlockTime.write(
         value.confirmationBlockTime, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -140,6 +146,7 @@ class Balance {
   final Amount confirmed;
   final Amount trustedSpendable;
   final Amount total;
+
   Balance(
     this.immature,
     this.trustedPending,
@@ -157,6 +164,7 @@ class FfiConverterBalance {
 
   static LiftRetVal<Balance> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final immature_lifted = Amount.read(Uint8List.view(buf.buffer, new_offset));
     final immature = immature_lifted.value;
     new_offset += immature_lifted.bytesRead;
@@ -206,6 +214,7 @@ class FfiConverterBalance {
 
   static int write(Balance value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Amount.write(value.immature, Uint8List.view(buf.buffer, new_offset));
     new_offset += Amount.write(
@@ -235,6 +244,7 @@ class FfiConverterBalance {
 class BlockId {
   final int height;
   final BlockHash hash;
+
   BlockId(
     this.height,
     this.hash,
@@ -248,6 +258,7 @@ class FfiConverterBlockId {
 
   static LiftRetVal<BlockId> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -274,6 +285,7 @@ class FfiConverterBlockId {
 
   static int write(BlockId value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterUInt32.write(
         value.height, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -291,6 +303,7 @@ class FfiConverterBlockId {
 class CanonicalTx {
   final Transaction transaction;
   final ChainPosition chainPosition;
+
   CanonicalTx(
     this.transaction,
     this.chainPosition,
@@ -304,6 +317,7 @@ class FfiConverterCanonicalTx {
 
   static LiftRetVal<CanonicalTx> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final transaction_lifted =
         Transaction.read(Uint8List.view(buf.buffer, new_offset));
     final transaction = transaction_lifted.value;
@@ -331,6 +345,7 @@ class FfiConverterCanonicalTx {
 
   static int write(CanonicalTx value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += Transaction.write(
         value.transaction, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterChainPosition.write(
@@ -348,6 +363,7 @@ class FfiConverterCanonicalTx {
 class CbfComponents {
   final CbfClient client;
   final CbfNode node;
+
   CbfComponents(
     this.client,
     this.node,
@@ -361,6 +377,7 @@ class FfiConverterCbfComponents {
 
   static LiftRetVal<CbfComponents> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final client_lifted =
         CbfClient.read(Uint8List.view(buf.buffer, new_offset));
     final client = client_lifted.value;
@@ -387,6 +404,7 @@ class FfiConverterCbfComponents {
 
   static int write(CbfComponents value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         CbfClient.write(value.client, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -404,6 +422,7 @@ class FfiConverterCbfComponents {
 class ChainChange {
   final int height;
   final BlockHash? hash;
+
   ChainChange(
     this.height,
     this.hash,
@@ -417,6 +436,7 @@ class FfiConverterChainChange {
 
   static LiftRetVal<ChainChange> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -444,6 +464,7 @@ class FfiConverterChainChange {
 
   static int write(ChainChange value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterUInt32.write(
         value.height, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalBlockHash.write(
@@ -461,6 +482,7 @@ class FfiConverterChainChange {
 class Condition {
   final int? csv;
   final LockTime? timelock;
+
   Condition(
     this.csv,
     this.timelock,
@@ -474,6 +496,7 @@ class FfiConverterCondition {
 
   static LiftRetVal<Condition> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final csv_lifted =
         FfiConverterOptionalUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final csv = csv_lifted.value;
@@ -501,6 +524,7 @@ class FfiConverterCondition {
 
   static int write(Condition value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterOptionalUInt32.write(
         value.csv, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalLockTime.write(
@@ -518,6 +542,7 @@ class FfiConverterCondition {
 class ConfirmationBlockTime {
   final BlockId blockId;
   final int confirmationTime;
+
   ConfirmationBlockTime(
     this.blockId,
     this.confirmationTime,
@@ -531,6 +556,7 @@ class FfiConverterConfirmationBlockTime {
 
   static LiftRetVal<ConfirmationBlockTime> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final blockId_lifted =
         FfiConverterBlockId.read(Uint8List.view(buf.buffer, new_offset));
     final blockId = blockId_lifted.value;
@@ -558,6 +584,7 @@ class FfiConverterConfirmationBlockTime {
 
   static int write(ConfirmationBlockTime value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterBlockId.write(
         value.blockId, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt64.write(
@@ -572,66 +599,11 @@ class FfiConverterConfirmationBlockTime {
   }
 }
 
-class EvictedTx {
-  final Txid txid;
-  final int evictedAt;
-  EvictedTx(
-    this.txid,
-    this.evictedAt,
-  );
-}
-
-class FfiConverterEvictedTx {
-  static EvictedTx lift(RustBuffer buf) {
-    return FfiConverterEvictedTx.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<EvictedTx> read(Uint8List buf) {
-    int new_offset = buf.offsetInBytes;
-    final txid_lifted = Txid.read(Uint8List.view(buf.buffer, new_offset));
-    final txid = txid_lifted.value;
-    new_offset += txid_lifted.bytesRead;
-    final evictedAt_lifted =
-        FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
-    final evictedAt = evictedAt_lifted.value;
-    new_offset += evictedAt_lifted.bytesRead;
-    return LiftRetVal(
-        EvictedTx(
-          txid,
-          evictedAt,
-        ),
-        new_offset - buf.offsetInBytes);
-  }
-
-  static RustBuffer lower(EvictedTx value) {
-    final total_length = Txid.allocationSize(value.txid) +
-        FfiConverterUInt64.allocationSize(value.evictedAt) +
-        0;
-    final buf = Uint8List(total_length);
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-
-  static int write(EvictedTx value, Uint8List buf) {
-    int new_offset = buf.offsetInBytes;
-    new_offset +=
-        Txid.write(value.txid, Uint8List.view(buf.buffer, new_offset));
-    new_offset += FfiConverterUInt64.write(
-        value.evictedAt, Uint8List.view(buf.buffer, new_offset));
-    return new_offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(EvictedTx value) {
-    return Txid.allocationSize(value.txid) +
-        FfiConverterUInt64.allocationSize(value.evictedAt) +
-        0;
-  }
-}
-
 class FinalizedPsbtResult {
   final Psbt psbt;
   final bool couldFinalize;
   final List<PsbtFinalizeException>? errors;
+
   FinalizedPsbtResult(
     this.psbt,
     this.couldFinalize,
@@ -646,6 +618,7 @@ class FfiConverterFinalizedPsbtResult {
 
   static LiftRetVal<FinalizedPsbtResult> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final psbt_lifted = Psbt.read(Uint8List.view(buf.buffer, new_offset));
     final psbt = psbt_lifted.value;
     new_offset += psbt_lifted.bytesRead;
@@ -679,6 +652,7 @@ class FfiConverterFinalizedPsbtResult {
 
   static int write(FinalizedPsbtResult value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Psbt.write(value.psbt, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterBool.write(
@@ -704,6 +678,7 @@ class Header {
   final int time;
   final int bits;
   final int nonce;
+
   Header(
     this.version,
     this.prevBlockhash,
@@ -721,6 +696,7 @@ class FfiConverterHeader {
 
   static LiftRetVal<Header> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final version_lifted =
         FfiConverterInt32.read(Uint8List.view(buf.buffer, new_offset));
     final version = version_lifted.value;
@@ -772,6 +748,7 @@ class FfiConverterHeader {
 
   static int write(Header value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterInt32.write(
         value.version, Uint8List.view(buf.buffer, new_offset));
     new_offset += BlockHash.write(
@@ -801,6 +778,7 @@ class FfiConverterHeader {
 class HeaderNotification {
   final int height;
   final Header header;
+
   HeaderNotification(
     this.height,
     this.header,
@@ -814,6 +792,7 @@ class FfiConverterHeaderNotification {
 
   static LiftRetVal<HeaderNotification> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -841,6 +820,7 @@ class FfiConverterHeaderNotification {
 
   static int write(HeaderNotification value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterUInt64.write(
         value.height, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterHeader.write(
@@ -857,6 +837,7 @@ class FfiConverterHeaderNotification {
 
 class IndexerChangeSet {
   final Map<DescriptorId, int> lastRevealed;
+
   IndexerChangeSet(
     this.lastRevealed,
   );
@@ -869,6 +850,7 @@ class FfiConverterIndexerChangeSet {
 
   static LiftRetVal<IndexerChangeSet> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final lastRevealed_lifted = FfiConverterMapDescriptorIdToUInt32.read(
         Uint8List.view(buf.buffer, new_offset));
     final lastRevealed = lastRevealed_lifted.value;
@@ -891,6 +873,7 @@ class FfiConverterIndexerChangeSet {
 
   static int write(IndexerChangeSet value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterMapDescriptorIdToUInt32.write(
         value.lastRevealed, Uint8List.view(buf.buffer, new_offset));
     return new_offset - buf.offsetInBytes;
@@ -906,6 +889,7 @@ class FfiConverterIndexerChangeSet {
 class KeychainAndIndex {
   final KeychainKind keychain;
   final int index;
+
   KeychainAndIndex(
     this.keychain,
     this.index,
@@ -919,6 +903,7 @@ class FfiConverterKeychainAndIndex {
 
   static LiftRetVal<KeychainAndIndex> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final keychain_lifted =
         FfiConverterKeychainKind.read(Uint8List.view(buf.buffer, new_offset));
     final keychain = keychain_lifted.value;
@@ -947,6 +932,7 @@ class FfiConverterKeychainAndIndex {
 
   static int write(KeychainAndIndex value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterKeychainKind.write(
         value.keychain, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt32.write(
@@ -963,6 +949,7 @@ class FfiConverterKeychainAndIndex {
 
 class LocalChainChangeSet {
   final List<ChainChange> changes;
+
   LocalChainChangeSet(
     this.changes,
   );
@@ -975,6 +962,7 @@ class FfiConverterLocalChainChangeSet {
 
   static LiftRetVal<LocalChainChangeSet> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final changes_lifted = FfiConverterSequenceChainChange.read(
         Uint8List.view(buf.buffer, new_offset));
     final changes = changes_lifted.value;
@@ -996,6 +984,7 @@ class FfiConverterLocalChainChangeSet {
 
   static int write(LocalChainChangeSet value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterSequenceChainChange.write(
         value.changes, Uint8List.view(buf.buffer, new_offset));
     return new_offset - buf.offsetInBytes;
@@ -1013,6 +1002,7 @@ class LocalOutput {
   final bool isSpent;
   final int derivationIndex;
   final ChainPosition chainPosition;
+
   LocalOutput(
     this.outpoint,
     this.txout,
@@ -1030,6 +1020,7 @@ class FfiConverterLocalOutput {
 
   static LiftRetVal<LocalOutput> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final outpoint_lifted =
         FfiConverterOutPoint.read(Uint8List.view(buf.buffer, new_offset));
     final outpoint = outpoint_lifted.value;
@@ -1081,6 +1072,7 @@ class FfiConverterLocalOutput {
 
   static int write(LocalOutput value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterOutPoint.write(
         value.outpoint, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterTxOut.write(
@@ -1110,6 +1102,7 @@ class FfiConverterLocalOutput {
 class OutPoint {
   final Txid txid;
   final int vout;
+
   OutPoint(
     this.txid,
     this.vout,
@@ -1123,6 +1116,7 @@ class FfiConverterOutPoint {
 
   static LiftRetVal<OutPoint> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final txid_lifted = Txid.read(Uint8List.view(buf.buffer, new_offset));
     final txid = txid_lifted.value;
     new_offset += txid_lifted.bytesRead;
@@ -1149,6 +1143,7 @@ class FfiConverterOutPoint {
 
   static int write(OutPoint value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Txid.write(value.txid, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt32.write(
@@ -1167,6 +1162,7 @@ class Peer {
   final IpAddress address;
   final int? port;
   final bool v2Transport;
+
   Peer(
     this.address,
     this.port,
@@ -1181,6 +1177,7 @@ class FfiConverterPeer {
 
   static LiftRetVal<Peer> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final address_lifted =
         IpAddress.read(Uint8List.view(buf.buffer, new_offset));
     final address = address_lifted.value;
@@ -1214,6 +1211,7 @@ class FfiConverterPeer {
 
   static int write(Peer value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         IpAddress.write(value.address, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalUInt16.write(
@@ -1234,6 +1232,7 @@ class FfiConverterPeer {
 class ScriptAmount {
   final Script script;
   final Amount amount;
+
   ScriptAmount(
     this.script,
     this.amount,
@@ -1247,6 +1246,7 @@ class FfiConverterScriptAmount {
 
   static LiftRetVal<ScriptAmount> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final script_lifted = Script.read(Uint8List.view(buf.buffer, new_offset));
     final script = script_lifted.value;
     new_offset += script_lifted.bytesRead;
@@ -1272,6 +1272,7 @@ class FfiConverterScriptAmount {
 
   static int write(ScriptAmount value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Script.write(value.script, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -1289,6 +1290,7 @@ class FfiConverterScriptAmount {
 class SentAndReceivedValues {
   final Amount sent;
   final Amount received;
+
   SentAndReceivedValues(
     this.sent,
     this.received,
@@ -1302,6 +1304,7 @@ class FfiConverterSentAndReceivedValues {
 
   static LiftRetVal<SentAndReceivedValues> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final sent_lifted = Amount.read(Uint8List.view(buf.buffer, new_offset));
     final sent = sent_lifted.value;
     new_offset += sent_lifted.bytesRead;
@@ -1327,6 +1330,7 @@ class FfiConverterSentAndReceivedValues {
 
   static int write(SentAndReceivedValues value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Amount.write(value.sent, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -1348,6 +1352,7 @@ class ServerFeaturesRes {
   final String protocolMax;
   final String? hashFunction;
   final int? pruning;
+
   ServerFeaturesRes(
     this.serverVersion,
     this.genesisHash,
@@ -1365,6 +1370,7 @@ class FfiConverterServerFeaturesRes {
 
   static LiftRetVal<ServerFeaturesRes> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final serverVersion_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final serverVersion = serverVersion_lifted.value;
@@ -1417,6 +1423,7 @@ class FfiConverterServerFeaturesRes {
 
   static int write(ServerFeaturesRes value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterString.write(
         value.serverVersion, Uint8List.view(buf.buffer, new_offset));
     new_offset += BlockHash.write(
@@ -1450,6 +1457,7 @@ class SignOptions {
   final bool tryFinalize;
   final bool signWithTapInternalKey;
   final bool allowGrinding;
+
   SignOptions(
     this.trustWitnessUtxo,
     this.assumeHeight,
@@ -1467,6 +1475,7 @@ class FfiConverterSignOptions {
 
   static LiftRetVal<SignOptions> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final trustWitnessUtxo_lifted =
         FfiConverterBool.read(Uint8List.view(buf.buffer, new_offset));
     final trustWitnessUtxo = trustWitnessUtxo_lifted.value;
@@ -1519,6 +1528,7 @@ class FfiConverterSignOptions {
 
   static int write(SignOptions value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterBool.write(
         value.trustWitnessUtxo, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalUInt32.write(
@@ -1548,6 +1558,7 @@ class FfiConverterSignOptions {
 class Socks5Proxy {
   final IpAddress address;
   final int port;
+
   Socks5Proxy(
     this.address,
     this.port,
@@ -1561,6 +1572,7 @@ class FfiConverterSocks5Proxy {
 
   static LiftRetVal<Socks5Proxy> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final address_lifted =
         IpAddress.read(Uint8List.view(buf.buffer, new_offset));
     final address = address_lifted.value;
@@ -1588,6 +1600,7 @@ class FfiConverterSocks5Proxy {
 
   static int write(Socks5Proxy value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         IpAddress.write(value.address, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt16.write(
@@ -1610,6 +1623,7 @@ class Tx {
   final int weight;
   final int fee;
   final TxStatus status;
+
   Tx(
     this.txid,
     this.version,
@@ -1628,6 +1642,7 @@ class FfiConverterTx {
 
   static LiftRetVal<Tx> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final txid_lifted = Txid.read(Uint8List.view(buf.buffer, new_offset));
     final txid = txid_lifted.value;
     new_offset += txid_lifted.bytesRead;
@@ -1684,6 +1699,7 @@ class FfiConverterTx {
 
   static int write(Tx value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Txid.write(value.txid, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterInt32.write(
@@ -1722,6 +1738,7 @@ class TxDetails {
   final int balanceDelta;
   final ChainPosition chainPosition;
   final Transaction tx;
+
   TxDetails(
     this.txid,
     this.sent,
@@ -1741,6 +1758,7 @@ class FfiConverterTxDetails {
 
   static LiftRetVal<TxDetails> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final txid_lifted = Txid.read(Uint8List.view(buf.buffer, new_offset));
     final txid = txid_lifted.value;
     new_offset += txid_lifted.bytesRead;
@@ -1800,6 +1818,7 @@ class FfiConverterTxDetails {
 
   static int write(TxDetails value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Txid.write(value.txid, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -1839,6 +1858,7 @@ class TxGraphChangeSet {
   final Map<Txid, int> lastSeen;
   final Map<Txid, int> firstSeen;
   final Map<Txid, int> lastEvicted;
+
   TxGraphChangeSet(
     this.txs,
     this.txouts,
@@ -1856,6 +1876,7 @@ class FfiConverterTxGraphChangeSet {
 
   static LiftRetVal<TxGraphChangeSet> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final txs_lifted = FfiConverterSequenceTransaction.read(
         Uint8List.view(buf.buffer, new_offset));
     final txs = txs_lifted.value;
@@ -1908,6 +1929,7 @@ class FfiConverterTxGraphChangeSet {
 
   static int write(TxGraphChangeSet value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterSequenceTransaction.write(
         value.txs, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterMapHashableOutPointToTxOut.write(
@@ -1939,6 +1961,7 @@ class TxIn {
   final Script scriptSig;
   final int sequence;
   final List<Uint8List> witness;
+
   TxIn(
     this.previousOutput,
     this.scriptSig,
@@ -1954,6 +1977,7 @@ class FfiConverterTxIn {
 
   static LiftRetVal<TxIn> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final previousOutput_lifted =
         FfiConverterOutPoint.read(Uint8List.view(buf.buffer, new_offset));
     final previousOutput = previousOutput_lifted.value;
@@ -1994,6 +2018,7 @@ class FfiConverterTxIn {
 
   static int write(TxIn value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterOutPoint.write(
         value.previousOutput, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -2017,6 +2042,7 @@ class FfiConverterTxIn {
 class TxOut {
   final Amount value;
   final Script scriptPubkey;
+
   TxOut(
     this.value,
     this.scriptPubkey,
@@ -2030,6 +2056,7 @@ class FfiConverterTxOut {
 
   static LiftRetVal<TxOut> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted = Amount.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
     new_offset += value_lifted.bytesRead;
@@ -2056,6 +2083,7 @@ class FfiConverterTxOut {
 
   static int write(TxOut value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Amount.write(value.value, Uint8List.view(buf.buffer, new_offset));
     new_offset += Script.write(
@@ -2075,6 +2103,7 @@ class TxStatus {
   final int? blockHeight;
   final BlockHash? blockHash;
   final int? blockTime;
+
   TxStatus(
     this.confirmed,
     this.blockHeight,
@@ -2090,6 +2119,7 @@ class FfiConverterTxStatus {
 
   static LiftRetVal<TxStatus> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final confirmed_lifted =
         FfiConverterBool.read(Uint8List.view(buf.buffer, new_offset));
     final confirmed = confirmed_lifted.value;
@@ -2129,6 +2159,7 @@ class FfiConverterTxStatus {
 
   static int write(TxStatus value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterBool.write(
         value.confirmed, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalUInt32.write(
@@ -2152,6 +2183,7 @@ class FfiConverterTxStatus {
 class UnconfirmedTx {
   final Transaction tx;
   final int lastSeen;
+
   UnconfirmedTx(
     this.tx,
     this.lastSeen,
@@ -2165,6 +2197,7 @@ class FfiConverterUnconfirmedTx {
 
   static LiftRetVal<UnconfirmedTx> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final tx_lifted = Transaction.read(Uint8List.view(buf.buffer, new_offset));
     final tx = tx_lifted.value;
     new_offset += tx_lifted.bytesRead;
@@ -2191,6 +2224,7 @@ class FfiConverterUnconfirmedTx {
 
   static int write(UnconfirmedTx value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset +=
         Transaction.write(value.tx, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt64.write(
@@ -2208,6 +2242,7 @@ class FfiConverterUnconfirmedTx {
 class WitnessProgram {
   final int version;
   final Uint8List program;
+
   WitnessProgram(
     this.version,
     this.program,
@@ -2221,6 +2256,7 @@ class FfiConverterWitnessProgram {
 
   static LiftRetVal<WitnessProgram> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final version_lifted =
         FfiConverterUInt8.read(Uint8List.view(buf.buffer, new_offset));
     final version = version_lifted.value;
@@ -2248,6 +2284,7 @@ class FfiConverterWitnessProgram {
 
   static int write(WitnessProgram value, Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     new_offset += FfiConverterUInt8.write(
         value.version, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUint8List.write(
@@ -2304,14 +2341,18 @@ class FfiConverterAddressData {
 
 class P2pkhAddressData extends AddressData {
   final String pubkeyHash;
+
   P2pkhAddressData(
     String this.pubkeyHash,
   );
+
   P2pkhAddressData._(
     String this.pubkeyHash,
   );
+
   static LiftRetVal<P2pkhAddressData> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final pubkeyHash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final pubkeyHash = pubkeyHash_lifted.value;
@@ -2339,22 +2380,28 @@ class P2pkhAddressData extends AddressData {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         pubkeyHash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class P2shAddressData extends AddressData {
   final String scriptHash;
+
   P2shAddressData(
     String this.scriptHash,
   );
+
   P2shAddressData._(
     String this.scriptHash,
   );
+
   static LiftRetVal<P2shAddressData> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final scriptHash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final scriptHash = scriptHash_lifted.value;
@@ -2382,22 +2429,28 @@ class P2shAddressData extends AddressData {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         scriptHash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class SegwitAddressData extends AddressData {
   final WitnessProgram witnessProgram;
+
   SegwitAddressData(
     WitnessProgram this.witnessProgram,
   );
+
   SegwitAddressData._(
     WitnessProgram this.witnessProgram,
   );
+
   static LiftRetVal<SegwitAddressData> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final witnessProgram_lifted =
         FfiConverterWitnessProgram.read(Uint8List.view(buf.buffer, new_offset));
     final witnessProgram = witnessProgram_lifted.value;
@@ -2425,8 +2478,10 @@ class SegwitAddressData extends AddressData {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterWitnessProgram.write(
         witnessProgram, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -2487,9 +2542,12 @@ class FfiConverterAddressParseException {
 
 class Base58AddressParseException extends AddressParseException {
   Base58AddressParseException();
+
   Base58AddressParseException._();
+
   static LiftRetVal<Base58AddressParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(Base58AddressParseException._(), new_offset);
   }
 
@@ -2509,6 +2567,7 @@ class Base58AddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2520,9 +2579,12 @@ class Base58AddressParseException extends AddressParseException {
 
 class Bech32AddressParseException extends AddressParseException {
   Bech32AddressParseException();
+
   Bech32AddressParseException._();
+
   static LiftRetVal<Bech32AddressParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(Bech32AddressParseException._(), new_offset);
   }
 
@@ -2542,6 +2604,7 @@ class Bech32AddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2553,14 +2616,18 @@ class Bech32AddressParseException extends AddressParseException {
 
 class WitnessVersionAddressParseException extends AddressParseException {
   final String errorMessage;
+
   WitnessVersionAddressParseException(
     String this.errorMessage,
   );
+
   WitnessVersionAddressParseException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<WitnessVersionAddressParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -2588,8 +2655,10 @@ class WitnessVersionAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -2601,14 +2670,18 @@ class WitnessVersionAddressParseException extends AddressParseException {
 
 class WitnessProgramAddressParseException extends AddressParseException {
   final String errorMessage;
+
   WitnessProgramAddressParseException(
     String this.errorMessage,
   );
+
   WitnessProgramAddressParseException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<WitnessProgramAddressParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -2636,8 +2709,10 @@ class WitnessProgramAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -2649,9 +2724,12 @@ class WitnessProgramAddressParseException extends AddressParseException {
 
 class UnknownHrpAddressParseException extends AddressParseException {
   UnknownHrpAddressParseException();
+
   UnknownHrpAddressParseException._();
+
   static LiftRetVal<UnknownHrpAddressParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UnknownHrpAddressParseException._(), new_offset);
   }
 
@@ -2671,6 +2749,7 @@ class UnknownHrpAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2682,10 +2761,13 @@ class UnknownHrpAddressParseException extends AddressParseException {
 
 class LegacyAddressTooLongAddressParseException extends AddressParseException {
   LegacyAddressTooLongAddressParseException();
+
   LegacyAddressTooLongAddressParseException._();
+
   static LiftRetVal<LegacyAddressTooLongAddressParseException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         LegacyAddressTooLongAddressParseException._(), new_offset);
   }
@@ -2706,6 +2788,7 @@ class LegacyAddressTooLongAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2718,10 +2801,13 @@ class LegacyAddressTooLongAddressParseException extends AddressParseException {
 class InvalidBase58PayloadLengthAddressParseException
     extends AddressParseException {
   InvalidBase58PayloadLengthAddressParseException();
+
   InvalidBase58PayloadLengthAddressParseException._();
+
   static LiftRetVal<InvalidBase58PayloadLengthAddressParseException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         InvalidBase58PayloadLengthAddressParseException._(), new_offset);
   }
@@ -2742,6 +2828,7 @@ class InvalidBase58PayloadLengthAddressParseException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2753,10 +2840,13 @@ class InvalidBase58PayloadLengthAddressParseException
 
 class InvalidLegacyPrefixAddressParseException extends AddressParseException {
   InvalidLegacyPrefixAddressParseException();
+
   InvalidLegacyPrefixAddressParseException._();
+
   static LiftRetVal<InvalidLegacyPrefixAddressParseException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidLegacyPrefixAddressParseException._(), new_offset);
   }
 
@@ -2776,6 +2866,7 @@ class InvalidLegacyPrefixAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2787,10 +2878,13 @@ class InvalidLegacyPrefixAddressParseException extends AddressParseException {
 
 class NetworkValidationAddressParseException extends AddressParseException {
   NetworkValidationAddressParseException();
+
   NetworkValidationAddressParseException._();
+
   static LiftRetVal<NetworkValidationAddressParseException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NetworkValidationAddressParseException._(), new_offset);
   }
 
@@ -2810,6 +2904,7 @@ class NetworkValidationAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2821,10 +2916,13 @@ class NetworkValidationAddressParseException extends AddressParseException {
 
 class OtherAddressParseErrAddressParseException extends AddressParseException {
   OtherAddressParseErrAddressParseException();
+
   OtherAddressParseErrAddressParseException._();
+
   static LiftRetVal<OtherAddressParseErrAddressParseException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         OtherAddressParseErrAddressParseException._(), new_offset);
   }
@@ -2845,6 +2943,7 @@ class OtherAddressParseErrAddressParseException extends AddressParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2923,10 +3022,13 @@ class FfiConverterBip32Exception {
 
 class CannotDeriveFromHardenedKeyBip32Exception extends Bip32Exception {
   CannotDeriveFromHardenedKeyBip32Exception();
+
   CannotDeriveFromHardenedKeyBip32Exception._();
+
   static LiftRetVal<CannotDeriveFromHardenedKeyBip32Exception> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         CannotDeriveFromHardenedKeyBip32Exception._(), new_offset);
   }
@@ -2947,6 +3049,7 @@ class CannotDeriveFromHardenedKeyBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -2958,14 +3061,18 @@ class CannotDeriveFromHardenedKeyBip32Exception extends Bip32Exception {
 
 class Secp256k1Bip32Exception extends Bip32Exception {
   final String errorMessage;
+
   Secp256k1Bip32Exception(
     String this.errorMessage,
   );
+
   Secp256k1Bip32Exception._(
     String this.errorMessage,
   );
+
   static LiftRetVal<Secp256k1Bip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -2993,8 +3100,10 @@ class Secp256k1Bip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3006,14 +3115,18 @@ class Secp256k1Bip32Exception extends Bip32Exception {
 
 class InvalidChildNumberBip32Exception extends Bip32Exception {
   final int childNumber;
+
   InvalidChildNumberBip32Exception(
     int this.childNumber,
   );
+
   InvalidChildNumberBip32Exception._(
     int this.childNumber,
   );
+
   static LiftRetVal<InvalidChildNumberBip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final childNumber_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final childNumber = childNumber_lifted.value;
@@ -3041,8 +3154,10 @@ class InvalidChildNumberBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         childNumber, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3054,10 +3169,13 @@ class InvalidChildNumberBip32Exception extends Bip32Exception {
 
 class InvalidChildNumberFormatBip32Exception extends Bip32Exception {
   InvalidChildNumberFormatBip32Exception();
+
   InvalidChildNumberFormatBip32Exception._();
+
   static LiftRetVal<InvalidChildNumberFormatBip32Exception> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidChildNumberFormatBip32Exception._(), new_offset);
   }
 
@@ -3077,6 +3195,7 @@ class InvalidChildNumberFormatBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -3088,10 +3207,13 @@ class InvalidChildNumberFormatBip32Exception extends Bip32Exception {
 
 class InvalidDerivationPathFormatBip32Exception extends Bip32Exception {
   InvalidDerivationPathFormatBip32Exception();
+
   InvalidDerivationPathFormatBip32Exception._();
+
   static LiftRetVal<InvalidDerivationPathFormatBip32Exception> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         InvalidDerivationPathFormatBip32Exception._(), new_offset);
   }
@@ -3112,6 +3234,7 @@ class InvalidDerivationPathFormatBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -3123,14 +3246,18 @@ class InvalidDerivationPathFormatBip32Exception extends Bip32Exception {
 
 class UnknownVersionBip32Exception extends Bip32Exception {
   final String version;
+
   UnknownVersionBip32Exception(
     String this.version,
   );
+
   UnknownVersionBip32Exception._(
     String this.version,
   );
+
   static LiftRetVal<UnknownVersionBip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final version_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final version = version_lifted.value;
@@ -3158,8 +3285,10 @@ class UnknownVersionBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         version, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3171,14 +3300,18 @@ class UnknownVersionBip32Exception extends Bip32Exception {
 
 class WrongExtendedKeyLengthBip32Exception extends Bip32Exception {
   final int length;
+
   WrongExtendedKeyLengthBip32Exception(
     int this.length,
   );
+
   WrongExtendedKeyLengthBip32Exception._(
     int this.length,
   );
+
   static LiftRetVal<WrongExtendedKeyLengthBip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final length_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final length = length_lifted.value;
@@ -3206,8 +3339,10 @@ class WrongExtendedKeyLengthBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         length, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3219,14 +3354,18 @@ class WrongExtendedKeyLengthBip32Exception extends Bip32Exception {
 
 class Base58Bip32Exception extends Bip32Exception {
   final String errorMessage;
+
   Base58Bip32Exception(
     String this.errorMessage,
   );
+
   Base58Bip32Exception._(
     String this.errorMessage,
   );
+
   static LiftRetVal<Base58Bip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -3254,8 +3393,10 @@ class Base58Bip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3267,14 +3408,18 @@ class Base58Bip32Exception extends Bip32Exception {
 
 class HexBip32Exception extends Bip32Exception {
   final String errorMessage;
+
   HexBip32Exception(
     String this.errorMessage,
   );
+
   HexBip32Exception._(
     String this.errorMessage,
   );
+
   static LiftRetVal<HexBip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -3302,8 +3447,10 @@ class HexBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3315,15 +3462,19 @@ class HexBip32Exception extends Bip32Exception {
 
 class InvalidPublicKeyHexLengthBip32Exception extends Bip32Exception {
   final int length;
+
   InvalidPublicKeyHexLengthBip32Exception(
     int this.length,
   );
+
   InvalidPublicKeyHexLengthBip32Exception._(
     int this.length,
   );
+
   static LiftRetVal<InvalidPublicKeyHexLengthBip32Exception> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final length_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final length = length_lifted.value;
@@ -3351,8 +3502,10 @@ class InvalidPublicKeyHexLengthBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         length, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3364,14 +3517,18 @@ class InvalidPublicKeyHexLengthBip32Exception extends Bip32Exception {
 
 class UnknownExceptionBip32Exception extends Bip32Exception {
   final String errorMessage;
+
   UnknownExceptionBip32Exception(
     String this.errorMessage,
   );
+
   UnknownExceptionBip32Exception._(
     String this.errorMessage,
   );
+
   static LiftRetVal<UnknownExceptionBip32Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -3399,8 +3556,10 @@ class UnknownExceptionBip32Exception extends Bip32Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3466,14 +3625,18 @@ class FfiConverterBip39Exception {
 
 class BadWordCountBip39Exception extends Bip39Exception {
   final int wordCount;
+
   BadWordCountBip39Exception(
     int this.wordCount,
   );
+
   BadWordCountBip39Exception._(
     int this.wordCount,
   );
+
   static LiftRetVal<BadWordCountBip39Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final wordCount_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final wordCount = wordCount_lifted.value;
@@ -3501,8 +3664,10 @@ class BadWordCountBip39Exception extends Bip39Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt64.write(
         wordCount, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3514,14 +3679,18 @@ class BadWordCountBip39Exception extends Bip39Exception {
 
 class UnknownWordBip39Exception extends Bip39Exception {
   final int index;
+
   UnknownWordBip39Exception(
     int this.index,
   );
+
   UnknownWordBip39Exception._(
     int this.index,
   );
+
   static LiftRetVal<UnknownWordBip39Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final index_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final index = index_lifted.value;
@@ -3549,8 +3718,10 @@ class UnknownWordBip39Exception extends Bip39Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt64.write(index, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3562,14 +3733,18 @@ class UnknownWordBip39Exception extends Bip39Exception {
 
 class BadEntropyBitCountBip39Exception extends Bip39Exception {
   final int bitCount;
+
   BadEntropyBitCountBip39Exception(
     int this.bitCount,
   );
+
   BadEntropyBitCountBip39Exception._(
     int this.bitCount,
   );
+
   static LiftRetVal<BadEntropyBitCountBip39Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final bitCount_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final bitCount = bitCount_lifted.value;
@@ -3597,8 +3772,10 @@ class BadEntropyBitCountBip39Exception extends Bip39Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt64.write(
         bitCount, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3610,9 +3787,12 @@ class BadEntropyBitCountBip39Exception extends Bip39Exception {
 
 class InvalidChecksumBip39Exception extends Bip39Exception {
   InvalidChecksumBip39Exception();
+
   InvalidChecksumBip39Exception._();
+
   static LiftRetVal<InvalidChecksumBip39Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidChecksumBip39Exception._(), new_offset);
   }
 
@@ -3632,6 +3812,7 @@ class InvalidChecksumBip39Exception extends Bip39Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -3643,14 +3824,18 @@ class InvalidChecksumBip39Exception extends Bip39Exception {
 
 class AmbiguousLanguagesBip39Exception extends Bip39Exception {
   final String languages;
+
   AmbiguousLanguagesBip39Exception(
     String this.languages,
   );
+
   AmbiguousLanguagesBip39Exception._(
     String this.languages,
   );
+
   static LiftRetVal<AmbiguousLanguagesBip39Exception> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final languages_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final languages = languages_lifted.value;
@@ -3678,8 +3863,10 @@ class AmbiguousLanguagesBip39Exception extends Bip39Exception {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         languages, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3739,14 +3926,18 @@ class FfiConverterCalculateFeeException {
 
 class MissingTxOutCalculateFeeException extends CalculateFeeException {
   final List<OutPoint> outPoints;
+
   MissingTxOutCalculateFeeException(
     List<OutPoint> this.outPoints,
   );
+
   MissingTxOutCalculateFeeException._(
     List<OutPoint> this.outPoints,
   );
+
   static LiftRetVal<MissingTxOutCalculateFeeException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final outPoints_lifted = FfiConverterSequenceOutPoint.read(
         Uint8List.view(buf.buffer, new_offset));
     final outPoints = outPoints_lifted.value;
@@ -3774,8 +3965,10 @@ class MissingTxOutCalculateFeeException extends CalculateFeeException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterSequenceOutPoint.write(
         outPoints, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3787,14 +3980,18 @@ class MissingTxOutCalculateFeeException extends CalculateFeeException {
 
 class NegativeFeeCalculateFeeException extends CalculateFeeException {
   final String amount;
+
   NegativeFeeCalculateFeeException(
     String this.amount,
   );
+
   NegativeFeeCalculateFeeException._(
     String this.amount,
   );
+
   static LiftRetVal<NegativeFeeCalculateFeeException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final amount_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final amount = amount_lifted.value;
@@ -3822,8 +4019,10 @@ class NegativeFeeCalculateFeeException extends CalculateFeeException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         amount, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3882,14 +4081,18 @@ class FfiConverterCannotConnectException {
 
 class IncludeCannotConnectException extends CannotConnectException {
   final int height;
+
   IncludeCannotConnectException(
     int this.height,
   );
+
   IncludeCannotConnectException._(
     int this.height,
   );
+
   static LiftRetVal<IncludeCannotConnectException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -3917,8 +4120,10 @@ class IncludeCannotConnectException extends CannotConnectException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         height, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -3977,14 +4182,18 @@ class FfiConverterCbfBuilderException {
 
 class DatabaseExceptionCbfBuilderException extends CbfBuilderException {
   final String reason;
+
   DatabaseExceptionCbfBuilderException(
     String this.reason,
   );
+
   DatabaseExceptionCbfBuilderException._(
     String this.reason,
   );
+
   static LiftRetVal<DatabaseExceptionCbfBuilderException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final reason_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final reason = reason_lifted.value;
@@ -4012,8 +4221,10 @@ class DatabaseExceptionCbfBuilderException extends CbfBuilderException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         reason, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4071,9 +4282,12 @@ class FfiConverterCbfException {
 
 class NodeStoppedCbfException extends CbfException {
   NodeStoppedCbfException();
+
   NodeStoppedCbfException._();
+
   static LiftRetVal<NodeStoppedCbfException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NodeStoppedCbfException._(), new_offset);
   }
 
@@ -4093,6 +4307,7 @@ class NodeStoppedCbfException extends CbfException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -4153,16 +4368,20 @@ class FfiConverterChainPosition {
 class ConfirmedChainPosition extends ChainPosition {
   final ConfirmationBlockTime confirmationBlockTime;
   final Txid? transitively;
+
   ConfirmedChainPosition({
     required ConfirmationBlockTime this.confirmationBlockTime,
     required Txid? this.transitively,
   });
+
   ConfirmedChainPosition._(
     ConfirmationBlockTime this.confirmationBlockTime,
     Txid? this.transitively,
   );
+
   static LiftRetVal<ConfirmedChainPosition> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final confirmationBlockTime_lifted = FfiConverterConfirmationBlockTime.read(
         Uint8List.view(buf.buffer, new_offset));
     final confirmationBlockTime = confirmationBlockTime_lifted.value;
@@ -4198,24 +4417,30 @@ class ConfirmedChainPosition extends ChainPosition {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterConfirmationBlockTime.write(
         confirmationBlockTime, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalTxid.write(
         transitively, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class UnconfirmedChainPosition extends ChainPosition {
   final int? timestamp;
+
   UnconfirmedChainPosition(
     int? this.timestamp,
   );
+
   UnconfirmedChainPosition._(
     int? this.timestamp,
   );
+
   static LiftRetVal<UnconfirmedChainPosition> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final timestamp_lifted =
         FfiConverterOptionalUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final timestamp = timestamp_lifted.value;
@@ -4243,8 +4468,10 @@ class UnconfirmedChainPosition extends ChainPosition {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterOptionalUInt64.write(
         timestamp, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -4357,14 +4584,18 @@ class FfiConverterCreateTxException {
 
 class DescriptorCreateTxException extends CreateTxException {
   final String errorMessage;
+
   DescriptorCreateTxException(
     String this.errorMessage,
   );
+
   DescriptorCreateTxException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<DescriptorCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -4392,8 +4623,10 @@ class DescriptorCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4405,14 +4638,18 @@ class DescriptorCreateTxException extends CreateTxException {
 
 class PolicyCreateTxException extends CreateTxException {
   final String errorMessage;
+
   PolicyCreateTxException(
     String this.errorMessage,
   );
+
   PolicyCreateTxException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PolicyCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -4440,8 +4677,10 @@ class PolicyCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4453,15 +4692,19 @@ class PolicyCreateTxException extends CreateTxException {
 
 class SpendingPolicyRequiredCreateTxException extends CreateTxException {
   final String kind;
+
   SpendingPolicyRequiredCreateTxException(
     String this.kind,
   );
+
   SpendingPolicyRequiredCreateTxException._(
     String this.kind,
   );
+
   static LiftRetVal<SpendingPolicyRequiredCreateTxException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final kind_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final kind = kind_lifted.value;
@@ -4489,8 +4732,10 @@ class SpendingPolicyRequiredCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(kind, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4502,9 +4747,12 @@ class SpendingPolicyRequiredCreateTxException extends CreateTxException {
 
 class Version0CreateTxException extends CreateTxException {
   Version0CreateTxException();
+
   Version0CreateTxException._();
+
   static LiftRetVal<Version0CreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(Version0CreateTxException._(), new_offset);
   }
 
@@ -4524,6 +4772,7 @@ class Version0CreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -4535,9 +4784,12 @@ class Version0CreateTxException extends CreateTxException {
 
 class Version1CsvCreateTxException extends CreateTxException {
   Version1CsvCreateTxException();
+
   Version1CsvCreateTxException._();
+
   static LiftRetVal<Version1CsvCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(Version1CsvCreateTxException._(), new_offset);
   }
 
@@ -4557,6 +4809,7 @@ class Version1CsvCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -4569,16 +4822,20 @@ class Version1CsvCreateTxException extends CreateTxException {
 class LockTimeCreateTxException extends CreateTxException {
   final String requested;
   final String required_;
+
   LockTimeCreateTxException({
     required String this.requested,
     required String this.required_,
   });
+
   LockTimeCreateTxException._(
     String this.requested,
     String this.required_,
   );
+
   static LiftRetVal<LockTimeCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final requested_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final requested = requested_lifted.value;
@@ -4613,10 +4870,12 @@ class LockTimeCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         requested, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterString.write(
         required_, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4629,16 +4888,20 @@ class LockTimeCreateTxException extends CreateTxException {
 class RbfSequenceCsvCreateTxException extends CreateTxException {
   final String sequence;
   final String csv;
+
   RbfSequenceCsvCreateTxException({
     required String this.sequence,
     required String this.csv,
   });
+
   RbfSequenceCsvCreateTxException._(
     String this.sequence,
     String this.csv,
   );
+
   static LiftRetVal<RbfSequenceCsvCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final sequence_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final sequence = sequence_lifted.value;
@@ -4673,10 +4936,12 @@ class RbfSequenceCsvCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         sequence, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
         FfiConverterString.write(csv, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4688,14 +4953,18 @@ class RbfSequenceCsvCreateTxException extends CreateTxException {
 
 class FeeTooLowCreateTxException extends CreateTxException {
   final String required_;
+
   FeeTooLowCreateTxException(
     String this.required_,
   );
+
   FeeTooLowCreateTxException._(
     String this.required_,
   );
+
   static LiftRetVal<FeeTooLowCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final required__lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final required_ = required__lifted.value;
@@ -4723,8 +4992,10 @@ class FeeTooLowCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         required_, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4736,14 +5007,18 @@ class FeeTooLowCreateTxException extends CreateTxException {
 
 class FeeRateTooLowCreateTxException extends CreateTxException {
   final String required_;
+
   FeeRateTooLowCreateTxException(
     String this.required_,
   );
+
   FeeRateTooLowCreateTxException._(
     String this.required_,
   );
+
   static LiftRetVal<FeeRateTooLowCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final required__lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final required_ = required__lifted.value;
@@ -4771,8 +5046,10 @@ class FeeRateTooLowCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         required_, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4784,9 +5061,12 @@ class FeeRateTooLowCreateTxException extends CreateTxException {
 
 class NoUtxosSelectedCreateTxException extends CreateTxException {
   NoUtxosSelectedCreateTxException();
+
   NoUtxosSelectedCreateTxException._();
+
   static LiftRetVal<NoUtxosSelectedCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NoUtxosSelectedCreateTxException._(), new_offset);
   }
 
@@ -4806,6 +5086,7 @@ class NoUtxosSelectedCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -4817,14 +5098,18 @@ class NoUtxosSelectedCreateTxException extends CreateTxException {
 
 class OutputBelowDustLimitCreateTxException extends CreateTxException {
   final int index;
+
   OutputBelowDustLimitCreateTxException(
     int this.index,
   );
+
   OutputBelowDustLimitCreateTxException._(
     int this.index,
   );
+
   static LiftRetVal<OutputBelowDustLimitCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final index_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final index = index_lifted.value;
@@ -4852,8 +5137,10 @@ class OutputBelowDustLimitCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt64.write(index, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4865,10 +5152,13 @@ class OutputBelowDustLimitCreateTxException extends CreateTxException {
 
 class ChangePolicyDescriptorCreateTxException extends CreateTxException {
   ChangePolicyDescriptorCreateTxException();
+
   ChangePolicyDescriptorCreateTxException._();
+
   static LiftRetVal<ChangePolicyDescriptorCreateTxException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(ChangePolicyDescriptorCreateTxException._(), new_offset);
   }
 
@@ -4888,6 +5178,7 @@ class ChangePolicyDescriptorCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -4899,14 +5190,18 @@ class ChangePolicyDescriptorCreateTxException extends CreateTxException {
 
 class CoinSelectionCreateTxException extends CreateTxException {
   final String errorMessage;
+
   CoinSelectionCreateTxException(
     String this.errorMessage,
   );
+
   CoinSelectionCreateTxException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<CoinSelectionCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -4934,8 +5229,10 @@ class CoinSelectionCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -4948,16 +5245,20 @@ class CoinSelectionCreateTxException extends CreateTxException {
 class InsufficientFundsCreateTxException extends CreateTxException {
   final int needed;
   final int available;
+
   InsufficientFundsCreateTxException({
     required int this.needed,
     required int this.available,
   });
+
   InsufficientFundsCreateTxException._(
     int this.needed,
     int this.available,
   );
+
   static LiftRetVal<InsufficientFundsCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final needed_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final needed = needed_lifted.value;
@@ -4992,10 +5293,12 @@ class InsufficientFundsCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt64.write(
         needed, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt64.write(
         available, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5007,9 +5310,12 @@ class InsufficientFundsCreateTxException extends CreateTxException {
 
 class NoRecipientsCreateTxException extends CreateTxException {
   NoRecipientsCreateTxException();
+
   NoRecipientsCreateTxException._();
+
   static LiftRetVal<NoRecipientsCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NoRecipientsCreateTxException._(), new_offset);
   }
 
@@ -5029,6 +5335,7 @@ class NoRecipientsCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 15);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5040,14 +5347,18 @@ class NoRecipientsCreateTxException extends CreateTxException {
 
 class PsbtCreateTxException extends CreateTxException {
   final String errorMessage;
+
   PsbtCreateTxException(
     String this.errorMessage,
   );
+
   PsbtCreateTxException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PsbtCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5075,8 +5386,10 @@ class PsbtCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 16);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5088,14 +5401,18 @@ class PsbtCreateTxException extends CreateTxException {
 
 class MissingKeyOriginCreateTxException extends CreateTxException {
   final String key;
+
   MissingKeyOriginCreateTxException(
     String this.key,
   );
+
   MissingKeyOriginCreateTxException._(
     String this.key,
   );
+
   static LiftRetVal<MissingKeyOriginCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final key_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final key = key_lifted.value;
@@ -5123,8 +5440,10 @@ class MissingKeyOriginCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 17);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(key, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5136,14 +5455,18 @@ class MissingKeyOriginCreateTxException extends CreateTxException {
 
 class UnknownUtxoCreateTxException extends CreateTxException {
   final String outpoint;
+
   UnknownUtxoCreateTxException(
     String this.outpoint,
   );
+
   UnknownUtxoCreateTxException._(
     String this.outpoint,
   );
+
   static LiftRetVal<UnknownUtxoCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final outpoint_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final outpoint = outpoint_lifted.value;
@@ -5171,8 +5494,10 @@ class UnknownUtxoCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 18);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         outpoint, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5184,15 +5509,19 @@ class UnknownUtxoCreateTxException extends CreateTxException {
 
 class MissingNonWitnessUtxoCreateTxException extends CreateTxException {
   final String outpoint;
+
   MissingNonWitnessUtxoCreateTxException(
     String this.outpoint,
   );
+
   MissingNonWitnessUtxoCreateTxException._(
     String this.outpoint,
   );
+
   static LiftRetVal<MissingNonWitnessUtxoCreateTxException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final outpoint_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final outpoint = outpoint_lifted.value;
@@ -5220,8 +5549,10 @@ class MissingNonWitnessUtxoCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 19);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         outpoint, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5233,14 +5564,18 @@ class MissingNonWitnessUtxoCreateTxException extends CreateTxException {
 
 class MiniscriptPsbtCreateTxException extends CreateTxException {
   final String errorMessage;
+
   MiniscriptPsbtCreateTxException(
     String this.errorMessage,
   );
+
   MiniscriptPsbtCreateTxException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<MiniscriptPsbtCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5268,8 +5603,10 @@ class MiniscriptPsbtCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 20);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5281,9 +5618,12 @@ class MiniscriptPsbtCreateTxException extends CreateTxException {
 
 class PushBytesExceptionCreateTxException extends CreateTxException {
   PushBytesExceptionCreateTxException();
+
   PushBytesExceptionCreateTxException._();
+
   static LiftRetVal<PushBytesExceptionCreateTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(PushBytesExceptionCreateTxException._(), new_offset);
   }
 
@@ -5303,6 +5643,7 @@ class PushBytesExceptionCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 21);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5314,10 +5655,13 @@ class PushBytesExceptionCreateTxException extends CreateTxException {
 
 class LockTimeConversionExceptionCreateTxException extends CreateTxException {
   LockTimeConversionExceptionCreateTxException();
+
   LockTimeConversionExceptionCreateTxException._();
+
   static LiftRetVal<LockTimeConversionExceptionCreateTxException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         LockTimeConversionExceptionCreateTxException._(), new_offset);
   }
@@ -5338,6 +5682,7 @@ class LockTimeConversionExceptionCreateTxException extends CreateTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 22);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5400,14 +5745,18 @@ class FfiConverterCreateWithPersistException {
 
 class PersistCreateWithPersistException extends CreateWithPersistException {
   final String errorMessage;
+
   PersistCreateWithPersistException(
     String this.errorMessage,
   );
+
   PersistCreateWithPersistException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PersistCreateWithPersistException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5435,8 +5784,10 @@ class PersistCreateWithPersistException extends CreateWithPersistException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5449,10 +5800,13 @@ class PersistCreateWithPersistException extends CreateWithPersistException {
 class DataAlreadyExistsCreateWithPersistException
     extends CreateWithPersistException {
   DataAlreadyExistsCreateWithPersistException();
+
   DataAlreadyExistsCreateWithPersistException._();
+
   static LiftRetVal<DataAlreadyExistsCreateWithPersistException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         DataAlreadyExistsCreateWithPersistException._(), new_offset);
   }
@@ -5473,6 +5827,7 @@ class DataAlreadyExistsCreateWithPersistException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5484,14 +5839,18 @@ class DataAlreadyExistsCreateWithPersistException
 
 class DescriptorCreateWithPersistException extends CreateWithPersistException {
   final String errorMessage;
+
   DescriptorCreateWithPersistException(
     String this.errorMessage,
   );
+
   DescriptorCreateWithPersistException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<DescriptorCreateWithPersistException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5519,8 +5878,10 @@ class DescriptorCreateWithPersistException extends CreateWithPersistException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5604,9 +5965,12 @@ class FfiConverterDescriptorException {
 
 class InvalidHdKeyPathDescriptorException extends DescriptorException {
   InvalidHdKeyPathDescriptorException();
+
   InvalidHdKeyPathDescriptorException._();
+
   static LiftRetVal<InvalidHdKeyPathDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidHdKeyPathDescriptorException._(), new_offset);
   }
 
@@ -5626,6 +5990,7 @@ class InvalidHdKeyPathDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5637,10 +6002,13 @@ class InvalidHdKeyPathDescriptorException extends DescriptorException {
 
 class InvalidDescriptorChecksumDescriptorException extends DescriptorException {
   InvalidDescriptorChecksumDescriptorException();
+
   InvalidDescriptorChecksumDescriptorException._();
+
   static LiftRetVal<InvalidDescriptorChecksumDescriptorException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         InvalidDescriptorChecksumDescriptorException._(), new_offset);
   }
@@ -5661,6 +6029,7 @@ class InvalidDescriptorChecksumDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5672,10 +6041,13 @@ class InvalidDescriptorChecksumDescriptorException extends DescriptorException {
 
 class HardenedDerivationXpubDescriptorException extends DescriptorException {
   HardenedDerivationXpubDescriptorException();
+
   HardenedDerivationXpubDescriptorException._();
+
   static LiftRetVal<HardenedDerivationXpubDescriptorException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         HardenedDerivationXpubDescriptorException._(), new_offset);
   }
@@ -5696,6 +6068,7 @@ class HardenedDerivationXpubDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5707,9 +6080,12 @@ class HardenedDerivationXpubDescriptorException extends DescriptorException {
 
 class MultiPathDescriptorException extends DescriptorException {
   MultiPathDescriptorException();
+
   MultiPathDescriptorException._();
+
   static LiftRetVal<MultiPathDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MultiPathDescriptorException._(), new_offset);
   }
 
@@ -5729,6 +6105,7 @@ class MultiPathDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -5740,14 +6117,18 @@ class MultiPathDescriptorException extends DescriptorException {
 
 class KeyDescriptorException extends DescriptorException {
   final String errorMessage;
+
   KeyDescriptorException(
     String this.errorMessage,
   );
+
   KeyDescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<KeyDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5775,8 +6156,10 @@ class KeyDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5788,14 +6171,18 @@ class KeyDescriptorException extends DescriptorException {
 
 class PolicyDescriptorException extends DescriptorException {
   final String errorMessage;
+
   PolicyDescriptorException(
     String this.errorMessage,
   );
+
   PolicyDescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PolicyDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5823,8 +6210,10 @@ class PolicyDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5837,15 +6226,19 @@ class PolicyDescriptorException extends DescriptorException {
 class InvalidDescriptorCharacterDescriptorException
     extends DescriptorException {
   final String char;
+
   InvalidDescriptorCharacterDescriptorException(
     String this.char,
   );
+
   InvalidDescriptorCharacterDescriptorException._(
     String this.char,
   );
+
   static LiftRetVal<InvalidDescriptorCharacterDescriptorException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final char_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final char = char_lifted.value;
@@ -5873,8 +6266,10 @@ class InvalidDescriptorCharacterDescriptorException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(char, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5886,14 +6281,18 @@ class InvalidDescriptorCharacterDescriptorException
 
 class Bip32DescriptorException extends DescriptorException {
   final String errorMessage;
+
   Bip32DescriptorException(
     String this.errorMessage,
   );
+
   Bip32DescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<Bip32DescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5921,8 +6320,10 @@ class Bip32DescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5934,14 +6335,18 @@ class Bip32DescriptorException extends DescriptorException {
 
 class Base58DescriptorException extends DescriptorException {
   final String errorMessage;
+
   Base58DescriptorException(
     String this.errorMessage,
   );
+
   Base58DescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<Base58DescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -5969,8 +6374,10 @@ class Base58DescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -5982,14 +6389,18 @@ class Base58DescriptorException extends DescriptorException {
 
 class PkDescriptorException extends DescriptorException {
   final String errorMessage;
+
   PkDescriptorException(
     String this.errorMessage,
   );
+
   PkDescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PkDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6017,8 +6428,10 @@ class PkDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6030,14 +6443,18 @@ class PkDescriptorException extends DescriptorException {
 
 class MiniscriptDescriptorException extends DescriptorException {
   final String errorMessage;
+
   MiniscriptDescriptorException(
     String this.errorMessage,
   );
+
   MiniscriptDescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<MiniscriptDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6065,8 +6482,10 @@ class MiniscriptDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6078,14 +6497,18 @@ class MiniscriptDescriptorException extends DescriptorException {
 
 class HexDescriptorException extends DescriptorException {
   final String errorMessage;
+
   HexDescriptorException(
     String this.errorMessage,
   );
+
   HexDescriptorException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<HexDescriptorException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6113,8 +6536,10 @@ class HexDescriptorException extends DescriptorException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6127,10 +6552,13 @@ class HexDescriptorException extends DescriptorException {
 class ExternalAndInternalAreTheSameDescriptorException
     extends DescriptorException {
   ExternalAndInternalAreTheSameDescriptorException();
+
   ExternalAndInternalAreTheSameDescriptorException._();
+
   static LiftRetVal<ExternalAndInternalAreTheSameDescriptorException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         ExternalAndInternalAreTheSameDescriptorException._(), new_offset);
   }
@@ -6151,6 +6579,7 @@ class ExternalAndInternalAreTheSameDescriptorException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -6212,14 +6641,18 @@ class FfiConverterDescriptorKeyException {
 
 class ParseDescriptorKeyException extends DescriptorKeyException {
   final String errorMessage;
+
   ParseDescriptorKeyException(
     String this.errorMessage,
   );
+
   ParseDescriptorKeyException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ParseDescriptorKeyException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6247,8 +6680,10 @@ class ParseDescriptorKeyException extends DescriptorKeyException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6260,9 +6695,12 @@ class ParseDescriptorKeyException extends DescriptorKeyException {
 
 class InvalidKeyTypeDescriptorKeyException extends DescriptorKeyException {
   InvalidKeyTypeDescriptorKeyException();
+
   InvalidKeyTypeDescriptorKeyException._();
+
   static LiftRetVal<InvalidKeyTypeDescriptorKeyException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidKeyTypeDescriptorKeyException._(), new_offset);
   }
 
@@ -6282,6 +6720,7 @@ class InvalidKeyTypeDescriptorKeyException extends DescriptorKeyException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -6293,14 +6732,18 @@ class InvalidKeyTypeDescriptorKeyException extends DescriptorKeyException {
 
 class Bip32DescriptorKeyException extends DescriptorKeyException {
   final String errorMessage;
+
   Bip32DescriptorKeyException(
     String this.errorMessage,
   );
+
   Bip32DescriptorKeyException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<Bip32DescriptorKeyException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6328,8 +6771,10 @@ class Bip32DescriptorKeyException extends DescriptorKeyException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6349,58 +6794,6 @@ class DescriptorKeyExceptionErrorHandler
 
 final DescriptorKeyExceptionErrorHandler descriptorKeyExceptionErrorHandler =
     DescriptorKeyExceptionErrorHandler();
-
-enum DescriptorType {
-  bare,
-  sh,
-  pkh,
-  wpkh,
-  wsh,
-  shWsh,
-  shWpkh,
-  shSortedMulti,
-  wshSortedMulti,
-  shWshSortedMulti,
-  tr,
-  ;
-}
-
-class FfiConverterDescriptorType {
-  static DescriptorType lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
-    switch (index) {
-      case 1:
-        return DescriptorType.bare;
-      case 2:
-        return DescriptorType.sh;
-      case 3:
-        return DescriptorType.pkh;
-      case 4:
-        return DescriptorType.wpkh;
-      case 5:
-        return DescriptorType.wsh;
-      case 6:
-        return DescriptorType.shWsh;
-      case 7:
-        return DescriptorType.shWpkh;
-      case 8:
-        return DescriptorType.shSortedMulti;
-      case 9:
-        return DescriptorType.wshSortedMulti;
-      case 10:
-        return DescriptorType.shWshSortedMulti;
-      case 11:
-        return DescriptorType.tr;
-      default:
-        throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
-            "Unable to determine enum variant");
-    }
-  }
-
-  static RustBuffer lower(DescriptorType input) {
-    return toRustBuffer(createUint8ListFromInt(input.index + 1));
-  }
-}
 
 abstract class ElectrumException implements Exception {
   RustBuffer lower();
@@ -6472,14 +6865,18 @@ class FfiConverterElectrumException {
 
 class IoExceptionElectrumException extends ElectrumException {
   final String errorMessage;
+
   IoExceptionElectrumException(
     String this.errorMessage,
   );
+
   IoExceptionElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<IoExceptionElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6507,8 +6904,10 @@ class IoExceptionElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6520,14 +6919,18 @@ class IoExceptionElectrumException extends ElectrumException {
 
 class JsonElectrumException extends ElectrumException {
   final String errorMessage;
+
   JsonElectrumException(
     String this.errorMessage,
   );
+
   JsonElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<JsonElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6555,8 +6958,10 @@ class JsonElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6568,14 +6973,18 @@ class JsonElectrumException extends ElectrumException {
 
 class HexElectrumException extends ElectrumException {
   final String errorMessage;
+
   HexElectrumException(
     String this.errorMessage,
   );
+
   HexElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<HexElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6603,8 +7012,10 @@ class HexElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6616,14 +7027,18 @@ class HexElectrumException extends ElectrumException {
 
 class ProtocolElectrumException extends ElectrumException {
   final String errorMessage;
+
   ProtocolElectrumException(
     String this.errorMessage,
   );
+
   ProtocolElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ProtocolElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6651,8 +7066,10 @@ class ProtocolElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6664,14 +7081,18 @@ class ProtocolElectrumException extends ElectrumException {
 
 class BitcoinElectrumException extends ElectrumException {
   final String errorMessage;
+
   BitcoinElectrumException(
     String this.errorMessage,
   );
+
   BitcoinElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<BitcoinElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6699,8 +7120,10 @@ class BitcoinElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6712,9 +7135,12 @@ class BitcoinElectrumException extends ElectrumException {
 
 class AlreadySubscribedElectrumException extends ElectrumException {
   AlreadySubscribedElectrumException();
+
   AlreadySubscribedElectrumException._();
+
   static LiftRetVal<AlreadySubscribedElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(AlreadySubscribedElectrumException._(), new_offset);
   }
 
@@ -6734,6 +7160,7 @@ class AlreadySubscribedElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -6745,9 +7172,12 @@ class AlreadySubscribedElectrumException extends ElectrumException {
 
 class NotSubscribedElectrumException extends ElectrumException {
   NotSubscribedElectrumException();
+
   NotSubscribedElectrumException._();
+
   static LiftRetVal<NotSubscribedElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NotSubscribedElectrumException._(), new_offset);
   }
 
@@ -6767,6 +7197,7 @@ class NotSubscribedElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -6778,14 +7209,18 @@ class NotSubscribedElectrumException extends ElectrumException {
 
 class InvalidResponseElectrumException extends ElectrumException {
   final String errorMessage;
+
   InvalidResponseElectrumException(
     String this.errorMessage,
   );
+
   InvalidResponseElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<InvalidResponseElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6813,8 +7248,10 @@ class InvalidResponseElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6826,14 +7263,18 @@ class InvalidResponseElectrumException extends ElectrumException {
 
 class MessageElectrumException extends ElectrumException {
   final String errorMessage;
+
   MessageElectrumException(
     String this.errorMessage,
   );
+
   MessageElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<MessageElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -6861,8 +7302,10 @@ class MessageElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6874,15 +7317,19 @@ class MessageElectrumException extends ElectrumException {
 
 class InvalidDnsNameExceptionElectrumException extends ElectrumException {
   final String domain;
+
   InvalidDnsNameExceptionElectrumException(
     String this.domain,
   );
+
   InvalidDnsNameExceptionElectrumException._(
     String this.domain,
   );
+
   static LiftRetVal<InvalidDnsNameExceptionElectrumException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final domain_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final domain = domain_lifted.value;
@@ -6910,8 +7357,10 @@ class InvalidDnsNameExceptionElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         domain, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -6923,9 +7372,12 @@ class InvalidDnsNameExceptionElectrumException extends ElectrumException {
 
 class MissingDomainElectrumException extends ElectrumException {
   MissingDomainElectrumException();
+
   MissingDomainElectrumException._();
+
   static LiftRetVal<MissingDomainElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingDomainElectrumException._(), new_offset);
   }
 
@@ -6945,6 +7397,7 @@ class MissingDomainElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -6956,9 +7409,12 @@ class MissingDomainElectrumException extends ElectrumException {
 
 class AllAttemptsErroredElectrumException extends ElectrumException {
   AllAttemptsErroredElectrumException();
+
   AllAttemptsErroredElectrumException._();
+
   static LiftRetVal<AllAttemptsErroredElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(AllAttemptsErroredElectrumException._(), new_offset);
   }
 
@@ -6978,6 +7434,7 @@ class AllAttemptsErroredElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -6989,14 +7446,18 @@ class AllAttemptsErroredElectrumException extends ElectrumException {
 
 class SharedIoExceptionElectrumException extends ElectrumException {
   final String errorMessage;
+
   SharedIoExceptionElectrumException(
     String this.errorMessage,
   );
+
   SharedIoExceptionElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<SharedIoExceptionElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7024,8 +7485,10 @@ class SharedIoExceptionElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7037,9 +7500,12 @@ class SharedIoExceptionElectrumException extends ElectrumException {
 
 class CouldntLockReaderElectrumException extends ElectrumException {
   CouldntLockReaderElectrumException();
+
   CouldntLockReaderElectrumException._();
+
   static LiftRetVal<CouldntLockReaderElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(CouldntLockReaderElectrumException._(), new_offset);
   }
 
@@ -7059,6 +7525,7 @@ class CouldntLockReaderElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7070,9 +7537,12 @@ class CouldntLockReaderElectrumException extends ElectrumException {
 
 class MpscElectrumException extends ElectrumException {
   MpscElectrumException();
+
   MpscElectrumException._();
+
   static LiftRetVal<MpscElectrumException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MpscElectrumException._(), new_offset);
   }
 
@@ -7092,6 +7562,7 @@ class MpscElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 15);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7103,15 +7574,19 @@ class MpscElectrumException extends ElectrumException {
 
 class CouldNotCreateConnectionElectrumException extends ElectrumException {
   final String errorMessage;
+
   CouldNotCreateConnectionElectrumException(
     String this.errorMessage,
   );
+
   CouldNotCreateConnectionElectrumException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<CouldNotCreateConnectionElectrumException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7139,8 +7614,10 @@ class CouldNotCreateConnectionElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 16);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7152,10 +7629,13 @@ class CouldNotCreateConnectionElectrumException extends ElectrumException {
 
 class RequestAlreadyConsumedElectrumException extends ElectrumException {
   RequestAlreadyConsumedElectrumException();
+
   RequestAlreadyConsumedElectrumException._();
+
   static LiftRetVal<RequestAlreadyConsumedElectrumException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(RequestAlreadyConsumedElectrumException._(), new_offset);
   }
 
@@ -7175,6 +7655,7 @@ class RequestAlreadyConsumedElectrumException extends ElectrumException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 17);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7258,14 +7739,18 @@ class FfiConverterEsploraException {
 
 class MinreqEsploraException extends EsploraException {
   final String errorMessage;
+
   MinreqEsploraException(
     String this.errorMessage,
   );
+
   MinreqEsploraException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<MinreqEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7293,8 +7778,10 @@ class MinreqEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7307,16 +7794,20 @@ class MinreqEsploraException extends EsploraException {
 class HttpResponseEsploraException extends EsploraException {
   final int status;
   final String errorMessage;
+
   HttpResponseEsploraException({
     required int this.status,
     required String this.errorMessage,
   });
+
   HttpResponseEsploraException._(
     int this.status,
     String this.errorMessage,
   );
+
   static LiftRetVal<HttpResponseEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final status_lifted =
         FfiConverterUInt16.read(Uint8List.view(buf.buffer, new_offset));
     final status = status_lifted.value;
@@ -7351,10 +7842,12 @@ class HttpResponseEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt16.write(
         status, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7366,14 +7859,18 @@ class HttpResponseEsploraException extends EsploraException {
 
 class ParsingEsploraException extends EsploraException {
   final String errorMessage;
+
   ParsingEsploraException(
     String this.errorMessage,
   );
+
   ParsingEsploraException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ParsingEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7401,8 +7898,10 @@ class ParsingEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7414,14 +7913,18 @@ class ParsingEsploraException extends EsploraException {
 
 class StatusCodeEsploraException extends EsploraException {
   final String errorMessage;
+
   StatusCodeEsploraException(
     String this.errorMessage,
   );
+
   StatusCodeEsploraException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<StatusCodeEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7449,8 +7952,10 @@ class StatusCodeEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7462,14 +7967,18 @@ class StatusCodeEsploraException extends EsploraException {
 
 class BitcoinEncodingEsploraException extends EsploraException {
   final String errorMessage;
+
   BitcoinEncodingEsploraException(
     String this.errorMessage,
   );
+
   BitcoinEncodingEsploraException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<BitcoinEncodingEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7497,8 +8006,10 @@ class BitcoinEncodingEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7510,14 +8021,18 @@ class BitcoinEncodingEsploraException extends EsploraException {
 
 class HexToArrayEsploraException extends EsploraException {
   final String errorMessage;
+
   HexToArrayEsploraException(
     String this.errorMessage,
   );
+
   HexToArrayEsploraException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<HexToArrayEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7545,8 +8060,10 @@ class HexToArrayEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7558,14 +8075,18 @@ class HexToArrayEsploraException extends EsploraException {
 
 class HexToBytesEsploraException extends EsploraException {
   final String errorMessage;
+
   HexToBytesEsploraException(
     String this.errorMessage,
   );
+
   HexToBytesEsploraException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<HexToBytesEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -7593,8 +8114,10 @@ class HexToBytesEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7606,9 +8129,12 @@ class HexToBytesEsploraException extends EsploraException {
 
 class TransactionNotFoundEsploraException extends EsploraException {
   TransactionNotFoundEsploraException();
+
   TransactionNotFoundEsploraException._();
+
   static LiftRetVal<TransactionNotFoundEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(TransactionNotFoundEsploraException._(), new_offset);
   }
 
@@ -7628,6 +8154,7 @@ class TransactionNotFoundEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7639,14 +8166,18 @@ class TransactionNotFoundEsploraException extends EsploraException {
 
 class HeaderHeightNotFoundEsploraException extends EsploraException {
   final int height;
+
   HeaderHeightNotFoundEsploraException(
     int this.height,
   );
+
   HeaderHeightNotFoundEsploraException._(
     int this.height,
   );
+
   static LiftRetVal<HeaderHeightNotFoundEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -7674,8 +8205,10 @@ class HeaderHeightNotFoundEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         height, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7687,9 +8220,12 @@ class HeaderHeightNotFoundEsploraException extends EsploraException {
 
 class HeaderHashNotFoundEsploraException extends EsploraException {
   HeaderHashNotFoundEsploraException();
+
   HeaderHashNotFoundEsploraException._();
+
   static LiftRetVal<HeaderHashNotFoundEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(HeaderHashNotFoundEsploraException._(), new_offset);
   }
 
@@ -7709,6 +8245,7 @@ class HeaderHashNotFoundEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7720,14 +8257,18 @@ class HeaderHashNotFoundEsploraException extends EsploraException {
 
 class InvalidHttpHeaderNameEsploraException extends EsploraException {
   final String name;
+
   InvalidHttpHeaderNameEsploraException(
     String this.name,
   );
+
   InvalidHttpHeaderNameEsploraException._(
     String this.name,
   );
+
   static LiftRetVal<InvalidHttpHeaderNameEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final name_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final name = name_lifted.value;
@@ -7755,8 +8296,10 @@ class InvalidHttpHeaderNameEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(name, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7768,15 +8311,19 @@ class InvalidHttpHeaderNameEsploraException extends EsploraException {
 
 class InvalidHttpHeaderValueEsploraException extends EsploraException {
   final String value;
+
   InvalidHttpHeaderValueEsploraException(
     String this.value,
   );
+
   InvalidHttpHeaderValueEsploraException._(
     String this.value,
   );
+
   static LiftRetVal<InvalidHttpHeaderValueEsploraException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
@@ -7804,8 +8351,10 @@ class InvalidHttpHeaderValueEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(value, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7817,10 +8366,13 @@ class InvalidHttpHeaderValueEsploraException extends EsploraException {
 
 class RequestAlreadyConsumedEsploraException extends EsploraException {
   RequestAlreadyConsumedEsploraException();
+
   RequestAlreadyConsumedEsploraException._();
+
   static LiftRetVal<RequestAlreadyConsumedEsploraException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(RequestAlreadyConsumedEsploraException._(), new_offset);
   }
 
@@ -7840,6 +8392,7 @@ class RequestAlreadyConsumedEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7851,9 +8404,12 @@ class RequestAlreadyConsumedEsploraException extends EsploraException {
 
 class InvalidResponseEsploraException extends EsploraException {
   InvalidResponseEsploraException();
+
   InvalidResponseEsploraException._();
+
   static LiftRetVal<InvalidResponseEsploraException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidResponseEsploraException._(), new_offset);
   }
 
@@ -7873,6 +8429,7 @@ class InvalidResponseEsploraException extends EsploraException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -7936,14 +8493,18 @@ class FfiConverterExtractTxException {
 
 class AbsurdFeeRateExtractTxException extends ExtractTxException {
   final int feeRate;
+
   AbsurdFeeRateExtractTxException(
     int this.feeRate,
   );
+
   AbsurdFeeRateExtractTxException._(
     int this.feeRate,
   );
+
   static LiftRetVal<AbsurdFeeRateExtractTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final feeRate_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final feeRate = feeRate_lifted.value;
@@ -7971,8 +8532,10 @@ class AbsurdFeeRateExtractTxException extends ExtractTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt64.write(
         feeRate, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -7984,9 +8547,12 @@ class AbsurdFeeRateExtractTxException extends ExtractTxException {
 
 class MissingInputValueExtractTxException extends ExtractTxException {
   MissingInputValueExtractTxException();
+
   MissingInputValueExtractTxException._();
+
   static LiftRetVal<MissingInputValueExtractTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingInputValueExtractTxException._(), new_offset);
   }
 
@@ -8006,6 +8572,7 @@ class MissingInputValueExtractTxException extends ExtractTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -8017,9 +8584,12 @@ class MissingInputValueExtractTxException extends ExtractTxException {
 
 class SendingTooMuchExtractTxException extends ExtractTxException {
   SendingTooMuchExtractTxException();
+
   SendingTooMuchExtractTxException._();
+
   static LiftRetVal<SendingTooMuchExtractTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(SendingTooMuchExtractTxException._(), new_offset);
   }
 
@@ -8039,6 +8609,7 @@ class SendingTooMuchExtractTxException extends ExtractTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -8050,9 +8621,12 @@ class SendingTooMuchExtractTxException extends ExtractTxException {
 
 class OtherExtractTxErrExtractTxException extends ExtractTxException {
   OtherExtractTxErrExtractTxException();
+
   OtherExtractTxErrExtractTxException._();
+
   static LiftRetVal<OtherExtractTxErrExtractTxException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(OtherExtractTxErrExtractTxException._(), new_offset);
   }
 
@@ -8072,6 +8646,7 @@ class OtherExtractTxErrExtractTxException extends ExtractTxException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -8129,9 +8704,12 @@ class FfiConverterFeeRateException {
 
 class ArithmeticOverflowFeeRateException extends FeeRateException {
   ArithmeticOverflowFeeRateException();
+
   ArithmeticOverflowFeeRateException._();
+
   static LiftRetVal<ArithmeticOverflowFeeRateException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(ArithmeticOverflowFeeRateException._(), new_offset);
   }
 
@@ -8151,6 +8729,7 @@ class ArithmeticOverflowFeeRateException extends FeeRateException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -8214,9 +8793,12 @@ class FfiConverterFromScriptException {
 
 class UnrecognizedScriptFromScriptException extends FromScriptException {
   UnrecognizedScriptFromScriptException();
+
   UnrecognizedScriptFromScriptException._();
+
   static LiftRetVal<UnrecognizedScriptFromScriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UnrecognizedScriptFromScriptException._(), new_offset);
   }
 
@@ -8236,6 +8818,7 @@ class UnrecognizedScriptFromScriptException extends FromScriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -8247,14 +8830,18 @@ class UnrecognizedScriptFromScriptException extends FromScriptException {
 
 class WitnessProgramFromScriptException extends FromScriptException {
   final String errorMessage;
+
   WitnessProgramFromScriptException(
     String this.errorMessage,
   );
+
   WitnessProgramFromScriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<WitnessProgramFromScriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -8282,8 +8869,10 @@ class WitnessProgramFromScriptException extends FromScriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -8295,14 +8884,18 @@ class WitnessProgramFromScriptException extends FromScriptException {
 
 class WitnessVersionFromScriptException extends FromScriptException {
   final String errorMessage;
+
   WitnessVersionFromScriptException(
     String this.errorMessage,
   );
+
   WitnessVersionFromScriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<WitnessVersionFromScriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -8330,8 +8923,10 @@ class WitnessVersionFromScriptException extends FromScriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -8343,9 +8938,12 @@ class WitnessVersionFromScriptException extends FromScriptException {
 
 class OtherFromScriptErrFromScriptException extends FromScriptException {
   OtherFromScriptErrFromScriptException();
+
   OtherFromScriptErrFromScriptException._();
+
   static LiftRetVal<OtherFromScriptErrFromScriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(OtherFromScriptErrFromScriptException._(), new_offset);
   }
 
@@ -8365,6 +8963,7 @@ class OtherFromScriptErrFromScriptException extends FromScriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -8424,14 +9023,18 @@ class FfiConverterHashParseException {
 
 class InvalidHashHashParseException extends HashParseException {
   final int len;
+
   InvalidHashHashParseException(
     int this.len,
   );
+
   InvalidHashHashParseException._(
     int this.len,
   );
+
   static LiftRetVal<InvalidHashHashParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final len_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final len = len_lifted.value;
@@ -8459,8 +9062,10 @@ class InvalidHashHashParseException extends HashParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt32.write(len, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -8472,14 +9077,18 @@ class InvalidHashHashParseException extends HashParseException {
 
 class InvalidHexStringHashParseException extends HashParseException {
   final String hex;
+
   InvalidHexStringHashParseException(
     String this.hex,
   );
+
   InvalidHexStringHashParseException._(
     String this.hex,
   );
+
   static LiftRetVal<InvalidHexStringHashParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final hex_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final hex = hex_lifted.value;
@@ -8507,8 +9116,10 @@ class InvalidHexStringHashParseException extends HashParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(hex, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -8578,9 +9189,12 @@ class FfiConverterInfo {
 
 class ConnectionsMetInfo extends Info {
   ConnectionsMetInfo();
+
   ConnectionsMetInfo._();
+
   static LiftRetVal<ConnectionsMetInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(ConnectionsMetInfo._(), new_offset);
   }
 
@@ -8600,15 +9214,19 @@ class ConnectionsMetInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class SuccessfulHandshakeInfo extends Info {
   SuccessfulHandshakeInfo();
+
   SuccessfulHandshakeInfo._();
+
   static LiftRetVal<SuccessfulHandshakeInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(SuccessfulHandshakeInfo._(), new_offset);
   }
 
@@ -8628,20 +9246,25 @@ class SuccessfulHandshakeInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class NewChainHeightInfo extends Info {
   final int height;
+
   NewChainHeightInfo(
     int this.height,
   );
+
   NewChainHeightInfo._(
     int this.height,
   );
+
   static LiftRetVal<NewChainHeightInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -8669,22 +9292,28 @@ class NewChainHeightInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         height, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class NewForkInfo extends Info {
   final int height;
+
   NewForkInfo(
     int this.height,
   );
+
   NewForkInfo._(
     int this.height,
   );
+
   static LiftRetVal<NewForkInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -8712,22 +9341,28 @@ class NewForkInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         height, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class ProgressInfo extends Info {
   final double progress;
+
   ProgressInfo(
     double this.progress,
   );
+
   ProgressInfo._(
     double this.progress,
   );
+
   static LiftRetVal<ProgressInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final progress_lifted =
         FfiConverterDouble32.read(Uint8List.view(buf.buffer, new_offset));
     final progress = progress_lifted.value;
@@ -8755,22 +9390,28 @@ class ProgressInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterDouble32.write(
         progress, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class StateUpdateInfo extends Info {
   final NodeState nodeState;
+
   StateUpdateInfo(
     NodeState this.nodeState,
   );
+
   StateUpdateInfo._(
     NodeState this.nodeState,
   );
+
   static LiftRetVal<StateUpdateInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final nodeState_int = buf.buffer.asByteData(new_offset).getInt32(0);
     final nodeState = FfiConverterNodeState.lift(
         toRustBuffer(createUint8ListFromInt(nodeState_int)));
@@ -8798,25 +9439,31 @@ class StateUpdateInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     final nodeState_buffer = FfiConverterNodeState.lower(nodeState);
     final nodeState_int =
         nodeState_buffer.asUint8List().buffer.asByteData().getInt32(0);
     buf.buffer.asByteData(new_offset).setInt32(0, nodeState_int);
     new_offset += 4;
+
     return new_offset;
   }
 }
 
 class TxGossipedInfo extends Info {
   final String wtxid;
+
   TxGossipedInfo(
     String this.wtxid,
   );
+
   TxGossipedInfo._(
     String this.wtxid,
   );
+
   static LiftRetVal<TxGossipedInfo> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final wtxid_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final wtxid = wtxid_lifted.value;
@@ -8844,8 +9491,10 @@ class TxGossipedInfo extends Info {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(wtxid, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -8918,14 +9567,18 @@ class FfiConverterLoadWithPersistException {
 
 class PersistLoadWithPersistException extends LoadWithPersistException {
   final String errorMessage;
+
   PersistLoadWithPersistException(
     String this.errorMessage,
   );
+
   PersistLoadWithPersistException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PersistLoadWithPersistException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -8953,8 +9606,10 @@ class PersistLoadWithPersistException extends LoadWithPersistException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -8967,15 +9622,19 @@ class PersistLoadWithPersistException extends LoadWithPersistException {
 class InvalidChangeSetLoadWithPersistException
     extends LoadWithPersistException {
   final String errorMessage;
+
   InvalidChangeSetLoadWithPersistException(
     String this.errorMessage,
   );
+
   InvalidChangeSetLoadWithPersistException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<InvalidChangeSetLoadWithPersistException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9003,8 +9662,10 @@ class InvalidChangeSetLoadWithPersistException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9016,9 +9677,12 @@ class InvalidChangeSetLoadWithPersistException
 
 class CouldNotLoadLoadWithPersistException extends LoadWithPersistException {
   CouldNotLoadLoadWithPersistException();
+
   CouldNotLoadLoadWithPersistException._();
+
   static LiftRetVal<CouldNotLoadLoadWithPersistException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(CouldNotLoadLoadWithPersistException._(), new_offset);
   }
 
@@ -9038,6 +9702,7 @@ class CouldNotLoadLoadWithPersistException extends LoadWithPersistException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9099,14 +9764,18 @@ class FfiConverterLockTime {
 
 class BlocksLockTime extends LockTime {
   final int height;
+
   BlocksLockTime(
     int this.height,
   );
+
   BlocksLockTime._(
     int this.height,
   );
+
   static LiftRetVal<BlocksLockTime> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final height_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final height = height_lifted.value;
@@ -9134,22 +9803,28 @@ class BlocksLockTime extends LockTime {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         height, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class SecondsLockTime extends LockTime {
   final int consensusTime;
+
   SecondsLockTime(
     int this.consensusTime,
   );
+
   SecondsLockTime._(
     int this.consensusTime,
   );
+
   static LiftRetVal<SecondsLockTime> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final consensusTime_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final consensusTime = consensusTime_lifted.value;
@@ -9177,9 +9852,39 @@ class SecondsLockTime extends LockTime {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         consensusTime, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
+  }
+}
+
+enum LogLevel {
+  debug,
+  info,
+  warning,
+  ;
+}
+
+class FfiConverterLogLevel {
+  static LogLevel lift(RustBuffer buffer) {
+    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+    switch (index) {
+      case 1:
+        return LogLevel.debug;
+      case 2:
+        return LogLevel.info;
+      case 3:
+        return LogLevel.warning;
+      default:
+        throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
+            "Unable to determine enum variant");
+    }
+  }
+
+  static RustBuffer lower(LogLevel input) {
+    return toRustBuffer(createUint8ListFromInt(input.index + 1));
   }
 }
 
@@ -9293,9 +9998,12 @@ class FfiConverterMiniscriptException {
 
 class AbsoluteLockTimeMiniscriptException extends MiniscriptException {
   AbsoluteLockTimeMiniscriptException();
+
   AbsoluteLockTimeMiniscriptException._();
+
   static LiftRetVal<AbsoluteLockTimeMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(AbsoluteLockTimeMiniscriptException._(), new_offset);
   }
 
@@ -9315,6 +10023,7 @@ class AbsoluteLockTimeMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9326,14 +10035,18 @@ class AbsoluteLockTimeMiniscriptException extends MiniscriptException {
 
 class AddrExceptionMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   AddrExceptionMiniscriptException(
     String this.errorMessage,
   );
+
   AddrExceptionMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<AddrExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9361,8 +10074,10 @@ class AddrExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9374,14 +10089,18 @@ class AddrExceptionMiniscriptException extends MiniscriptException {
 
 class AddrP2shExceptionMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   AddrP2shExceptionMiniscriptException(
     String this.errorMessage,
   );
+
   AddrP2shExceptionMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<AddrP2shExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9409,8 +10128,10 @@ class AddrP2shExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9422,14 +10143,18 @@ class AddrP2shExceptionMiniscriptException extends MiniscriptException {
 
 class AnalysisExceptionMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   AnalysisExceptionMiniscriptException(
     String this.errorMessage,
   );
+
   AnalysisExceptionMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<AnalysisExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9457,8 +10182,10 @@ class AnalysisExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9470,9 +10197,12 @@ class AnalysisExceptionMiniscriptException extends MiniscriptException {
 
 class AtOutsideOrMiniscriptException extends MiniscriptException {
   AtOutsideOrMiniscriptException();
+
   AtOutsideOrMiniscriptException._();
+
   static LiftRetVal<AtOutsideOrMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(AtOutsideOrMiniscriptException._(), new_offset);
   }
 
@@ -9492,6 +10222,7 @@ class AtOutsideOrMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9503,14 +10234,18 @@ class AtOutsideOrMiniscriptException extends MiniscriptException {
 
 class BadDescriptorMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   BadDescriptorMiniscriptException(
     String this.errorMessage,
   );
+
   BadDescriptorMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<BadDescriptorMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9538,8 +10273,10 @@ class BadDescriptorMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9551,9 +10288,12 @@ class BadDescriptorMiniscriptException extends MiniscriptException {
 
 class BareDescriptorAddrMiniscriptException extends MiniscriptException {
   BareDescriptorAddrMiniscriptException();
+
   BareDescriptorAddrMiniscriptException._();
+
   static LiftRetVal<BareDescriptorAddrMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(BareDescriptorAddrMiniscriptException._(), new_offset);
   }
 
@@ -9573,6 +10313,7 @@ class BareDescriptorAddrMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9584,14 +10325,18 @@ class BareDescriptorAddrMiniscriptException extends MiniscriptException {
 
 class CmsTooManyKeysMiniscriptException extends MiniscriptException {
   final int keys;
+
   CmsTooManyKeysMiniscriptException(
     int this.keys,
   );
+
   CmsTooManyKeysMiniscriptException._(
     int this.keys,
   );
+
   static LiftRetVal<CmsTooManyKeysMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final keys_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final keys = keys_lifted.value;
@@ -9619,8 +10364,10 @@ class CmsTooManyKeysMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt32.write(keys, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9632,14 +10379,18 @@ class CmsTooManyKeysMiniscriptException extends MiniscriptException {
 
 class ContextExceptionMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   ContextExceptionMiniscriptException(
     String this.errorMessage,
   );
+
   ContextExceptionMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ContextExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9667,8 +10418,10 @@ class ContextExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9680,9 +10433,12 @@ class ContextExceptionMiniscriptException extends MiniscriptException {
 
 class CouldNotSatisfyMiniscriptException extends MiniscriptException {
   CouldNotSatisfyMiniscriptException();
+
   CouldNotSatisfyMiniscriptException._();
+
   static LiftRetVal<CouldNotSatisfyMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(CouldNotSatisfyMiniscriptException._(), new_offset);
   }
 
@@ -9702,6 +10458,7 @@ class CouldNotSatisfyMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9713,14 +10470,18 @@ class CouldNotSatisfyMiniscriptException extends MiniscriptException {
 
 class ExpectedCharMiniscriptException extends MiniscriptException {
   final String char;
+
   ExpectedCharMiniscriptException(
     String this.char,
   );
+
   ExpectedCharMiniscriptException._(
     String this.char,
   );
+
   static LiftRetVal<ExpectedCharMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final char_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final char = char_lifted.value;
@@ -9748,8 +10509,10 @@ class ExpectedCharMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(char, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9761,10 +10524,13 @@ class ExpectedCharMiniscriptException extends MiniscriptException {
 
 class ImpossibleSatisfactionMiniscriptException extends MiniscriptException {
   ImpossibleSatisfactionMiniscriptException();
+
   ImpossibleSatisfactionMiniscriptException._();
+
   static LiftRetVal<ImpossibleSatisfactionMiniscriptException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         ImpossibleSatisfactionMiniscriptException._(), new_offset);
   }
@@ -9785,6 +10551,7 @@ class ImpossibleSatisfactionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9796,9 +10563,12 @@ class ImpossibleSatisfactionMiniscriptException extends MiniscriptException {
 
 class InvalidOpcodeMiniscriptException extends MiniscriptException {
   InvalidOpcodeMiniscriptException();
+
   InvalidOpcodeMiniscriptException._();
+
   static LiftRetVal<InvalidOpcodeMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidOpcodeMiniscriptException._(), new_offset);
   }
 
@@ -9818,6 +10588,7 @@ class InvalidOpcodeMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9829,9 +10600,12 @@ class InvalidOpcodeMiniscriptException extends MiniscriptException {
 
 class InvalidPushMiniscriptException extends MiniscriptException {
   InvalidPushMiniscriptException();
+
   InvalidPushMiniscriptException._();
+
   static LiftRetVal<InvalidPushMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidPushMiniscriptException._(), new_offset);
   }
 
@@ -9851,6 +10625,7 @@ class InvalidPushMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9862,14 +10637,18 @@ class InvalidPushMiniscriptException extends MiniscriptException {
 
 class LiftExceptionMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   LiftExceptionMiniscriptException(
     String this.errorMessage,
   );
+
   LiftExceptionMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<LiftExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -9897,8 +10676,10 @@ class LiftExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 15);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -9910,10 +10691,13 @@ class LiftExceptionMiniscriptException extends MiniscriptException {
 
 class MaxRecursiveDepthExceededMiniscriptException extends MiniscriptException {
   MaxRecursiveDepthExceededMiniscriptException();
+
   MaxRecursiveDepthExceededMiniscriptException._();
+
   static LiftRetVal<MaxRecursiveDepthExceededMiniscriptException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         MaxRecursiveDepthExceededMiniscriptException._(), new_offset);
   }
@@ -9934,6 +10718,7 @@ class MaxRecursiveDepthExceededMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 16);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9945,9 +10730,12 @@ class MaxRecursiveDepthExceededMiniscriptException extends MiniscriptException {
 
 class MissingSigMiniscriptException extends MiniscriptException {
   MissingSigMiniscriptException();
+
   MissingSigMiniscriptException._();
+
   static LiftRetVal<MissingSigMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingSigMiniscriptException._(), new_offset);
   }
 
@@ -9967,6 +10755,7 @@ class MissingSigMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 17);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -9978,14 +10767,18 @@ class MissingSigMiniscriptException extends MiniscriptException {
 
 class MultiATooManyKeysMiniscriptException extends MiniscriptException {
   final int keys;
+
   MultiATooManyKeysMiniscriptException(
     int this.keys,
   );
+
   MultiATooManyKeysMiniscriptException._(
     int this.keys,
   );
+
   static LiftRetVal<MultiATooManyKeysMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final keys_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final keys = keys_lifted.value;
@@ -10013,8 +10806,10 @@ class MultiATooManyKeysMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 18);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt64.write(keys, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10026,9 +10821,12 @@ class MultiATooManyKeysMiniscriptException extends MiniscriptException {
 
 class MultiColonMiniscriptException extends MiniscriptException {
   MultiColonMiniscriptException();
+
   MultiColonMiniscriptException._();
+
   static LiftRetVal<MultiColonMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MultiColonMiniscriptException._(), new_offset);
   }
 
@@ -10048,6 +10846,7 @@ class MultiColonMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 19);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10059,10 +10858,13 @@ class MultiColonMiniscriptException extends MiniscriptException {
 
 class MultipathDescLenMismatchMiniscriptException extends MiniscriptException {
   MultipathDescLenMismatchMiniscriptException();
+
   MultipathDescLenMismatchMiniscriptException._();
+
   static LiftRetVal<MultipathDescLenMismatchMiniscriptException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         MultipathDescLenMismatchMiniscriptException._(), new_offset);
   }
@@ -10083,6 +10885,7 @@ class MultipathDescLenMismatchMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 20);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10094,14 +10897,18 @@ class MultipathDescLenMismatchMiniscriptException extends MiniscriptException {
 
 class NonMinimalVerifyMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   NonMinimalVerifyMiniscriptException(
     String this.errorMessage,
   );
+
   NonMinimalVerifyMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<NonMinimalVerifyMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10129,8 +10936,10 @@ class NonMinimalVerifyMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 21);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10142,10 +10951,13 @@ class NonMinimalVerifyMiniscriptException extends MiniscriptException {
 
 class NonStandardBareScriptMiniscriptException extends MiniscriptException {
   NonStandardBareScriptMiniscriptException();
+
   NonStandardBareScriptMiniscriptException._();
+
   static LiftRetVal<NonStandardBareScriptMiniscriptException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NonStandardBareScriptMiniscriptException._(), new_offset);
   }
 
@@ -10165,6 +10977,7 @@ class NonStandardBareScriptMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 22);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10176,14 +10989,18 @@ class NonStandardBareScriptMiniscriptException extends MiniscriptException {
 
 class NonTopLevelMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   NonTopLevelMiniscriptException(
     String this.errorMessage,
   );
+
   NonTopLevelMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<NonTopLevelMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10211,8 +11028,10 @@ class NonTopLevelMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 23);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10224,9 +11043,12 @@ class NonTopLevelMiniscriptException extends MiniscriptException {
 
 class ParseThresholdMiniscriptException extends MiniscriptException {
   ParseThresholdMiniscriptException();
+
   ParseThresholdMiniscriptException._();
+
   static LiftRetVal<ParseThresholdMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(ParseThresholdMiniscriptException._(), new_offset);
   }
 
@@ -10246,6 +11068,7 @@ class ParseThresholdMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 24);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10257,14 +11080,18 @@ class ParseThresholdMiniscriptException extends MiniscriptException {
 
 class PolicyExceptionMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   PolicyExceptionMiniscriptException(
     String this.errorMessage,
   );
+
   PolicyExceptionMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PolicyExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10292,8 +11119,10 @@ class PolicyExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 25);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10305,9 +11134,12 @@ class PolicyExceptionMiniscriptException extends MiniscriptException {
 
 class PubKeyCtxExceptionMiniscriptException extends MiniscriptException {
   PubKeyCtxExceptionMiniscriptException();
+
   PubKeyCtxExceptionMiniscriptException._();
+
   static LiftRetVal<PubKeyCtxExceptionMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(PubKeyCtxExceptionMiniscriptException._(), new_offset);
   }
 
@@ -10327,6 +11159,7 @@ class PubKeyCtxExceptionMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 26);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10338,9 +11171,12 @@ class PubKeyCtxExceptionMiniscriptException extends MiniscriptException {
 
 class RelativeLockTimeMiniscriptException extends MiniscriptException {
   RelativeLockTimeMiniscriptException();
+
   RelativeLockTimeMiniscriptException._();
+
   static LiftRetVal<RelativeLockTimeMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(RelativeLockTimeMiniscriptException._(), new_offset);
   }
 
@@ -10360,6 +11196,7 @@ class RelativeLockTimeMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 27);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10371,14 +11208,18 @@ class RelativeLockTimeMiniscriptException extends MiniscriptException {
 
 class ScriptMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   ScriptMiniscriptException(
     String this.errorMessage,
   );
+
   ScriptMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ScriptMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10406,8 +11247,10 @@ class ScriptMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 28);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10419,14 +11262,18 @@ class ScriptMiniscriptException extends MiniscriptException {
 
 class SecpMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   SecpMiniscriptException(
     String this.errorMessage,
   );
+
   SecpMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<SecpMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10454,8 +11301,10 @@ class SecpMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 29);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10467,9 +11316,12 @@ class SecpMiniscriptException extends MiniscriptException {
 
 class ThresholdMiniscriptException extends MiniscriptException {
   ThresholdMiniscriptException();
+
   ThresholdMiniscriptException._();
+
   static LiftRetVal<ThresholdMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(ThresholdMiniscriptException._(), new_offset);
   }
 
@@ -10489,6 +11341,7 @@ class ThresholdMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 30);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10500,9 +11353,12 @@ class ThresholdMiniscriptException extends MiniscriptException {
 
 class TrNoScriptCodeMiniscriptException extends MiniscriptException {
   TrNoScriptCodeMiniscriptException();
+
   TrNoScriptCodeMiniscriptException._();
+
   static LiftRetVal<TrNoScriptCodeMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(TrNoScriptCodeMiniscriptException._(), new_offset);
   }
 
@@ -10522,6 +11378,7 @@ class TrNoScriptCodeMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 31);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10533,14 +11390,18 @@ class TrNoScriptCodeMiniscriptException extends MiniscriptException {
 
 class TrailingMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   TrailingMiniscriptException(
     String this.errorMessage,
   );
+
   TrailingMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<TrailingMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10568,8 +11429,10 @@ class TrailingMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 32);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10581,14 +11444,18 @@ class TrailingMiniscriptException extends MiniscriptException {
 
 class TypeCheckMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   TypeCheckMiniscriptException(
     String this.errorMessage,
   );
+
   TypeCheckMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<TypeCheckMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10616,8 +11483,10 @@ class TypeCheckMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 33);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10629,14 +11498,18 @@ class TypeCheckMiniscriptException extends MiniscriptException {
 
 class UnexpectedMiniscriptException extends MiniscriptException {
   final String errorMessage;
+
   UnexpectedMiniscriptException(
     String this.errorMessage,
   );
+
   UnexpectedMiniscriptException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<UnexpectedMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -10664,8 +11537,10 @@ class UnexpectedMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 34);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10677,9 +11552,12 @@ class UnexpectedMiniscriptException extends MiniscriptException {
 
 class UnexpectedStartMiniscriptException extends MiniscriptException {
   UnexpectedStartMiniscriptException();
+
   UnexpectedStartMiniscriptException._();
+
   static LiftRetVal<UnexpectedStartMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UnexpectedStartMiniscriptException._(), new_offset);
   }
 
@@ -10699,6 +11577,7 @@ class UnexpectedStartMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 35);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10710,14 +11589,18 @@ class UnexpectedStartMiniscriptException extends MiniscriptException {
 
 class UnknownWrapperMiniscriptException extends MiniscriptException {
   final String char;
+
   UnknownWrapperMiniscriptException(
     String this.char,
   );
+
   UnknownWrapperMiniscriptException._(
     String this.char,
   );
+
   static LiftRetVal<UnknownWrapperMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final char_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final char = char_lifted.value;
@@ -10745,8 +11628,10 @@ class UnknownWrapperMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 36);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(char, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10758,14 +11643,18 @@ class UnknownWrapperMiniscriptException extends MiniscriptException {
 
 class UnprintableMiniscriptException extends MiniscriptException {
   final int byte;
+
   UnprintableMiniscriptException(
     int this.byte,
   );
+
   UnprintableMiniscriptException._(
     int this.byte,
   );
+
   static LiftRetVal<UnprintableMiniscriptException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final byte_lifted =
         FfiConverterUInt8.read(Uint8List.view(buf.buffer, new_offset));
     final byte = byte_lifted.value;
@@ -10793,8 +11682,10 @@ class UnprintableMiniscriptException extends MiniscriptException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 37);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt8.write(byte, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -10817,9 +11708,9 @@ final MiniscriptExceptionErrorHandler miniscriptExceptionErrorHandler =
 enum Network {
   bitcoin,
   testnet,
-  testnet4,
   signet,
   regtest,
+  testnet4,
   ;
 }
 
@@ -10832,11 +11723,11 @@ class FfiConverterNetwork {
       case 2:
         return Network.testnet;
       case 3:
-        return Network.testnet4;
-      case 4:
         return Network.signet;
-      case 5:
+      case 4:
         return Network.regtest;
+      case 5:
+        return Network.testnet4;
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
@@ -10930,9 +11821,12 @@ class FfiConverterParseAmountException {
 
 class OutOfRangeParseAmountException extends ParseAmountException {
   OutOfRangeParseAmountException();
+
   OutOfRangeParseAmountException._();
+
   static LiftRetVal<OutOfRangeParseAmountException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(OutOfRangeParseAmountException._(), new_offset);
   }
 
@@ -10952,6 +11846,7 @@ class OutOfRangeParseAmountException extends ParseAmountException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10963,9 +11858,12 @@ class OutOfRangeParseAmountException extends ParseAmountException {
 
 class TooPreciseParseAmountException extends ParseAmountException {
   TooPreciseParseAmountException();
+
   TooPreciseParseAmountException._();
+
   static LiftRetVal<TooPreciseParseAmountException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(TooPreciseParseAmountException._(), new_offset);
   }
 
@@ -10985,6 +11883,7 @@ class TooPreciseParseAmountException extends ParseAmountException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -10996,9 +11895,12 @@ class TooPreciseParseAmountException extends ParseAmountException {
 
 class MissingDigitsParseAmountException extends ParseAmountException {
   MissingDigitsParseAmountException();
+
   MissingDigitsParseAmountException._();
+
   static LiftRetVal<MissingDigitsParseAmountException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingDigitsParseAmountException._(), new_offset);
   }
 
@@ -11018,6 +11920,7 @@ class MissingDigitsParseAmountException extends ParseAmountException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11029,9 +11932,12 @@ class MissingDigitsParseAmountException extends ParseAmountException {
 
 class InputTooLargeParseAmountException extends ParseAmountException {
   InputTooLargeParseAmountException();
+
   InputTooLargeParseAmountException._();
+
   static LiftRetVal<InputTooLargeParseAmountException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InputTooLargeParseAmountException._(), new_offset);
   }
 
@@ -11051,6 +11957,7 @@ class InputTooLargeParseAmountException extends ParseAmountException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11062,14 +11969,18 @@ class InputTooLargeParseAmountException extends ParseAmountException {
 
 class InvalidCharacterParseAmountException extends ParseAmountException {
   final String errorMessage;
+
   InvalidCharacterParseAmountException(
     String this.errorMessage,
   );
+
   InvalidCharacterParseAmountException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<InvalidCharacterParseAmountException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -11097,8 +12008,10 @@ class InvalidCharacterParseAmountException extends ParseAmountException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -11110,10 +12023,13 @@ class InvalidCharacterParseAmountException extends ParseAmountException {
 
 class OtherParseAmountErrParseAmountException extends ParseAmountException {
   OtherParseAmountErrParseAmountException();
+
   OtherParseAmountErrParseAmountException._();
+
   static LiftRetVal<OtherParseAmountErrParseAmountException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(OtherParseAmountErrParseAmountException._(), new_offset);
   }
 
@@ -11133,6 +12049,7 @@ class OtherParseAmountErrParseAmountException extends ParseAmountException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11191,14 +12108,18 @@ class FfiConverterPersistenceException {
 
 class ReasonPersistenceException extends PersistenceException {
   final String errorMessage;
+
   ReasonPersistenceException(
     String this.errorMessage,
   );
+
   ReasonPersistenceException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ReasonPersistenceException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -11226,8 +12147,10 @@ class ReasonPersistenceException extends PersistenceException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -11290,14 +12213,18 @@ class FfiConverterPkOrF {
 
 class PubkeyPkOrF extends PkOrF {
   final String value;
+
   PubkeyPkOrF(
     String this.value,
   );
+
   PubkeyPkOrF._(
     String this.value,
   );
+
   static LiftRetVal<PubkeyPkOrF> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
@@ -11325,22 +12252,28 @@ class PubkeyPkOrF extends PkOrF {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(value, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class XOnlyPubkeyPkOrF extends PkOrF {
   final String value;
+
   XOnlyPubkeyPkOrF(
     String this.value,
   );
+
   XOnlyPubkeyPkOrF._(
     String this.value,
   );
+
   static LiftRetVal<XOnlyPubkeyPkOrF> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
@@ -11368,22 +12301,28 @@ class XOnlyPubkeyPkOrF extends PkOrF {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(value, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class FingerprintPkOrF extends PkOrF {
   final String value;
+
   FingerprintPkOrF(
     String this.value,
   );
+
   FingerprintPkOrF._(
     String this.value,
   );
+
   static LiftRetVal<FingerprintPkOrF> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
@@ -11411,8 +12350,10 @@ class FingerprintPkOrF extends PkOrF {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(value, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -11519,9 +12460,12 @@ class FfiConverterPsbtException {
 
 class InvalidMagicPsbtException extends PsbtException {
   InvalidMagicPsbtException();
+
   InvalidMagicPsbtException._();
+
   static LiftRetVal<InvalidMagicPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidMagicPsbtException._(), new_offset);
   }
 
@@ -11541,6 +12485,7 @@ class InvalidMagicPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11552,9 +12497,12 @@ class InvalidMagicPsbtException extends PsbtException {
 
 class MissingUtxoPsbtException extends PsbtException {
   MissingUtxoPsbtException();
+
   MissingUtxoPsbtException._();
+
   static LiftRetVal<MissingUtxoPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingUtxoPsbtException._(), new_offset);
   }
 
@@ -11574,6 +12522,7 @@ class MissingUtxoPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11585,9 +12534,12 @@ class MissingUtxoPsbtException extends PsbtException {
 
 class InvalidSeparatorPsbtException extends PsbtException {
   InvalidSeparatorPsbtException();
+
   InvalidSeparatorPsbtException._();
+
   static LiftRetVal<InvalidSeparatorPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidSeparatorPsbtException._(), new_offset);
   }
 
@@ -11607,6 +12559,7 @@ class InvalidSeparatorPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11618,9 +12571,12 @@ class InvalidSeparatorPsbtException extends PsbtException {
 
 class PsbtUtxoOutOfBoundsPsbtException extends PsbtException {
   PsbtUtxoOutOfBoundsPsbtException();
+
   PsbtUtxoOutOfBoundsPsbtException._();
+
   static LiftRetVal<PsbtUtxoOutOfBoundsPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(PsbtUtxoOutOfBoundsPsbtException._(), new_offset);
   }
 
@@ -11640,6 +12596,7 @@ class PsbtUtxoOutOfBoundsPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11651,14 +12608,18 @@ class PsbtUtxoOutOfBoundsPsbtException extends PsbtException {
 
 class InvalidKeyPsbtException extends PsbtException {
   final String key;
+
   InvalidKeyPsbtException(
     String this.key,
   );
+
   InvalidKeyPsbtException._(
     String this.key,
   );
+
   static LiftRetVal<InvalidKeyPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final key_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final key = key_lifted.value;
@@ -11686,8 +12647,10 @@ class InvalidKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(key, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -11699,9 +12662,12 @@ class InvalidKeyPsbtException extends PsbtException {
 
 class InvalidProprietaryKeyPsbtException extends PsbtException {
   InvalidProprietaryKeyPsbtException();
+
   InvalidProprietaryKeyPsbtException._();
+
   static LiftRetVal<InvalidProprietaryKeyPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidProprietaryKeyPsbtException._(), new_offset);
   }
 
@@ -11721,6 +12687,7 @@ class InvalidProprietaryKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11732,14 +12699,18 @@ class InvalidProprietaryKeyPsbtException extends PsbtException {
 
 class DuplicateKeyPsbtException extends PsbtException {
   final String key;
+
   DuplicateKeyPsbtException(
     String this.key,
   );
+
   DuplicateKeyPsbtException._(
     String this.key,
   );
+
   static LiftRetVal<DuplicateKeyPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final key_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final key = key_lifted.value;
@@ -11767,8 +12738,10 @@ class DuplicateKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(key, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -11780,9 +12753,12 @@ class DuplicateKeyPsbtException extends PsbtException {
 
 class UnsignedTxHasScriptSigsPsbtException extends PsbtException {
   UnsignedTxHasScriptSigsPsbtException();
+
   UnsignedTxHasScriptSigsPsbtException._();
+
   static LiftRetVal<UnsignedTxHasScriptSigsPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UnsignedTxHasScriptSigsPsbtException._(), new_offset);
   }
 
@@ -11802,6 +12778,7 @@ class UnsignedTxHasScriptSigsPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11813,10 +12790,13 @@ class UnsignedTxHasScriptSigsPsbtException extends PsbtException {
 
 class UnsignedTxHasScriptWitnessesPsbtException extends PsbtException {
   UnsignedTxHasScriptWitnessesPsbtException();
+
   UnsignedTxHasScriptWitnessesPsbtException._();
+
   static LiftRetVal<UnsignedTxHasScriptWitnessesPsbtException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         UnsignedTxHasScriptWitnessesPsbtException._(), new_offset);
   }
@@ -11837,6 +12817,7 @@ class UnsignedTxHasScriptWitnessesPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11848,9 +12829,12 @@ class UnsignedTxHasScriptWitnessesPsbtException extends PsbtException {
 
 class MustHaveUnsignedTxPsbtException extends PsbtException {
   MustHaveUnsignedTxPsbtException();
+
   MustHaveUnsignedTxPsbtException._();
+
   static LiftRetVal<MustHaveUnsignedTxPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MustHaveUnsignedTxPsbtException._(), new_offset);
   }
 
@@ -11870,6 +12854,7 @@ class MustHaveUnsignedTxPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11881,9 +12866,12 @@ class MustHaveUnsignedTxPsbtException extends PsbtException {
 
 class NoMorePairsPsbtException extends PsbtException {
   NoMorePairsPsbtException();
+
   NoMorePairsPsbtException._();
+
   static LiftRetVal<NoMorePairsPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NoMorePairsPsbtException._(), new_offset);
   }
 
@@ -11903,6 +12891,7 @@ class NoMorePairsPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11914,9 +12903,12 @@ class NoMorePairsPsbtException extends PsbtException {
 
 class UnexpectedUnsignedTxPsbtException extends PsbtException {
   UnexpectedUnsignedTxPsbtException();
+
   UnexpectedUnsignedTxPsbtException._();
+
   static LiftRetVal<UnexpectedUnsignedTxPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UnexpectedUnsignedTxPsbtException._(), new_offset);
   }
 
@@ -11936,6 +12928,7 @@ class UnexpectedUnsignedTxPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -11947,14 +12940,18 @@ class UnexpectedUnsignedTxPsbtException extends PsbtException {
 
 class NonStandardSighashTypePsbtException extends PsbtException {
   final int sighash;
+
   NonStandardSighashTypePsbtException(
     int this.sighash,
   );
+
   NonStandardSighashTypePsbtException._(
     int this.sighash,
   );
+
   static LiftRetVal<NonStandardSighashTypePsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final sighash_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final sighash = sighash_lifted.value;
@@ -11982,8 +12979,10 @@ class NonStandardSighashTypePsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         sighash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -11995,14 +12994,18 @@ class NonStandardSighashTypePsbtException extends PsbtException {
 
 class InvalidHashPsbtException extends PsbtException {
   final String hash;
+
   InvalidHashPsbtException(
     String this.hash,
   );
+
   InvalidHashPsbtException._(
     String this.hash,
   );
+
   static LiftRetVal<InvalidHashPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final hash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final hash = hash_lifted.value;
@@ -12030,8 +13033,10 @@ class InvalidHashPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(hash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12043,9 +13048,12 @@ class InvalidHashPsbtException extends PsbtException {
 
 class InvalidPreimageHashPairPsbtException extends PsbtException {
   InvalidPreimageHashPairPsbtException();
+
   InvalidPreimageHashPairPsbtException._();
+
   static LiftRetVal<InvalidPreimageHashPairPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidPreimageHashPairPsbtException._(), new_offset);
   }
 
@@ -12065,6 +13073,7 @@ class InvalidPreimageHashPairPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 15);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12076,15 +13085,19 @@ class InvalidPreimageHashPairPsbtException extends PsbtException {
 
 class CombineInconsistentKeySourcesPsbtException extends PsbtException {
   final String xpub;
+
   CombineInconsistentKeySourcesPsbtException(
     String this.xpub,
   );
+
   CombineInconsistentKeySourcesPsbtException._(
     String this.xpub,
   );
+
   static LiftRetVal<CombineInconsistentKeySourcesPsbtException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final xpub_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final xpub = xpub_lifted.value;
@@ -12112,8 +13125,10 @@ class CombineInconsistentKeySourcesPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 16);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(xpub, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12125,14 +13140,18 @@ class CombineInconsistentKeySourcesPsbtException extends PsbtException {
 
 class ConsensusEncodingPsbtException extends PsbtException {
   final String encodingError;
+
   ConsensusEncodingPsbtException(
     String this.encodingError,
   );
+
   ConsensusEncodingPsbtException._(
     String this.encodingError,
   );
+
   static LiftRetVal<ConsensusEncodingPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final encodingError_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final encodingError = encodingError_lifted.value;
@@ -12160,8 +13179,10 @@ class ConsensusEncodingPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 17);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         encodingError, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12173,9 +13194,12 @@ class ConsensusEncodingPsbtException extends PsbtException {
 
 class NegativeFeePsbtException extends PsbtException {
   NegativeFeePsbtException();
+
   NegativeFeePsbtException._();
+
   static LiftRetVal<NegativeFeePsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NegativeFeePsbtException._(), new_offset);
   }
 
@@ -12195,6 +13219,7 @@ class NegativeFeePsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 18);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12206,9 +13231,12 @@ class NegativeFeePsbtException extends PsbtException {
 
 class FeeOverflowPsbtException extends PsbtException {
   FeeOverflowPsbtException();
+
   FeeOverflowPsbtException._();
+
   static LiftRetVal<FeeOverflowPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(FeeOverflowPsbtException._(), new_offset);
   }
 
@@ -12228,6 +13256,7 @@ class FeeOverflowPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 19);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12239,14 +13268,18 @@ class FeeOverflowPsbtException extends PsbtException {
 
 class InvalidPublicKeyPsbtException extends PsbtException {
   final String errorMessage;
+
   InvalidPublicKeyPsbtException(
     String this.errorMessage,
   );
+
   InvalidPublicKeyPsbtException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<InvalidPublicKeyPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -12274,8 +13307,10 @@ class InvalidPublicKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 20);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12287,15 +13322,19 @@ class InvalidPublicKeyPsbtException extends PsbtException {
 
 class InvalidSecp256k1PublicKeyPsbtException extends PsbtException {
   final String secp256k1Error;
+
   InvalidSecp256k1PublicKeyPsbtException(
     String this.secp256k1Error,
   );
+
   InvalidSecp256k1PublicKeyPsbtException._(
     String this.secp256k1Error,
   );
+
   static LiftRetVal<InvalidSecp256k1PublicKeyPsbtException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final secp256k1Error_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final secp256k1Error = secp256k1Error_lifted.value;
@@ -12323,8 +13362,10 @@ class InvalidSecp256k1PublicKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 21);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         secp256k1Error, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12336,9 +13377,12 @@ class InvalidSecp256k1PublicKeyPsbtException extends PsbtException {
 
 class InvalidXOnlyPublicKeyPsbtException extends PsbtException {
   InvalidXOnlyPublicKeyPsbtException();
+
   InvalidXOnlyPublicKeyPsbtException._();
+
   static LiftRetVal<InvalidXOnlyPublicKeyPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidXOnlyPublicKeyPsbtException._(), new_offset);
   }
 
@@ -12358,6 +13402,7 @@ class InvalidXOnlyPublicKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 22);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12369,14 +13414,18 @@ class InvalidXOnlyPublicKeyPsbtException extends PsbtException {
 
 class InvalidEcdsaSignaturePsbtException extends PsbtException {
   final String errorMessage;
+
   InvalidEcdsaSignaturePsbtException(
     String this.errorMessage,
   );
+
   InvalidEcdsaSignaturePsbtException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<InvalidEcdsaSignaturePsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -12404,8 +13453,10 @@ class InvalidEcdsaSignaturePsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 23);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12417,14 +13468,18 @@ class InvalidEcdsaSignaturePsbtException extends PsbtException {
 
 class InvalidTaprootSignaturePsbtException extends PsbtException {
   final String errorMessage;
+
   InvalidTaprootSignaturePsbtException(
     String this.errorMessage,
   );
+
   InvalidTaprootSignaturePsbtException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<InvalidTaprootSignaturePsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -12452,8 +13507,10 @@ class InvalidTaprootSignaturePsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 24);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12465,9 +13522,12 @@ class InvalidTaprootSignaturePsbtException extends PsbtException {
 
 class InvalidControlBlockPsbtException extends PsbtException {
   InvalidControlBlockPsbtException();
+
   InvalidControlBlockPsbtException._();
+
   static LiftRetVal<InvalidControlBlockPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidControlBlockPsbtException._(), new_offset);
   }
 
@@ -12487,6 +13547,7 @@ class InvalidControlBlockPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 25);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12498,9 +13559,12 @@ class InvalidControlBlockPsbtException extends PsbtException {
 
 class InvalidLeafVersionPsbtException extends PsbtException {
   InvalidLeafVersionPsbtException();
+
   InvalidLeafVersionPsbtException._();
+
   static LiftRetVal<InvalidLeafVersionPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidLeafVersionPsbtException._(), new_offset);
   }
 
@@ -12520,6 +13584,7 @@ class InvalidLeafVersionPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 26);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12531,9 +13596,12 @@ class InvalidLeafVersionPsbtException extends PsbtException {
 
 class TaprootPsbtException extends PsbtException {
   TaprootPsbtException();
+
   TaprootPsbtException._();
+
   static LiftRetVal<TaprootPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(TaprootPsbtException._(), new_offset);
   }
 
@@ -12553,6 +13621,7 @@ class TaprootPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 27);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12564,14 +13633,18 @@ class TaprootPsbtException extends PsbtException {
 
 class TapTreePsbtException extends PsbtException {
   final String errorMessage;
+
   TapTreePsbtException(
     String this.errorMessage,
   );
+
   TapTreePsbtException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<TapTreePsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -12599,8 +13672,10 @@ class TapTreePsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 28);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12612,9 +13687,12 @@ class TapTreePsbtException extends PsbtException {
 
 class XPubKeyPsbtException extends PsbtException {
   XPubKeyPsbtException();
+
   XPubKeyPsbtException._();
+
   static LiftRetVal<XPubKeyPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(XPubKeyPsbtException._(), new_offset);
   }
 
@@ -12634,6 +13712,7 @@ class XPubKeyPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 29);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12645,14 +13724,18 @@ class XPubKeyPsbtException extends PsbtException {
 
 class VersionPsbtException extends PsbtException {
   final String errorMessage;
+
   VersionPsbtException(
     String this.errorMessage,
   );
+
   VersionPsbtException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<VersionPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -12680,8 +13763,10 @@ class VersionPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 30);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12693,9 +13778,12 @@ class VersionPsbtException extends PsbtException {
 
 class PartialDataConsumptionPsbtException extends PsbtException {
   PartialDataConsumptionPsbtException();
+
   PartialDataConsumptionPsbtException._();
+
   static LiftRetVal<PartialDataConsumptionPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(PartialDataConsumptionPsbtException._(), new_offset);
   }
 
@@ -12715,6 +13803,7 @@ class PartialDataConsumptionPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 31);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12726,14 +13815,18 @@ class PartialDataConsumptionPsbtException extends PsbtException {
 
 class IoPsbtException extends PsbtException {
   final String errorMessage;
+
   IoPsbtException(
     String this.errorMessage,
   );
+
   IoPsbtException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<IoPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -12761,8 +13854,10 @@ class IoPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 32);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12774,9 +13869,12 @@ class IoPsbtException extends PsbtException {
 
 class OtherPsbtErrPsbtException extends PsbtException {
   OtherPsbtErrPsbtException();
+
   OtherPsbtErrPsbtException._();
+
   static LiftRetVal<OtherPsbtErrPsbtException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(OtherPsbtErrPsbtException._(), new_offset);
   }
 
@@ -12796,6 +13894,7 @@ class OtherPsbtErrPsbtException extends PsbtException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 33);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -12858,16 +13957,20 @@ class FfiConverterPsbtFinalizeException {
 class InputExceptionPsbtFinalizeException extends PsbtFinalizeException {
   final String reason;
   final int index;
+
   InputExceptionPsbtFinalizeException({
     required String this.reason,
     required int this.index,
   });
+
   InputExceptionPsbtFinalizeException._(
     String this.reason,
     int this.index,
   );
+
   static LiftRetVal<InputExceptionPsbtFinalizeException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final reason_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final reason = reason_lifted.value;
@@ -12902,10 +14005,12 @@ class InputExceptionPsbtFinalizeException extends PsbtFinalizeException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         reason, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
         FfiConverterUInt32.write(index, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12918,16 +14023,20 @@ class InputExceptionPsbtFinalizeException extends PsbtFinalizeException {
 class WrongInputCountPsbtFinalizeException extends PsbtFinalizeException {
   final int inTx;
   final int inMap;
+
   WrongInputCountPsbtFinalizeException({
     required int this.inTx,
     required int this.inMap,
   });
+
   WrongInputCountPsbtFinalizeException._(
     int this.inTx,
     int this.inMap,
   );
+
   static LiftRetVal<WrongInputCountPsbtFinalizeException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final inTx_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final inTx = inTx_lifted.value;
@@ -12962,10 +14071,12 @@ class WrongInputCountPsbtFinalizeException extends PsbtFinalizeException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt32.write(inTx, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
         FfiConverterUInt32.write(inMap, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -12978,17 +14089,21 @@ class WrongInputCountPsbtFinalizeException extends PsbtFinalizeException {
 class InputIdxOutofBoundsPsbtFinalizeException extends PsbtFinalizeException {
   final int psbtInp;
   final int requested;
+
   InputIdxOutofBoundsPsbtFinalizeException({
     required int this.psbtInp,
     required int this.requested,
   });
+
   InputIdxOutofBoundsPsbtFinalizeException._(
     int this.psbtInp,
     int this.requested,
   );
+
   static LiftRetVal<InputIdxOutofBoundsPsbtFinalizeException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final psbtInp_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final psbtInp = psbtInp_lifted.value;
@@ -13023,10 +14138,12 @@ class InputIdxOutofBoundsPsbtFinalizeException extends PsbtFinalizeException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         psbtInp, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt32.write(
         requested, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -13087,14 +14204,18 @@ class FfiConverterPsbtParseException {
 
 class PsbtEncodingPsbtParseException extends PsbtParseException {
   final String errorMessage;
+
   PsbtEncodingPsbtParseException(
     String this.errorMessage,
   );
+
   PsbtEncodingPsbtParseException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PsbtEncodingPsbtParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -13122,8 +14243,10 @@ class PsbtEncodingPsbtParseException extends PsbtParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -13135,14 +14258,18 @@ class PsbtEncodingPsbtParseException extends PsbtParseException {
 
 class Base64EncodingPsbtParseException extends PsbtParseException {
   final String errorMessage;
+
   Base64EncodingPsbtParseException(
     String this.errorMessage,
   );
+
   Base64EncodingPsbtParseException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<Base64EncodingPsbtParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -13170,8 +14297,10 @@ class Base64EncodingPsbtParseException extends PsbtParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -13230,10 +14359,13 @@ class FfiConverterRequestBuilderException {
 class RequestAlreadyConsumedRequestBuilderException
     extends RequestBuilderException {
   RequestAlreadyConsumedRequestBuilderException();
+
   RequestAlreadyConsumedRequestBuilderException._();
+
   static LiftRetVal<RequestAlreadyConsumedRequestBuilderException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         RequestAlreadyConsumedRequestBuilderException._(), new_offset);
   }
@@ -13254,6 +14386,7 @@ class RequestAlreadyConsumedRequestBuilderException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -13322,6 +14455,7 @@ class PartialSatisfaction extends Satisfaction {
   final List<int> items;
   final bool? sorted;
   final Map<int, List<Condition>> conditions;
+
   PartialSatisfaction({
     required int this.n,
     required int this.m,
@@ -13329,6 +14463,7 @@ class PartialSatisfaction extends Satisfaction {
     required bool? this.sorted,
     required Map<int, List<Condition>> this.conditions,
   });
+
   PartialSatisfaction._(
     int this.n,
     int this.m,
@@ -13336,8 +14471,10 @@ class PartialSatisfaction extends Satisfaction {
     bool? this.sorted,
     Map<int, List<Condition>> this.conditions,
   );
+
   static LiftRetVal<PartialSatisfaction> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final n_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final n = n_lifted.value;
@@ -13390,6 +14527,7 @@ class PartialSatisfaction extends Satisfaction {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt64.write(n, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -13400,6 +14538,7 @@ class PartialSatisfaction extends Satisfaction {
         sorted, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterMapUInt32ToSequenceCondition.write(
         conditions, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -13410,6 +14549,7 @@ class PartialCompleteSatisfaction extends Satisfaction {
   final List<int> items;
   final bool? sorted;
   final Map<List<int>, List<Condition>> conditions;
+
   PartialCompleteSatisfaction({
     required int this.n,
     required int this.m,
@@ -13417,6 +14557,7 @@ class PartialCompleteSatisfaction extends Satisfaction {
     required bool? this.sorted,
     required Map<List<int>, List<Condition>> this.conditions,
   });
+
   PartialCompleteSatisfaction._(
     int this.n,
     int this.m,
@@ -13424,8 +14565,10 @@ class PartialCompleteSatisfaction extends Satisfaction {
     bool? this.sorted,
     Map<List<int>, List<Condition>> this.conditions,
   );
+
   static LiftRetVal<PartialCompleteSatisfaction> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final n_lifted =
         FfiConverterUInt64.read(Uint8List.view(buf.buffer, new_offset));
     final n = n_lifted.value;
@@ -13480,6 +14623,7 @@ class PartialCompleteSatisfaction extends Satisfaction {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt64.write(n, Uint8List.view(buf.buffer, new_offset));
     new_offset +=
@@ -13490,20 +14634,25 @@ class PartialCompleteSatisfaction extends Satisfaction {
         sorted, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterMapSequenceUInt32ToSequenceCondition.write(
         conditions, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class CompleteSatisfaction extends Satisfaction {
   final Condition condition;
+
   CompleteSatisfaction(
     Condition this.condition,
   );
+
   CompleteSatisfaction._(
     Condition this.condition,
   );
+
   static LiftRetVal<CompleteSatisfaction> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final condition_lifted =
         FfiConverterCondition.read(Uint8List.view(buf.buffer, new_offset));
     final condition = condition_lifted.value;
@@ -13531,22 +14680,28 @@ class CompleteSatisfaction extends Satisfaction {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterCondition.write(
         condition, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class NoneSatisfaction extends Satisfaction {
   final String msg;
+
   NoneSatisfaction(
     String this.msg,
   );
+
   NoneSatisfaction._(
     String this.msg,
   );
+
   static LiftRetVal<NoneSatisfaction> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final msg_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final msg = msg_lifted.value;
@@ -13574,8 +14729,10 @@ class NoneSatisfaction extends Satisfaction {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(msg, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -13636,14 +14793,18 @@ class FfiConverterSatisfiableItem {
 
 class EcdsaSignatureSatisfiableItem extends SatisfiableItem {
   final PkOrF key;
+
   EcdsaSignatureSatisfiableItem(
     PkOrF this.key,
   );
+
   EcdsaSignatureSatisfiableItem._(
     PkOrF this.key,
   );
+
   static LiftRetVal<EcdsaSignatureSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final key_lifted =
         FfiConverterPkOrF.read(Uint8List.view(buf.buffer, new_offset));
     final key = key_lifted.value;
@@ -13671,22 +14832,28 @@ class EcdsaSignatureSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterPkOrF.write(key, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class SchnorrSignatureSatisfiableItem extends SatisfiableItem {
   final PkOrF key;
+
   SchnorrSignatureSatisfiableItem(
     PkOrF this.key,
   );
+
   SchnorrSignatureSatisfiableItem._(
     PkOrF this.key,
   );
+
   static LiftRetVal<SchnorrSignatureSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final key_lifted =
         FfiConverterPkOrF.read(Uint8List.view(buf.buffer, new_offset));
     final key = key_lifted.value;
@@ -13714,22 +14881,28 @@ class SchnorrSignatureSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterPkOrF.write(key, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class Sha256PreimageSatisfiableItem extends SatisfiableItem {
   final String hash;
+
   Sha256PreimageSatisfiableItem(
     String this.hash,
   );
+
   Sha256PreimageSatisfiableItem._(
     String this.hash,
   );
+
   static LiftRetVal<Sha256PreimageSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final hash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final hash = hash_lifted.value;
@@ -13757,22 +14930,28 @@ class Sha256PreimageSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(hash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class Hash256PreimageSatisfiableItem extends SatisfiableItem {
   final String hash;
+
   Hash256PreimageSatisfiableItem(
     String this.hash,
   );
+
   Hash256PreimageSatisfiableItem._(
     String this.hash,
   );
+
   static LiftRetVal<Hash256PreimageSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final hash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final hash = hash_lifted.value;
@@ -13800,22 +14979,28 @@ class Hash256PreimageSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(hash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class Ripemd160PreimageSatisfiableItem extends SatisfiableItem {
   final String hash;
+
   Ripemd160PreimageSatisfiableItem(
     String this.hash,
   );
+
   Ripemd160PreimageSatisfiableItem._(
     String this.hash,
   );
+
   static LiftRetVal<Ripemd160PreimageSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final hash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final hash = hash_lifted.value;
@@ -13843,22 +15028,28 @@ class Ripemd160PreimageSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(hash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class Hash160PreimageSatisfiableItem extends SatisfiableItem {
   final String hash;
+
   Hash160PreimageSatisfiableItem(
     String this.hash,
   );
+
   Hash160PreimageSatisfiableItem._(
     String this.hash,
   );
+
   static LiftRetVal<Hash160PreimageSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final hash_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final hash = hash_lifted.value;
@@ -13886,22 +15077,28 @@ class Hash160PreimageSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(hash, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class AbsoluteTimelockSatisfiableItem extends SatisfiableItem {
   final LockTime value;
+
   AbsoluteTimelockSatisfiableItem(
     LockTime this.value,
   );
+
   AbsoluteTimelockSatisfiableItem._(
     LockTime this.value,
   );
+
   static LiftRetVal<AbsoluteTimelockSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted =
         FfiConverterLockTime.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
@@ -13929,22 +15126,28 @@ class AbsoluteTimelockSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterLockTime.write(
         value, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class RelativeTimelockSatisfiableItem extends SatisfiableItem {
   final int value;
+
   RelativeTimelockSatisfiableItem(
     int this.value,
   );
+
   RelativeTimelockSatisfiableItem._(
     int this.value,
   );
+
   static LiftRetVal<RelativeTimelockSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final value_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final value = value_lifted.value;
@@ -13972,8 +15175,10 @@ class RelativeTimelockSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt32.write(value, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -13981,16 +15186,20 @@ class RelativeTimelockSatisfiableItem extends SatisfiableItem {
 class MultisigSatisfiableItem extends SatisfiableItem {
   final List<PkOrF> keys;
   final int threshold;
+
   MultisigSatisfiableItem({
     required List<PkOrF> this.keys,
     required int this.threshold,
   });
+
   MultisigSatisfiableItem._(
     List<PkOrF> this.keys,
     int this.threshold,
   );
+
   static LiftRetVal<MultisigSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final keys_lifted =
         FfiConverterSequencePkOrF.read(Uint8List.view(buf.buffer, new_offset));
     final keys = keys_lifted.value;
@@ -14025,10 +15234,12 @@ class MultisigSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterSequencePkOrF.write(
         keys, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt64.write(
         threshold, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -14036,16 +15247,20 @@ class MultisigSatisfiableItem extends SatisfiableItem {
 class ThreshSatisfiableItem extends SatisfiableItem {
   final List<Policy> items;
   final int threshold;
+
   ThreshSatisfiableItem({
     required List<Policy> this.items,
     required int this.threshold,
   });
+
   ThreshSatisfiableItem._(
     List<Policy> this.items,
     int this.threshold,
   );
+
   static LiftRetVal<ThreshSatisfiableItem> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final items_lifted =
         FfiConverterSequencePolicy.read(Uint8List.view(buf.buffer, new_offset));
     final items = items_lifted.value;
@@ -14080,10 +15295,12 @@ class ThreshSatisfiableItem extends SatisfiableItem {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterSequencePolicy.write(
         items, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterUInt64.write(
         threshold, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -14130,9 +15347,12 @@ class FfiConverterScanType {
 
 class NewScanType extends ScanType {
   NewScanType();
+
   NewScanType._();
+
   static LiftRetVal<NewScanType> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NewScanType._(), new_offset);
   }
 
@@ -14152,15 +15372,19 @@ class NewScanType extends ScanType {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class SyncScanType extends ScanType {
   SyncScanType();
+
   SyncScanType._();
+
   static LiftRetVal<SyncScanType> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(SyncScanType._(), new_offset);
   }
 
@@ -14180,20 +15404,25 @@ class SyncScanType extends ScanType {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class RecoveryScanType extends ScanType {
   final int fromHeight;
+
   RecoveryScanType(
     int this.fromHeight,
   );
+
   RecoveryScanType._(
     int this.fromHeight,
   );
+
   static LiftRetVal<RecoveryScanType> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final fromHeight_lifted =
         FfiConverterUInt32.read(Uint8List.view(buf.buffer, new_offset));
     final fromHeight = fromHeight_lifted.value;
@@ -14221,8 +15450,10 @@ class RecoveryScanType extends ScanType {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterUInt32.write(
         fromHeight, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
@@ -14297,9 +15528,12 @@ class FfiConverterSignerException {
 
 class MissingKeySignerException extends SignerException {
   MissingKeySignerException();
+
   MissingKeySignerException._();
+
   static LiftRetVal<MissingKeySignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingKeySignerException._(), new_offset);
   }
 
@@ -14319,6 +15553,7 @@ class MissingKeySignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14330,9 +15565,12 @@ class MissingKeySignerException extends SignerException {
 
 class InvalidKeySignerException extends SignerException {
   InvalidKeySignerException();
+
   InvalidKeySignerException._();
+
   static LiftRetVal<InvalidKeySignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidKeySignerException._(), new_offset);
   }
 
@@ -14352,6 +15590,7 @@ class InvalidKeySignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14363,9 +15602,12 @@ class InvalidKeySignerException extends SignerException {
 
 class UserCanceledSignerException extends SignerException {
   UserCanceledSignerException();
+
   UserCanceledSignerException._();
+
   static LiftRetVal<UserCanceledSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UserCanceledSignerException._(), new_offset);
   }
 
@@ -14385,6 +15627,7 @@ class UserCanceledSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14396,9 +15639,12 @@ class UserCanceledSignerException extends SignerException {
 
 class InputIndexOutOfRangeSignerException extends SignerException {
   InputIndexOutOfRangeSignerException();
+
   InputIndexOutOfRangeSignerException._();
+
   static LiftRetVal<InputIndexOutOfRangeSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InputIndexOutOfRangeSignerException._(), new_offset);
   }
 
@@ -14418,6 +15664,7 @@ class InputIndexOutOfRangeSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14429,9 +15676,12 @@ class InputIndexOutOfRangeSignerException extends SignerException {
 
 class MissingNonWitnessUtxoSignerException extends SignerException {
   MissingNonWitnessUtxoSignerException();
+
   MissingNonWitnessUtxoSignerException._();
+
   static LiftRetVal<MissingNonWitnessUtxoSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingNonWitnessUtxoSignerException._(), new_offset);
   }
 
@@ -14451,6 +15701,7 @@ class MissingNonWitnessUtxoSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14462,9 +15713,12 @@ class MissingNonWitnessUtxoSignerException extends SignerException {
 
 class InvalidNonWitnessUtxoSignerException extends SignerException {
   InvalidNonWitnessUtxoSignerException();
+
   InvalidNonWitnessUtxoSignerException._();
+
   static LiftRetVal<InvalidNonWitnessUtxoSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidNonWitnessUtxoSignerException._(), new_offset);
   }
 
@@ -14484,6 +15738,7 @@ class InvalidNonWitnessUtxoSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14495,9 +15750,12 @@ class InvalidNonWitnessUtxoSignerException extends SignerException {
 
 class MissingWitnessUtxoSignerException extends SignerException {
   MissingWitnessUtxoSignerException();
+
   MissingWitnessUtxoSignerException._();
+
   static LiftRetVal<MissingWitnessUtxoSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingWitnessUtxoSignerException._(), new_offset);
   }
 
@@ -14517,6 +15775,7 @@ class MissingWitnessUtxoSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14528,9 +15787,12 @@ class MissingWitnessUtxoSignerException extends SignerException {
 
 class MissingWitnessScriptSignerException extends SignerException {
   MissingWitnessScriptSignerException();
+
   MissingWitnessScriptSignerException._();
+
   static LiftRetVal<MissingWitnessScriptSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingWitnessScriptSignerException._(), new_offset);
   }
 
@@ -14550,6 +15812,7 @@ class MissingWitnessScriptSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14561,9 +15824,12 @@ class MissingWitnessScriptSignerException extends SignerException {
 
 class MissingHdKeypathSignerException extends SignerException {
   MissingHdKeypathSignerException();
+
   MissingHdKeypathSignerException._();
+
   static LiftRetVal<MissingHdKeypathSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(MissingHdKeypathSignerException._(), new_offset);
   }
 
@@ -14583,6 +15849,7 @@ class MissingHdKeypathSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14594,9 +15861,12 @@ class MissingHdKeypathSignerException extends SignerException {
 
 class NonStandardSighashSignerException extends SignerException {
   NonStandardSighashSignerException();
+
   NonStandardSighashSignerException._();
+
   static LiftRetVal<NonStandardSighashSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NonStandardSighashSignerException._(), new_offset);
   }
 
@@ -14616,6 +15886,7 @@ class NonStandardSighashSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14627,9 +15898,12 @@ class NonStandardSighashSignerException extends SignerException {
 
 class InvalidSighashSignerException extends SignerException {
   InvalidSighashSignerException();
+
   InvalidSighashSignerException._();
+
   static LiftRetVal<InvalidSighashSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidSighashSignerException._(), new_offset);
   }
 
@@ -14649,6 +15923,7 @@ class InvalidSighashSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -14660,14 +15935,18 @@ class InvalidSighashSignerException extends SignerException {
 
 class SighashP2wpkhSignerException extends SignerException {
   final String errorMessage;
+
   SighashP2wpkhSignerException(
     String this.errorMessage,
   );
+
   SighashP2wpkhSignerException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<SighashP2wpkhSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -14695,8 +15974,10 @@ class SighashP2wpkhSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -14708,14 +15989,18 @@ class SighashP2wpkhSignerException extends SignerException {
 
 class SighashTaprootSignerException extends SignerException {
   final String errorMessage;
+
   SighashTaprootSignerException(
     String this.errorMessage,
   );
+
   SighashTaprootSignerException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<SighashTaprootSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -14743,8 +16028,10 @@ class SighashTaprootSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -14756,14 +16043,18 @@ class SighashTaprootSignerException extends SignerException {
 
 class TxInputsIndexExceptionSignerException extends SignerException {
   final String errorMessage;
+
   TxInputsIndexExceptionSignerException(
     String this.errorMessage,
   );
+
   TxInputsIndexExceptionSignerException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<TxInputsIndexExceptionSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -14791,8 +16082,10 @@ class TxInputsIndexExceptionSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -14804,14 +16097,18 @@ class TxInputsIndexExceptionSignerException extends SignerException {
 
 class MiniscriptPsbtSignerException extends SignerException {
   final String errorMessage;
+
   MiniscriptPsbtSignerException(
     String this.errorMessage,
   );
+
   MiniscriptPsbtSignerException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<MiniscriptPsbtSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -14839,8 +16136,10 @@ class MiniscriptPsbtSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 15);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -14852,14 +16151,18 @@ class MiniscriptPsbtSignerException extends SignerException {
 
 class ExternalSignerException extends SignerException {
   final String errorMessage;
+
   ExternalSignerException(
     String this.errorMessage,
   );
+
   ExternalSignerException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<ExternalSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -14887,8 +16190,10 @@ class ExternalSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 16);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -14900,14 +16205,18 @@ class ExternalSignerException extends SignerException {
 
 class PsbtSignerException extends SignerException {
   final String errorMessage;
+
   PsbtSignerException(
     String this.errorMessage,
   );
+
   PsbtSignerException._(
     String this.errorMessage,
   );
+
   static LiftRetVal<PsbtSignerException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final errorMessage_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final errorMessage = errorMessage_lifted.value;
@@ -14935,8 +16244,10 @@ class PsbtSignerException extends SignerException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 17);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         errorMessage, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -15006,9 +16317,12 @@ class FfiConverterTransactionException {
 
 class IoTransactionException extends TransactionException {
   IoTransactionException();
+
   IoTransactionException._();
+
   static LiftRetVal<IoTransactionException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(IoTransactionException._(), new_offset);
   }
 
@@ -15028,6 +16342,7 @@ class IoTransactionException extends TransactionException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -15040,10 +16355,13 @@ class IoTransactionException extends TransactionException {
 class OversizedVectorAllocationTransactionException
     extends TransactionException {
   OversizedVectorAllocationTransactionException();
+
   OversizedVectorAllocationTransactionException._();
+
   static LiftRetVal<OversizedVectorAllocationTransactionException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(
         OversizedVectorAllocationTransactionException._(), new_offset);
   }
@@ -15064,6 +16382,7 @@ class OversizedVectorAllocationTransactionException
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -15076,16 +16395,20 @@ class OversizedVectorAllocationTransactionException
 class InvalidChecksumTransactionException extends TransactionException {
   final String expected;
   final String actual;
+
   InvalidChecksumTransactionException({
     required String this.expected,
     required String this.actual,
   });
+
   InvalidChecksumTransactionException._(
     String this.expected,
     String this.actual,
   );
+
   static LiftRetVal<InvalidChecksumTransactionException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final expected_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final expected = expected_lifted.value;
@@ -15120,10 +16443,12 @@ class InvalidChecksumTransactionException extends TransactionException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         expected, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterString.write(
         actual, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -15135,9 +16460,12 @@ class InvalidChecksumTransactionException extends TransactionException {
 
 class NonMinimalVarIntTransactionException extends TransactionException {
   NonMinimalVarIntTransactionException();
+
   NonMinimalVarIntTransactionException._();
+
   static LiftRetVal<NonMinimalVarIntTransactionException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NonMinimalVarIntTransactionException._(), new_offset);
   }
 
@@ -15157,6 +16485,7 @@ class NonMinimalVarIntTransactionException extends TransactionException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -15168,9 +16497,12 @@ class NonMinimalVarIntTransactionException extends TransactionException {
 
 class ParseFailedTransactionException extends TransactionException {
   ParseFailedTransactionException();
+
   ParseFailedTransactionException._();
+
   static LiftRetVal<ParseFailedTransactionException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(ParseFailedTransactionException._(), new_offset);
   }
 
@@ -15190,6 +16522,7 @@ class ParseFailedTransactionException extends TransactionException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -15201,15 +16534,19 @@ class ParseFailedTransactionException extends TransactionException {
 
 class UnsupportedSegwitFlagTransactionException extends TransactionException {
   final int flag;
+
   UnsupportedSegwitFlagTransactionException(
     int this.flag,
   );
+
   UnsupportedSegwitFlagTransactionException._(
     int this.flag,
   );
+
   static LiftRetVal<UnsupportedSegwitFlagTransactionException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final flag_lifted =
         FfiConverterUInt8.read(Uint8List.view(buf.buffer, new_offset));
     final flag = flag_lifted.value;
@@ -15237,8 +16574,10 @@ class UnsupportedSegwitFlagTransactionException extends TransactionException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterUInt8.write(flag, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -15250,10 +16589,13 @@ class UnsupportedSegwitFlagTransactionException extends TransactionException {
 
 class OtherTransactionErrTransactionException extends TransactionException {
   OtherTransactionErrTransactionException();
+
   OtherTransactionErrTransactionException._();
+
   static LiftRetVal<OtherTransactionErrTransactionException> read(
       Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(OtherTransactionErrTransactionException._(), new_offset);
   }
 
@@ -15273,6 +16615,7 @@ class OtherTransactionErrTransactionException extends TransactionException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 
@@ -15331,14 +16674,18 @@ class FfiConverterTxidParseException {
 
 class InvalidTxidTxidParseException extends TxidParseException {
   final String txid;
+
   InvalidTxidTxidParseException(
     String this.txid,
   );
+
   InvalidTxidTxidParseException._(
     String this.txid,
   );
+
   static LiftRetVal<InvalidTxidTxidParseException> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final txid_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final txid = txid_lifted.value;
@@ -15366,8 +16713,10 @@ class InvalidTxidTxidParseException extends TxidParseException {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(txid, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 
@@ -15451,9 +16800,12 @@ class FfiConverterWarning {
 
 class NeedConnectionsWarning extends Warning {
   NeedConnectionsWarning();
+
   NeedConnectionsWarning._();
+
   static LiftRetVal<NeedConnectionsWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NeedConnectionsWarning._(), new_offset);
   }
 
@@ -15473,15 +16825,19 @@ class NeedConnectionsWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 1);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class PeerTimedOutWarning extends Warning {
   PeerTimedOutWarning();
+
   PeerTimedOutWarning._();
+
   static LiftRetVal<PeerTimedOutWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(PeerTimedOutWarning._(), new_offset);
   }
 
@@ -15501,15 +16857,19 @@ class PeerTimedOutWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 2);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class CouldNotConnectWarning extends Warning {
   CouldNotConnectWarning();
+
   CouldNotConnectWarning._();
+
   static LiftRetVal<CouldNotConnectWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(CouldNotConnectWarning._(), new_offset);
   }
 
@@ -15529,15 +16889,19 @@ class CouldNotConnectWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 3);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class NoCompactFiltersWarning extends Warning {
   NoCompactFiltersWarning();
+
   NoCompactFiltersWarning._();
+
   static LiftRetVal<NoCompactFiltersWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(NoCompactFiltersWarning._(), new_offset);
   }
 
@@ -15557,15 +16921,19 @@ class NoCompactFiltersWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 4);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class PotentialStaleTipWarning extends Warning {
   PotentialStaleTipWarning();
+
   PotentialStaleTipWarning._();
+
   static LiftRetVal<PotentialStaleTipWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(PotentialStaleTipWarning._(), new_offset);
   }
 
@@ -15585,15 +16953,19 @@ class PotentialStaleTipWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 5);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class UnsolicitedMessageWarning extends Warning {
   UnsolicitedMessageWarning();
+
   UnsolicitedMessageWarning._();
+
   static LiftRetVal<UnsolicitedMessageWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(UnsolicitedMessageWarning._(), new_offset);
   }
 
@@ -15613,15 +16985,19 @@ class UnsolicitedMessageWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 6);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class InvalidStartHeightWarning extends Warning {
   InvalidStartHeightWarning();
+
   InvalidStartHeightWarning._();
+
   static LiftRetVal<InvalidStartHeightWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(InvalidStartHeightWarning._(), new_offset);
   }
 
@@ -15641,15 +17017,19 @@ class InvalidStartHeightWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 7);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class CorruptedHeadersWarning extends Warning {
   CorruptedHeadersWarning();
+
   CorruptedHeadersWarning._();
+
   static LiftRetVal<CorruptedHeadersWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(CorruptedHeadersWarning._(), new_offset);
   }
 
@@ -15669,6 +17049,7 @@ class CorruptedHeadersWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 8);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
@@ -15676,16 +17057,20 @@ class CorruptedHeadersWarning extends Warning {
 class TransactionRejectedWarning extends Warning {
   final String wtxid;
   final String? reason;
+
   TransactionRejectedWarning({
     required String this.wtxid,
     required String? this.reason,
   });
+
   TransactionRejectedWarning._(
     String this.wtxid,
     String? this.reason,
   );
+
   static LiftRetVal<TransactionRejectedWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final wtxid_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final wtxid = wtxid_lifted.value;
@@ -15720,24 +17105,30 @@ class TransactionRejectedWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 9);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset +=
         FfiConverterString.write(wtxid, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterOptionalString.write(
         reason, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class FailedPersistenceWarning extends Warning {
   final String warning;
+
   FailedPersistenceWarning(
     String this.warning,
   );
+
   FailedPersistenceWarning._(
     String this.warning,
   );
+
   static LiftRetVal<FailedPersistenceWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final warning_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final warning = warning_lifted.value;
@@ -15765,17 +17156,22 @@ class FailedPersistenceWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 10);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         warning, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class EvaluatingForkWarning extends Warning {
   EvaluatingForkWarning();
+
   EvaluatingForkWarning._();
+
   static LiftRetVal<EvaluatingForkWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(EvaluatingForkWarning._(), new_offset);
   }
 
@@ -15795,15 +17191,19 @@ class EvaluatingForkWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 11);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class EmptyPeerDatabaseWarning extends Warning {
   EmptyPeerDatabaseWarning();
+
   EmptyPeerDatabaseWarning._();
+
   static LiftRetVal<EmptyPeerDatabaseWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(EmptyPeerDatabaseWarning._(), new_offset);
   }
 
@@ -15823,20 +17223,25 @@ class EmptyPeerDatabaseWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 12);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
 
 class UnexpectedSyncExceptionWarning extends Warning {
   final String warning;
+
   UnexpectedSyncExceptionWarning(
     String this.warning,
   );
+
   UnexpectedSyncExceptionWarning._(
     String this.warning,
   );
+
   static LiftRetVal<UnexpectedSyncExceptionWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     final warning_lifted =
         FfiConverterString.read(Uint8List.view(buf.buffer, new_offset));
     final warning = warning_lifted.value;
@@ -15864,17 +17269,22 @@ class UnexpectedSyncExceptionWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 13);
     int new_offset = buf.offsetInBytes + 4;
+
     new_offset += FfiConverterString.write(
         warning, Uint8List.view(buf.buffer, new_offset));
+
     return new_offset;
   }
 }
 
 class RequestFailedWarning extends Warning {
   RequestFailedWarning();
+
   RequestFailedWarning._();
+
   static LiftRetVal<RequestFailedWarning> read(Uint8List buf) {
     int new_offset = buf.offsetInBytes;
+
     return LiftRetVal(RequestFailedWarning._(), new_offset);
   }
 
@@ -15894,6 +17304,7 @@ class RequestFailedWarning extends Warning {
   int write(Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, 14);
     int new_offset = buf.offsetInBytes + 4;
+
     return new_offset;
   }
 }
@@ -15939,9 +17350,11 @@ final _AddressFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Address {
   late final Pointer<Void> _ptr;
+
   Address._(this._ptr) {
     _AddressFinalizer.attach(this, _ptr, detach: this);
   }
+
   Address.fromScript(
     Script script,
     Network network,
@@ -15966,9 +17379,11 @@ class Address {
             addressParseExceptionErrorHandler) {
     _AddressFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Address.lift(Pointer<Void> ptr) {
     return Address._(ptr);
   }
+
   static Pointer<Void> lower(Address value) {
     return value.uniffiClonePointer();
   }
@@ -16044,9 +17459,11 @@ final _AmountFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Amount {
   late final Pointer<Void> _ptr;
+
   Amount._(this._ptr) {
     _AmountFinalizer.attach(this, _ptr, detach: this);
   }
+
   Amount.fromBtc(
     double btc,
   ) : _ptr = rustCall(
@@ -16063,9 +17480,11 @@ class Amount {
             null) {
     _AmountFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Amount.lift(Pointer<Void> ptr) {
     return Amount._(ptr);
   }
+
   static Pointer<Void> lower(Amount value) {
     return value.uniffiClonePointer();
   }
@@ -16121,9 +17540,11 @@ final _BlockHashFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class BlockHash {
   late final Pointer<Void> _ptr;
+
   BlockHash._(this._ptr) {
     _BlockHashFinalizer.attach(this, _ptr, detach: this);
   }
+
   BlockHash.fromBytes(
     Uint8List bytes,
   ) : _ptr = rustCall(
@@ -16142,9 +17563,11 @@ class BlockHash {
             hashParseExceptionErrorHandler) {
     _BlockHashFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory BlockHash.lift(Pointer<Void> ptr) {
     return BlockHash._(ptr);
   }
+
   static Pointer<Void> lower(BlockHash value) {
     return value.uniffiClonePointer();
   }
@@ -16192,9 +17615,11 @@ final _BumpFeeTxBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class BumpFeeTxBuilder {
   late final Pointer<Void> _ptr;
+
   BumpFeeTxBuilder._(this._ptr) {
     _BumpFeeTxBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   BumpFeeTxBuilder(
     Txid txid,
     FeeRate feeRate,
@@ -16205,9 +17630,11 @@ class BumpFeeTxBuilder {
             null) {
     _BumpFeeTxBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory BumpFeeTxBuilder.lift(Pointer<Void> ptr) {
     return BumpFeeTxBuilder._(ptr);
   }
+
   static Pointer<Void> lower(BumpFeeTxBuilder value) {
     return value.uniffiClonePointer();
   }
@@ -16311,9 +17738,11 @@ final _CbfBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class CbfBuilder {
   late final Pointer<Void> _ptr;
+
   CbfBuilder._(this._ptr) {
     _CbfBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   CbfBuilder()
       : _ptr = rustCall(
             (status) => _UniffiLib.instance
@@ -16321,9 +17750,11 @@ class CbfBuilder {
             null) {
     _CbfBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory CbfBuilder.lift(Pointer<Void> ptr) {
     return CbfBuilder._(ptr);
   }
+
   static Pointer<Void> lower(CbfBuilder value) {
     return value.uniffiClonePointer();
   }
@@ -16406,6 +17837,16 @@ class CbfBuilder {
         null);
   }
 
+  CbfBuilder logLevel(
+    LogLevel logLevel,
+  ) {
+    return rustCall(
+        (status) => CbfBuilder.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_cbfbuilder_log_level(uniffiClonePointer(),
+                FfiConverterLogLevel.lower(logLevel), status)),
+        null);
+  }
+
   CbfBuilder peers(
     List<Peer> peers,
   ) {
@@ -16446,12 +17887,15 @@ final _CbfClientFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class CbfClient {
   late final Pointer<Void> _ptr;
+
   CbfClient._(this._ptr) {
     _CbfClientFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory CbfClient.lift(Pointer<Void> ptr) {
     return CbfClient._(ptr);
   }
+
   static Pointer<Void> lower(CbfClient value) {
     return value.uniffiClonePointer();
   }
@@ -16579,6 +18023,19 @@ class CbfClient {
     );
   }
 
+  Future<String> nextLog() {
+    return uniffiRustCallAsync(
+      () => _UniffiLib.instance.uniffi_bdkffi_fn_method_cbfclient_next_log(
+        uniffiClonePointer(),
+      ),
+      _UniffiLib.instance.ffi_bdkffi_rust_future_poll_rust_buffer,
+      _UniffiLib.instance.ffi_bdkffi_rust_future_complete_rust_buffer,
+      _UniffiLib.instance.ffi_bdkffi_rust_future_free_rust_buffer,
+      FfiConverterString.lift,
+      cbfExceptionErrorHandler,
+    );
+  }
+
   Future<Warning> nextWarning() {
     return uniffiRustCallAsync(
       () => _UniffiLib.instance.uniffi_bdkffi_fn_method_cbfclient_next_warning(
@@ -16620,12 +18077,15 @@ final _CbfNodeFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class CbfNode {
   late final Pointer<Void> _ptr;
+
   CbfNode._(this._ptr) {
     _CbfNodeFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory CbfNode.lift(Pointer<Void> ptr) {
     return CbfNode._(ptr);
   }
+
   static Pointer<Void> lower(CbfNode value) {
     return value.uniffiClonePointer();
   }
@@ -16672,9 +18132,11 @@ final _ChangeSetFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class ChangeSet {
   late final Pointer<Void> _ptr;
+
   ChangeSet._(this._ptr) {
     _ChangeSetFinalizer.attach(this, _ptr, detach: this);
   }
+
   ChangeSet.fromAggregate(
     Descriptor? descriptor,
     Descriptor? changeDescriptor,
@@ -16755,9 +18217,11 @@ class ChangeSet {
             null) {
     _ChangeSetFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory ChangeSet.lift(Pointer<Void> ptr) {
     return ChangeSet._(ptr);
   }
+
   static Pointer<Void> lower(ChangeSet value) {
     return value.uniffiClonePointer();
   }
@@ -16845,9 +18309,11 @@ final _DerivationPathFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class DerivationPath {
   late final Pointer<Void> _ptr;
+
   DerivationPath._(this._ptr) {
     _DerivationPathFinalizer.attach(this, _ptr, detach: this);
   }
+
   DerivationPath(
     String path,
   ) : _ptr = rustCall(
@@ -16857,9 +18323,11 @@ class DerivationPath {
             bip32ExceptionErrorHandler) {
     _DerivationPathFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory DerivationPath.lift(Pointer<Void> ptr) {
     return DerivationPath._(ptr);
   }
+
   static Pointer<Void> lower(DerivationPath value) {
     return value.uniffiClonePointer();
   }
@@ -16899,9 +18367,11 @@ final _DescriptorFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Descriptor {
   late final Pointer<Void> _ptr;
+
   Descriptor._(this._ptr) {
     _DescriptorFinalizer.attach(this, _ptr, detach: this);
   }
+
   Descriptor(
     String descriptor,
     Network network,
@@ -17034,9 +18504,11 @@ class Descriptor {
             null) {
     _DescriptorFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Descriptor.lift(Pointer<Void> ptr) {
     return Descriptor._(ptr);
   }
+
   static Pointer<Void> lower(Descriptor value) {
     return value.uniffiClonePointer();
   }
@@ -17066,14 +18538,6 @@ class Descriptor {
     _DescriptorFinalizer.detach(this);
     rustCall((status) =>
         _UniffiLib.instance.uniffi_bdkffi_fn_free_descriptor(_ptr, status));
-  }
-
-  DescriptorType descType() {
-    return rustCall(
-        (status) => FfiConverterDescriptorType.lift(_UniffiLib.instance
-            .uniffi_bdkffi_fn_method_descriptor_desc_type(
-                uniffiClonePointer(), status)),
-        null);
   }
 
   DescriptorId descriptorId() {
@@ -17124,9 +18588,11 @@ final _DescriptorIdFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class DescriptorId {
   late final Pointer<Void> _ptr;
+
   DescriptorId._(this._ptr) {
     _DescriptorIdFinalizer.attach(this, _ptr, detach: this);
   }
+
   DescriptorId.fromBytes(
     Uint8List bytes,
   ) : _ptr = rustCall(
@@ -17145,9 +18611,11 @@ class DescriptorId {
             hashParseExceptionErrorHandler) {
     _DescriptorIdFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory DescriptorId.lift(Pointer<Void> ptr) {
     return DescriptorId._(ptr);
   }
+
   static Pointer<Void> lower(DescriptorId value) {
     return value.uniffiClonePointer();
   }
@@ -17195,9 +18663,11 @@ final _DescriptorPublicKeyFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class DescriptorPublicKey {
   late final Pointer<Void> _ptr;
+
   DescriptorPublicKey._(this._ptr) {
     _DescriptorPublicKeyFinalizer.attach(this, _ptr, detach: this);
   }
+
   DescriptorPublicKey.fromString(
     String publicKey,
   ) : _ptr = rustCall(
@@ -17207,9 +18677,11 @@ class DescriptorPublicKey {
             descriptorKeyExceptionErrorHandler) {
     _DescriptorPublicKeyFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory DescriptorPublicKey.lift(Pointer<Void> ptr) {
     return DescriptorPublicKey._(ptr);
   }
+
   static Pointer<Void> lower(DescriptorPublicKey value) {
     return value.uniffiClonePointer();
   }
@@ -17285,9 +18757,11 @@ final _DescriptorSecretKeyFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class DescriptorSecretKey {
   late final Pointer<Void> _ptr;
+
   DescriptorSecretKey._(this._ptr) {
     _DescriptorSecretKeyFinalizer.attach(this, _ptr, detach: this);
   }
+
   DescriptorSecretKey.fromString(
     String privateKey,
   ) : _ptr = rustCall(
@@ -17311,9 +18785,11 @@ class DescriptorSecretKey {
             null) {
     _DescriptorSecretKeyFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory DescriptorSecretKey.lift(Pointer<Void> ptr) {
     return DescriptorSecretKey._(ptr);
   }
+
   static Pointer<Void> lower(DescriptorSecretKey value) {
     return value.uniffiClonePointer();
   }
@@ -17389,9 +18865,11 @@ final _ElectrumClientFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class ElectrumClient {
   late final Pointer<Void> _ptr;
+
   ElectrumClient._(this._ptr) {
     _ElectrumClientFinalizer.attach(this, _ptr, detach: this);
   }
+
   ElectrumClient(
     String url,
     String? socks5,
@@ -17404,9 +18882,11 @@ class ElectrumClient {
             electrumExceptionErrorHandler) {
     _ElectrumClientFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory ElectrumClient.lift(Pointer<Void> ptr) {
     return ElectrumClient._(ptr);
   }
+
   static Pointer<Void> lower(ElectrumClient value) {
     return value.uniffiClonePointer();
   }
@@ -17523,9 +19003,11 @@ final _EsploraClientFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class EsploraClient {
   late final Pointer<Void> _ptr;
+
   EsploraClient._(this._ptr) {
     _EsploraClientFinalizer.attach(this, _ptr, detach: this);
   }
+
   EsploraClient(
     String url,
     String? proxy,
@@ -17538,9 +19020,11 @@ class EsploraClient {
             null) {
     _EsploraClientFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory EsploraClient.lift(Pointer<Void> ptr) {
     return EsploraClient._(ptr);
   }
+
   static Pointer<Void> lower(EsploraClient value) {
     return value.uniffiClonePointer();
   }
@@ -17672,9 +19156,11 @@ final _FeeRateFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class FeeRate {
   late final Pointer<Void> _ptr;
+
   FeeRate._(this._ptr) {
     _FeeRateFinalizer.attach(this, _ptr, detach: this);
   }
+
   FeeRate.fromSatPerKwu(
     int satKwu,
   ) : _ptr = rustCall(
@@ -17693,9 +19179,11 @@ class FeeRate {
             feeRateExceptionErrorHandler) {
     _FeeRateFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory FeeRate.lift(Pointer<Void> ptr) {
     return FeeRate._(ptr);
   }
+
   static Pointer<Void> lower(FeeRate value) {
     return value.uniffiClonePointer();
   }
@@ -17759,12 +19247,15 @@ final _FullScanRequestFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class FullScanRequest {
   late final Pointer<Void> _ptr;
+
   FullScanRequest._(this._ptr) {
     _FullScanRequestFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory FullScanRequest.lift(Pointer<Void> ptr) {
     return FullScanRequest._(ptr);
   }
+
   static Pointer<Void> lower(FullScanRequest value) {
     return value.uniffiClonePointer();
   }
@@ -17804,12 +19295,15 @@ final _FullScanRequestBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class FullScanRequestBuilder {
   late final Pointer<Void> _ptr;
+
   FullScanRequestBuilder._(this._ptr) {
     _FullScanRequestBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory FullScanRequestBuilder.lift(Pointer<Void> ptr) {
     return FullScanRequestBuilder._(ptr);
   }
+
   static Pointer<Void> lower(FullScanRequestBuilder value) {
     return value.uniffiClonePointer();
   }
@@ -17875,6 +19369,7 @@ abstract class FullScanScriptInspector {
 class FfiConverterCallbackInterfaceFullScanScriptInspector {
   static final _handleMap = UniffiHandleMap<FullScanScriptInspector>();
   static bool _vtableInitialized = false;
+
   static FullScanScriptInspector lift(int handle) {
     return _handleMap.get(handle);
   }
@@ -17963,6 +19458,7 @@ final Pointer<
     fullScanScriptInspectorInspectPointer =
     Pointer.fromFunction<UniffiCallbackInterfaceFullScanScriptInspectorMethod0>(
         fullScanScriptInspectorInspect);
+
 void fullScanScriptInspectorFreeCallback(int handle) {
   try {
     FfiConverterCallbackInterfaceFullScanScriptInspector._handleMap
@@ -17977,16 +19473,19 @@ final Pointer<
         fullScanScriptInspectorFreeCallback);
 late final Pointer<UniffiVTableCallbackInterfaceFullScanScriptInspector>
     fullScanScriptInspectorVTable;
+
 void initFullScanScriptInspectorVTable() {
   if (FfiConverterCallbackInterfaceFullScanScriptInspector._vtableInitialized) {
     return;
   }
+
   fullScanScriptInspectorVTable =
       calloc<UniffiVTableCallbackInterfaceFullScanScriptInspector>();
   fullScanScriptInspectorVTable.ref.inspect =
       fullScanScriptInspectorInspectPointer;
   fullScanScriptInspectorVTable.ref.uniffiFree =
       fullScanScriptInspectorFreePointer;
+
   rustCall((status) {
     _UniffiLib.instance
         .uniffi_bdk_fn_init_callback_vtable_fullscanscriptinspector(
@@ -17994,6 +19493,7 @@ void initFullScanScriptInspectorVTable() {
     );
     checkCallStatus(NullRustCallStatusErrorHandler(), status);
   });
+
   FfiConverterCallbackInterfaceFullScanScriptInspector._vtableInitialized =
       true;
 }
@@ -18005,9 +19505,11 @@ final _HashableOutPointFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class HashableOutPoint {
   late final Pointer<Void> _ptr;
+
   HashableOutPoint._(this._ptr) {
     _HashableOutPointFinalizer.attach(this, _ptr, detach: this);
   }
+
   HashableOutPoint(
     OutPoint outpoint,
   ) : _ptr = rustCall(
@@ -18017,9 +19519,11 @@ class HashableOutPoint {
             null) {
     _HashableOutPointFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory HashableOutPoint.lift(Pointer<Void> ptr) {
     return HashableOutPoint._(ptr);
   }
+
   static Pointer<Void> lower(HashableOutPoint value) {
     return value.uniffiClonePointer();
   }
@@ -18067,9 +19571,11 @@ final _IpAddressFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class IpAddress {
   late final Pointer<Void> _ptr;
+
   IpAddress._(this._ptr) {
     _IpAddressFinalizer.attach(this, _ptr, detach: this);
   }
+
   IpAddress.fromIpv4(
     int q1,
     int q2,
@@ -18098,9 +19604,11 @@ class IpAddress {
             null) {
     _IpAddressFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory IpAddress.lift(Pointer<Void> ptr) {
     return IpAddress._(ptr);
   }
+
   static Pointer<Void> lower(IpAddress value) {
     return value.uniffiClonePointer();
   }
@@ -18140,9 +19648,11 @@ final _MnemonicFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Mnemonic {
   late final Pointer<Void> _ptr;
+
   Mnemonic._(this._ptr) {
     _MnemonicFinalizer.attach(this, _ptr, detach: this);
   }
+
   Mnemonic.fromEntropy(
     Uint8List entropy,
   ) : _ptr = rustCall(
@@ -18170,9 +19680,11 @@ class Mnemonic {
             null) {
     _MnemonicFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Mnemonic.lift(Pointer<Void> ptr) {
     return Mnemonic._(ptr);
   }
+
   static Pointer<Void> lower(Mnemonic value) {
     return value.uniffiClonePointer();
   }
@@ -18215,6 +19727,7 @@ abstract class Persistence {
 class FfiConverterCallbackInterfacePersistence {
   static final _handleMap = UniffiHandleMap<Persistence>();
   static bool _vtableInitialized = false;
+
   static Persistence lift(int handle) {
     return _handleMap.get(handle);
   }
@@ -18306,6 +19819,7 @@ final Pointer<NativeFunction<UniffiCallbackInterfacePersistenceMethod1>>
     persistencePersistPointer =
     Pointer.fromFunction<UniffiCallbackInterfacePersistenceMethod1>(
         persistencePersist);
+
 void persistenceFreeCallback(int handle) {
   try {
     FfiConverterCallbackInterfacePersistence._handleMap.remove(handle);
@@ -18317,20 +19831,24 @@ final Pointer<NativeFunction<UniffiCallbackInterfacePersistenceFree>>
     Pointer.fromFunction<UniffiCallbackInterfacePersistenceFree>(
         persistenceFreeCallback);
 late final Pointer<UniffiVTableCallbackInterfacePersistence> persistenceVTable;
+
 void initPersistenceVTable() {
   if (FfiConverterCallbackInterfacePersistence._vtableInitialized) {
     return;
   }
+
   persistenceVTable = calloc<UniffiVTableCallbackInterfacePersistence>();
   persistenceVTable.ref.initialize = persistenceInitializePointer;
   persistenceVTable.ref.persist = persistencePersistPointer;
   persistenceVTable.ref.uniffiFree = persistenceFreePointer;
+
   rustCall((status) {
     _UniffiLib.instance.uniffi_bdk_fn_init_callback_vtable_persistence(
       persistenceVTable,
     );
     checkCallStatus(NullRustCallStatusErrorHandler(), status);
   });
+
   FfiConverterCallbackInterfacePersistence._vtableInitialized = true;
 }
 
@@ -18341,9 +19859,11 @@ final _PersisterFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Persister {
   late final Pointer<Void> _ptr;
+
   Persister._(this._ptr) {
     _PersisterFinalizer.attach(this, _ptr, detach: this);
   }
+
   Persister.custom(
     Persistence persistence,
   ) : _ptr = rustCall(
@@ -18370,9 +19890,11 @@ class Persister {
             persistenceExceptionErrorHandler) {
     _PersisterFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Persister.lift(Pointer<Void> ptr) {
     return Persister._(ptr);
   }
+
   static Pointer<Void> lower(Persister value) {
     return value.uniffiClonePointer();
   }
@@ -18412,12 +19934,15 @@ final _PolicyFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Policy {
   late final Pointer<Void> _ptr;
+
   Policy._(this._ptr) {
     _PolicyFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Policy.lift(Pointer<Void> ptr) {
     return Policy._(ptr);
   }
+
   static Pointer<Void> lower(Policy value) {
     return value.uniffiClonePointer();
   }
@@ -18503,9 +20028,11 @@ final _PsbtFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Psbt {
   late final Pointer<Void> _ptr;
+
   Psbt._(this._ptr) {
     _PsbtFinalizer.attach(this, _ptr, detach: this);
   }
+
   Psbt.fromFile(
     String path,
   ) : _ptr = rustCall(
@@ -18533,9 +20060,11 @@ class Psbt {
             psbtParseExceptionErrorHandler) {
     _PsbtFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Psbt.lift(Pointer<Void> ptr) {
     return Psbt._(ptr);
   }
+
   static Pointer<Void> lower(Psbt value) {
     return value.uniffiClonePointer();
   }
@@ -18643,9 +20172,11 @@ final _ScriptFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Script {
   late final Pointer<Void> _ptr;
+
   Script._(this._ptr) {
     _ScriptFinalizer.attach(this, _ptr, detach: this);
   }
+
   Script(
     Uint8List rawOutputScript,
   ) : _ptr = rustCall(
@@ -18655,9 +20186,11 @@ class Script {
             null) {
     _ScriptFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Script.lift(Pointer<Void> ptr) {
     return Script._(ptr);
   }
+
   static Pointer<Void> lower(Script value) {
     return value.uniffiClonePointer();
   }
@@ -18705,12 +20238,15 @@ final _SyncRequestFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class SyncRequest {
   late final Pointer<Void> _ptr;
+
   SyncRequest._(this._ptr) {
     _SyncRequestFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory SyncRequest.lift(Pointer<Void> ptr) {
     return SyncRequest._(ptr);
   }
+
   static Pointer<Void> lower(SyncRequest value) {
     return value.uniffiClonePointer();
   }
@@ -18750,12 +20286,15 @@ final _SyncRequestBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class SyncRequestBuilder {
   late final Pointer<Void> _ptr;
+
   SyncRequestBuilder._(this._ptr) {
     _SyncRequestBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory SyncRequestBuilder.lift(Pointer<Void> ptr) {
     return SyncRequestBuilder._(ptr);
   }
+
   static Pointer<Void> lower(SyncRequestBuilder value) {
     return value.uniffiClonePointer();
   }
@@ -18820,6 +20359,7 @@ abstract class SyncScriptInspector {
 class FfiConverterCallbackInterfaceSyncScriptInspector {
   static final _handleMap = UniffiHandleMap<SyncScriptInspector>();
   static bool _vtableInitialized = false;
+
   static SyncScriptInspector lift(int handle) {
     return _handleMap.get(handle);
   }
@@ -18891,6 +20431,7 @@ final Pointer<NativeFunction<UniffiCallbackInterfaceSyncScriptInspectorMethod0>>
     syncScriptInspectorInspectPointer =
     Pointer.fromFunction<UniffiCallbackInterfaceSyncScriptInspectorMethod0>(
         syncScriptInspectorInspect);
+
 void syncScriptInspectorFreeCallback(int handle) {
   try {
     FfiConverterCallbackInterfaceSyncScriptInspector._handleMap.remove(handle);
@@ -18903,20 +20444,24 @@ final Pointer<NativeFunction<UniffiCallbackInterfaceSyncScriptInspectorFree>>
         syncScriptInspectorFreeCallback);
 late final Pointer<UniffiVTableCallbackInterfaceSyncScriptInspector>
     syncScriptInspectorVTable;
+
 void initSyncScriptInspectorVTable() {
   if (FfiConverterCallbackInterfaceSyncScriptInspector._vtableInitialized) {
     return;
   }
+
   syncScriptInspectorVTable =
       calloc<UniffiVTableCallbackInterfaceSyncScriptInspector>();
   syncScriptInspectorVTable.ref.inspect = syncScriptInspectorInspectPointer;
   syncScriptInspectorVTable.ref.uniffiFree = syncScriptInspectorFreePointer;
+
   rustCall((status) {
     _UniffiLib.instance.uniffi_bdk_fn_init_callback_vtable_syncscriptinspector(
       syncScriptInspectorVTable,
     );
     checkCallStatus(NullRustCallStatusErrorHandler(), status);
   });
+
   FfiConverterCallbackInterfaceSyncScriptInspector._vtableInitialized = true;
 }
 
@@ -18927,9 +20472,11 @@ final _TransactionFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Transaction {
   late final Pointer<Void> _ptr;
+
   Transaction._(this._ptr) {
     _TransactionFinalizer.attach(this, _ptr, detach: this);
   }
+
   Transaction(
     Uint8List transactionBytes,
   ) : _ptr = rustCall(
@@ -18939,9 +20486,11 @@ class Transaction {
             transactionExceptionErrorHandler) {
     _TransactionFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Transaction.lift(Pointer<Void> ptr) {
     return Transaction._(ptr);
   }
+
   static Pointer<Void> lower(Transaction value) {
     return value.uniffiClonePointer();
   }
@@ -19085,9 +20634,11 @@ final _TxBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class TxBuilder {
   late final Pointer<Void> _ptr;
+
   TxBuilder._(this._ptr) {
     _TxBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   TxBuilder()
       : _ptr = rustCall(
             (status) => _UniffiLib.instance
@@ -19095,9 +20646,11 @@ class TxBuilder {
             null) {
     _TxBuilderFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory TxBuilder.lift(Pointer<Void> ptr) {
     return TxBuilder._(ptr);
   }
+
   static Pointer<Void> lower(TxBuilder value) {
     return value.uniffiClonePointer();
   }
@@ -19371,9 +20924,11 @@ final _TxMerkleNodeFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class TxMerkleNode {
   late final Pointer<Void> _ptr;
+
   TxMerkleNode._(this._ptr) {
     _TxMerkleNodeFinalizer.attach(this, _ptr, detach: this);
   }
+
   TxMerkleNode.fromBytes(
     Uint8List bytes,
   ) : _ptr = rustCall(
@@ -19392,9 +20947,11 @@ class TxMerkleNode {
             hashParseExceptionErrorHandler) {
     _TxMerkleNodeFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory TxMerkleNode.lift(Pointer<Void> ptr) {
     return TxMerkleNode._(ptr);
   }
+
   static Pointer<Void> lower(TxMerkleNode value) {
     return value.uniffiClonePointer();
   }
@@ -19442,9 +20999,11 @@ final _TxidFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Txid {
   late final Pointer<Void> _ptr;
+
   Txid._(this._ptr) {
     _TxidFinalizer.attach(this, _ptr, detach: this);
   }
+
   Txid.fromBytes(
     Uint8List bytes,
   ) : _ptr = rustCall(
@@ -19463,9 +21022,11 @@ class Txid {
             hashParseExceptionErrorHandler) {
     _TxidFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Txid.lift(Pointer<Void> ptr) {
     return Txid._(ptr);
   }
+
   static Pointer<Void> lower(Txid value) {
     return value.uniffiClonePointer();
   }
@@ -19513,12 +21074,15 @@ final _UpdateFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Update {
   late final Pointer<Void> _ptr;
+
   Update._(this._ptr) {
     _UpdateFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Update.lift(Pointer<Void> ptr) {
     return Update._(ptr);
   }
+
   static Pointer<Void> lower(Update value) {
     return value.uniffiClonePointer();
   }
@@ -19558,53 +21122,21 @@ final _WalletFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Wallet {
   late final Pointer<Void> _ptr;
+
   Wallet._(this._ptr) {
     _WalletFinalizer.attach(this, _ptr, detach: this);
   }
-  Wallet.createFromTwoPathDescriptor(
-    Descriptor twoPathDescriptor,
-    Network network,
-    Persister persister,
-    int lookahead,
-  ) : _ptr = rustCall(
-            (status) => _UniffiLib.instance
-                .uniffi_bdkffi_fn_constructor_wallet_create_from_two_path_descriptor(
-                    Descriptor.lower(twoPathDescriptor),
-                    FfiConverterNetwork.lower(network),
-                    Persister.lower(persister),
-                    lookahead,
-                    status),
-            createWithPersistExceptionErrorHandler) {
-    _WalletFinalizer.attach(this, _ptr, detach: this);
-  }
-  Wallet.createSingle(
-    Descriptor descriptor,
-    Network network,
-    Persister persister,
-    int lookahead,
-  ) : _ptr = rustCall(
-            (status) => _UniffiLib.instance
-                .uniffi_bdkffi_fn_constructor_wallet_create_single(
-                    Descriptor.lower(descriptor),
-                    FfiConverterNetwork.lower(network),
-                    Persister.lower(persister),
-                    lookahead,
-                    status),
-            createWithPersistExceptionErrorHandler) {
-    _WalletFinalizer.attach(this, _ptr, detach: this);
-  }
+
   Wallet.load(
     Descriptor descriptor,
     Descriptor changeDescriptor,
     Persister persister,
-    int lookahead,
   ) : _ptr = rustCall(
             (status) => _UniffiLib.instance
                 .uniffi_bdkffi_fn_constructor_wallet_load(
                     Descriptor.lower(descriptor),
                     Descriptor.lower(changeDescriptor),
                     Persister.lower(persister),
-                    lookahead,
                     status),
             loadWithPersistExceptionErrorHandler) {
     _WalletFinalizer.attach(this, _ptr, detach: this);
@@ -19627,9 +21159,11 @@ class Wallet {
             createWithPersistExceptionErrorHandler) {
     _WalletFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Wallet.lift(Pointer<Void> ptr) {
     return Wallet._(ptr);
   }
+
   static Pointer<Void> lower(Wallet value) {
     return value.uniffiClonePointer();
   }
@@ -19659,17 +21193,6 @@ class Wallet {
     _WalletFinalizer.detach(this);
     rustCall((status) =>
         _UniffiLib.instance.uniffi_bdkffi_fn_free_wallet(_ptr, status));
-  }
-
-  void applyEvictedTxs(
-    List<EvictedTx> evictedTxs,
-  ) {
-    return rustCall((status) {
-      _UniffiLib.instance.uniffi_bdkffi_fn_method_wallet_apply_evicted_txs(
-          uniffiClonePointer(),
-          FfiConverterSequenceEvictedTx.lower(evictedTxs),
-          status);
-    }, null);
   }
 
   void applyUnconfirmedTxs(
@@ -20022,9 +21545,11 @@ final _WtxidFinalizer = Finalizer<Pointer<Void>>((ptr) {
 
 class Wtxid {
   late final Pointer<Void> _ptr;
+
   Wtxid._(this._ptr) {
     _WtxidFinalizer.attach(this, _ptr, detach: this);
   }
+
   Wtxid.fromBytes(
     Uint8List bytes,
   ) : _ptr = rustCall(
@@ -20043,9 +21568,11 @@ class Wtxid {
             hashParseExceptionErrorHandler) {
     _WtxidFinalizer.attach(this, _ptr, detach: this);
   }
+
   factory Wtxid.lift(Pointer<Void> ptr) {
     return Wtxid._(ptr);
   }
+
   static Pointer<Void> lower(Wtxid value) {
     return value.uniffiClonePointer();
   }
@@ -20096,9 +21623,12 @@ class UniffiInternalError implements Exception {
   static const int unexpectedRustCallError = 6;
   static const int unexpectedStaleHandle = 7;
   static const int rustPanic = 8;
+
   final int errorCode;
   final String? panicMessage;
+
   const UniffiInternalError(this.errorCode, this.panicMessage);
+
   static UniffiInternalError panicked(String message) {
     return UniffiInternalError(rustPanic, message);
   }
@@ -20137,6 +21667,7 @@ const int CALL_UNEXPECTED_ERROR = 2;
 final class RustCallStatus extends Struct {
   @Int8()
   external int code;
+
   external RustBuffer errorBuf;
 }
 
@@ -20186,9 +21717,12 @@ abstract class UniffiRustCallStatusErrorHandler {
 final class RustBuffer extends Struct {
   @Uint64()
   external int capacity;
+
   @Uint64()
   external int len;
+
   external Pointer<Uint8> data;
+
   static RustBuffer alloc(int size) {
     return rustCall((status) =>
         _UniffiLib.instance.ffi_bdkffi_rustbuffer_alloc(size, status));
@@ -20223,9 +21757,11 @@ final class RustBuffer extends Struct {
 
 RustBuffer toRustBuffer(Uint8List data) {
   final length = data.length;
+
   final Pointer<Uint8> frameData = calloc<Uint8>(length);
   final pointerList = frameData.asTypedList(length);
   pointerList.setAll(0, data);
+
   final bytes = calloc<ForeignBytes>();
   bytes.ref.len = length;
   bytes.ref.data = frameData;
@@ -20236,6 +21772,7 @@ final class ForeignBytes extends Struct {
   @Int32()
   external int len;
   external Pointer<Uint8> data;
+
   void free() {
     calloc.free(data);
   }
@@ -20245,6 +21782,7 @@ class LiftRetVal<T> {
   final T value;
   final int bytesRead;
   const LiftRetVal(this.value, this.bytesRead);
+
   LiftRetVal<T> copyWithOffset(int offset) {
     return LiftRetVal(value, bytesRead + offset);
   }
@@ -20252,6 +21790,7 @@ class LiftRetVal<T> {
 
 abstract class FfiConverter<D, F> {
   const FfiConverter();
+
   D lift(F value);
   F lower(D value);
   D read(ByteData buffer, int offset);
@@ -20262,125 +21801,63 @@ abstract class FfiConverter<D, F> {
 mixin FfiConverterPrimitive<T> on FfiConverter<T, T> {
   @override
   T lift(T value) => value;
+
   @override
   T lower(T value) => value;
 }
+
 Uint8List createUint8ListFromInt(int value) {
   int length = value.bitLength ~/ 8 + 1;
+
   if (length != 4 && length != 8) {
     length = (value < 0x100000000) ? 4 : 8;
   }
+
   Uint8List uint8List = Uint8List(length);
+
   for (int i = length - 1; i >= 0; i--) {
     uint8List[i] = value & 0xFF;
     value >>= 8;
   }
+
   return uint8List;
 }
 
-class FfiConverterOptionalAmount {
-  static Amount? lift(RustBuffer buf) {
-    return FfiConverterOptionalAmount.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Amount?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        Amount.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Amount?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Amount? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return Amount.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Amount? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalAmount.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalAmount.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Amount? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return Amount.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterUInt32 {
+class FfiConverterUInt64 {
   static int lift(int value) => value;
+
   static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint32(0), 4);
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint64(0), 8);
   }
 
   static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 8;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint64(0, value);
+    return FfiConverterUInt64.allocationSize();
+  }
+}
+
+class FfiConverterInt32 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt32(0), 4);
+  }
+
+  static int lower(int value) => value;
+
   static int allocationSize([int value = 0]) {
     return 4;
   }
 
   static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint32(0, value);
-    return FfiConverterUInt32.allocationSize();
-  }
-}
-
-class FfiConverterSequenceUnconfirmedTx {
-  static List<UnconfirmedTx> lift(RustBuffer buf) {
-    return FfiConverterSequenceUnconfirmedTx.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<UnconfirmedTx>> read(Uint8List buf) {
-    List<UnconfirmedTx> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterUnconfirmedTx.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<UnconfirmedTx> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterUnconfirmedTx.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<UnconfirmedTx> value) {
-    return value
-            .map((l) => FfiConverterUnconfirmedTx.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<UnconfirmedTx> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value);
+    return FfiConverterInt32.allocationSize();
   }
 }
 
@@ -20426,50 +21903,1310 @@ class FfiConverterSequenceScriptAmount {
   }
 }
 
-class FfiConverterOptionalString {
-  static String? lift(RustBuffer buf) {
-    return FfiConverterOptionalString.read(buf.asUint8List()).value;
+class FfiConverterOptionalSignOptions {
+  static SignOptions? lift(RustBuffer buf) {
+    return FfiConverterOptionalSignOptions.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<String?> read(Uint8List buf) {
+  static LiftRetVal<SignOptions?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterString.read(
+    final result = FfiConverterSignOptions.read(
         Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<String?>(result.value, result.bytesRead + 1);
+    return LiftRetVal<SignOptions?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([String? value]) {
+  static int allocationSize([SignOptions? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterString.allocationSize(value) + 1;
+    return FfiConverterSignOptions.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(String? value) {
+  static RustBuffer lower(SignOptions? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
-    final length = FfiConverterOptionalString.allocationSize(value);
+
+    final length = FfiConverterOptionalSignOptions.allocationSize(value);
+
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
-    FfiConverterOptionalString.write(value, buf);
+
+    FfiConverterOptionalSignOptions.write(value, buf);
+
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
     bytes.ref.data = frameData;
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(String? value, Uint8List buf) {
+  static int write(SignOptions? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
     }
+
     buf[0] = 1;
-    return FfiConverterString.write(
+
+    return FfiConverterSignOptions.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
+  }
+}
+
+class FfiConverterSequenceCanonicalTx {
+  static List<CanonicalTx> lift(RustBuffer buf) {
+    return FfiConverterSequenceCanonicalTx.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<CanonicalTx>> read(Uint8List buf) {
+    List<CanonicalTx> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterCanonicalTx.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<CanonicalTx> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterCanonicalTx.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<CanonicalTx> value) {
+    return value
+            .map((l) => FfiConverterCanonicalTx.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<CanonicalTx> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalLockTime {
+  static LockTime? lift(RustBuffer buf) {
+    return FfiConverterOptionalLockTime.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<LockTime?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterLockTime.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<LockTime?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([LockTime? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterLockTime.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(LockTime? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalLockTime.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalLockTime.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(LockTime? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterLockTime.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalLocalOutput {
+  static LocalOutput? lift(RustBuffer buf) {
+    return FfiConverterOptionalLocalOutput.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<LocalOutput?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterLocalOutput.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<LocalOutput?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([LocalOutput? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterLocalOutput.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(LocalOutput? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalLocalOutput.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalLocalOutput.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(LocalOutput? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterLocalOutput.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterMapDescriptorIdToUInt32 {
+  static Map<DescriptorId, int> lift(RustBuffer buf) {
+    return FfiConverterMapDescriptorIdToUInt32.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Map<DescriptorId, int>> read(Uint8List buf) {
+    final map = <DescriptorId, int>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = DescriptorId.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<DescriptorId, int> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset +=
+          DescriptorId.write(entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterUInt32.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<DescriptorId, int> value) {
+    return value.entries
+        .map((e) =>
+            DescriptorId.allocationSize(e.key) +
+            FfiConverterUInt32.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<DescriptorId, int> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalAmount {
+  static Amount? lift(RustBuffer buf) {
+    return FfiConverterOptionalAmount.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Amount?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        Amount.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Amount?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Amount? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return Amount.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Amount? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalAmount.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalAmount.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Amount? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return Amount.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceAnchor {
+  static List<Anchor> lift(RustBuffer buf) {
+    return FfiConverterSequenceAnchor.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Anchor>> read(Uint8List buf) {
+    List<Anchor> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterAnchor.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Anchor> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterAnchor.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Anchor> value) {
+    return value
+            .map((l) => FfiConverterAnchor.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Anchor> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterMapStringToSequenceUInt64 {
+  static Map<String, List<int>> lift(RustBuffer buf) {
+    return FfiConverterMapStringToSequenceUInt64.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Map<String, List<int>>> read(Uint8List buf) {
+    final map = <String, List<int>>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = FfiConverterString.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v =
+          FfiConverterSequenceUInt64.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<String, List<int>> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += FfiConverterString.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterSequenceUInt64.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<String, List<int>> value) {
+    return value.entries
+        .map((e) =>
+            FfiConverterString.allocationSize(e.key) +
+            FfiConverterSequenceUInt64.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<String, List<int>> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterUInt8 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint8(0), 1);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 1;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint8(0, value);
+    return FfiConverterUInt8.allocationSize();
+  }
+}
+
+class FfiConverterOptionalBlockHash {
+  static BlockHash? lift(RustBuffer buf) {
+    return FfiConverterOptionalBlockHash.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<BlockHash?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        BlockHash.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<BlockHash?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([BlockHash? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return BlockHash.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(BlockHash? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalBlockHash.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalBlockHash.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(BlockHash? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return BlockHash.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalDescriptor {
+  static Descriptor? lift(RustBuffer buf) {
+    return FfiConverterOptionalDescriptor.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Descriptor?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        Descriptor.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Descriptor?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Descriptor? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return Descriptor.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Descriptor? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalDescriptor.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalDescriptor.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Descriptor? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return Descriptor.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceAddressInfo {
+  static List<AddressInfo> lift(RustBuffer buf) {
+    return FfiConverterSequenceAddressInfo.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<AddressInfo>> read(Uint8List buf) {
+    List<AddressInfo> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterAddressInfo.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<AddressInfo> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterAddressInfo.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<AddressInfo> value) {
+    return value
+            .map((l) => FfiConverterAddressInfo.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<AddressInfo> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalTx {
+  static Tx? lift(RustBuffer buf) {
+    return FfiConverterOptionalTx.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Tx?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        FfiConverterTx.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Tx?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Tx? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterTx.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Tx? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalTx.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalTx.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Tx? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterTx.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceCondition {
+  static List<Condition> lift(RustBuffer buf) {
+    return FfiConverterSequenceCondition.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Condition>> read(Uint8List buf) {
+    List<Condition> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterCondition.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Condition> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterCondition.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Condition> value) {
+    return value
+            .map((l) => FfiConverterCondition.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Condition> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceTxIn {
+  static List<TxIn> lift(RustBuffer buf) {
+    return FfiConverterSequenceTxIn.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<TxIn>> read(Uint8List buf) {
+    List<TxIn> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterTxIn.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<TxIn> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset +=
+          FfiConverterTxIn.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<TxIn> value) {
+    return value
+            .map((l) => FfiConverterTxIn.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<TxIn> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalUInt32 {
+  static int? lift(RustBuffer buf) {
+    return FfiConverterOptionalUInt32.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<int?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterUInt32.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([int? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterUInt32.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(int? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalUInt32.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalUInt32.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(int? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterUInt32.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceUnconfirmedTx {
+  static List<UnconfirmedTx> lift(RustBuffer buf) {
+    return FfiConverterSequenceUnconfirmedTx.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<UnconfirmedTx>> read(Uint8List buf) {
+    List<UnconfirmedTx> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterUnconfirmedTx.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<UnconfirmedTx> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterUnconfirmedTx.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<UnconfirmedTx> value) {
+    return value
+            .map((l) => FfiConverterUnconfirmedTx.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<UnconfirmedTx> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequencePolicy {
+  static List<Policy> lift(RustBuffer buf) {
+    return FfiConverterSequencePolicy.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Policy>> read(Uint8List buf) {
+    List<Policy> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = Policy.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Policy> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += Policy.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Policy> value) {
+    return value.map((l) => Policy.allocationSize(l)).fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Policy> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterDouble32 {
+  static double lift(double value) => value;
+
+  static LiftRetVal<double> read(Uint8List buf) {
+    return LiftRetVal(
+        buf.buffer.asByteData(buf.offsetInBytes).getFloat32(0), 4);
+  }
+
+  static double lower(double value) => value;
+
+  static int allocationSize([double value = 0]) {
+    return 4;
+  }
+
+  static int write(double value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setFloat32(0, value);
+    return FfiConverterDouble32.allocationSize();
+  }
+}
+
+class FfiConverterOptionalNetwork {
+  static Network? lift(RustBuffer buf) {
+    return FfiConverterOptionalNetwork.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Network?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterNetwork.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Network?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Network? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterNetwork.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Network? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalNetwork.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalNetwork.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Network? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterNetwork.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceLocalOutput {
+  static List<LocalOutput> lift(RustBuffer buf) {
+    return FfiConverterSequenceLocalOutput.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<LocalOutput>> read(Uint8List buf) {
+    List<LocalOutput> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterLocalOutput.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<LocalOutput> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterLocalOutput.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<LocalOutput> value) {
+    return value
+            .map((l) => FfiConverterLocalOutput.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<LocalOutput> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterUint8List {
+  static Uint8List lift(RustBuffer value) {
+    return FfiConverterUint8List.read(value.asUint8List()).value;
+  }
+
+  static LiftRetVal<Uint8List> read(Uint8List buf) {
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    final bytes = Uint8List.view(buf.buffer, buf.offsetInBytes + 4, length);
+    return LiftRetVal(bytes, length + 4);
+  }
+
+  static RustBuffer lower(Uint8List value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+
+  static int allocationSize([Uint8List? value]) {
+    if (value == null) {
+      return 4;
+    }
+    return 4 + value.length;
+  }
+
+  static int write(Uint8List value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    buf.setRange(offset, offset + value.length, value);
+    return 4 + value.length;
+  }
+}
+
+class FfiConverterSequencePeer {
+  static List<Peer> lift(RustBuffer buf) {
+    return FfiConverterSequencePeer.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Peer>> read(Uint8List buf) {
+    List<Peer> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterPeer.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Peer> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset +=
+          FfiConverterPeer.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Peer> value) {
+    return value
+            .map((l) => FfiConverterPeer.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Peer> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalUInt64 {
+  static int? lift(RustBuffer buf) {
+    return FfiConverterOptionalUInt64.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<int?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterUInt64.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([int? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterUInt64.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(int? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalUInt64.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalUInt64.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(int? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterUInt64.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceOutPoint {
+  static List<OutPoint> lift(RustBuffer buf) {
+    return FfiConverterSequenceOutPoint.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<OutPoint>> read(Uint8List buf) {
+    List<OutPoint> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterOutPoint.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<OutPoint> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterOutPoint.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<OutPoint> value) {
+    return value
+            .map((l) => FfiConverterOutPoint.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<OutPoint> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterUInt16 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint16(0), 2);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 2;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint16(0, value);
+    return FfiConverterUInt16.allocationSize();
+  }
+}
+
+class FfiConverterMapUInt16ToDouble64 {
+  static Map<int, double> lift(RustBuffer buf) {
+    return FfiConverterMapUInt16ToDouble64.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Map<int, double>> read(Uint8List buf) {
+    final map = <int, double>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = FfiConverterUInt16.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterDouble64.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<int, double> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += FfiConverterUInt16.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterDouble64.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<int, double> value) {
+    return value.entries
+        .map((e) =>
+            FfiConverterUInt16.allocationSize(e.key) +
+            FfiConverterDouble64.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<int, double> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterMapUInt32ToSequenceCondition {
+  static Map<int, List<Condition>> lift(RustBuffer buf) {
+    return FfiConverterMapUInt32ToSequenceCondition.read(buf.asUint8List())
+        .value;
+  }
+
+  static LiftRetVal<Map<int, List<Condition>>> read(Uint8List buf) {
+    final map = <int, List<Condition>>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterSequenceCondition.read(
+          Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<int, List<Condition>> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += FfiConverterUInt32.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterSequenceCondition.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<int, List<Condition>> value) {
+    return value.entries
+        .map((e) =>
+            FfiConverterUInt32.allocationSize(e.key) +
+            FfiConverterSequenceCondition.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<int, List<Condition>> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterMapHashableOutPointToTxOut {
+  static Map<HashableOutPoint, TxOut> lift(RustBuffer buf) {
+    return FfiConverterMapHashableOutPointToTxOut.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Map<HashableOutPoint, TxOut>> read(Uint8List buf) {
+    final map = <HashableOutPoint, TxOut>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = HashableOutPoint.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterTxOut.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<HashableOutPoint, TxOut> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset +=
+          HashableOutPoint.write(entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterTxOut.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<HashableOutPoint, TxOut> value) {
+    return value.entries
+        .map((e) =>
+            HashableOutPoint.allocationSize(e.key) +
+            FfiConverterTxOut.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<HashableOutPoint, TxOut> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceChainChange {
+  static List<ChainChange> lift(RustBuffer buf) {
+    return FfiConverterSequenceChainChange.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<ChainChange>> read(Uint8List buf) {
+    List<ChainChange> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterChainChange.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<ChainChange> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterChainChange.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<ChainChange> value) {
+    return value
+            .map((l) => FfiConverterChainChange.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<ChainChange> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
@@ -20518,394 +23255,6 @@ class FfiConverterMapTxidToUInt64 {
   }
 }
 
-class FfiConverterOptionalBlockHash {
-  static BlockHash? lift(RustBuffer buf) {
-    return FfiConverterOptionalBlockHash.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<BlockHash?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        BlockHash.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<BlockHash?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([BlockHash? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return BlockHash.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(BlockHash? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalBlockHash.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalBlockHash.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(BlockHash? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return BlockHash.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalUInt16 {
-  static int? lift(RustBuffer buf) {
-    return FfiConverterOptionalUInt16.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<int?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterUInt16.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([int? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterUInt16.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(int? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalUInt16.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalUInt16.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(int? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterUInt16.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceTxIn {
-  static List<TxIn> lift(RustBuffer buf) {
-    return FfiConverterSequenceTxIn.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<TxIn>> read(Uint8List buf) {
-    List<TxIn> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterTxIn.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<TxIn> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset +=
-          FfiConverterTxIn.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<TxIn> value) {
-    return value
-            .map((l) => FfiConverterTxIn.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<TxIn> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterUint8List {
-  static Uint8List lift(RustBuffer value) {
-    return FfiConverterUint8List.read(value.asUint8List()).value;
-  }
-
-  static LiftRetVal<Uint8List> read(Uint8List buf) {
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    final bytes = Uint8List.view(buf.buffer, buf.offsetInBytes + 4, length);
-    return LiftRetVal(bytes, length + 4);
-  }
-
-  static RustBuffer lower(Uint8List value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-
-  static int allocationSize([Uint8List? value]) {
-    if (value == null) {
-      return 4;
-    }
-    return 4 + value.length;
-  }
-
-  static int write(Uint8List value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    buf.setRange(offset, offset + value.length, value);
-    return 4 + value.length;
-  }
-}
-
-class FfiConverterOptionalSequencePsbtFinalizeError {
-  static List<PsbtFinalizeException>? lift(RustBuffer buf) {
-    return FfiConverterOptionalSequencePsbtFinalizeError.read(buf.asUint8List())
-        .value;
-  }
-
-  static LiftRetVal<List<PsbtFinalizeException>?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterSequencePsbtFinalizeError.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<List<PsbtFinalizeException>?>(
-        result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([List<PsbtFinalizeException>? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterSequencePsbtFinalizeError.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(List<PsbtFinalizeException>? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length =
-        FfiConverterOptionalSequencePsbtFinalizeError.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalSequencePsbtFinalizeError.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(List<PsbtFinalizeException>? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterSequencePsbtFinalizeError.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterUInt8 {
-  static int lift(int value) => value;
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint8(0), 1);
-  }
-
-  static int lower(int value) => value;
-  static int allocationSize([int value = 0]) {
-    return 1;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint8(0, value);
-    return FfiConverterUInt8.allocationSize();
-  }
-}
-
-class FfiConverterDouble64 {
-  static double lift(double value) => value;
-  static LiftRetVal<double> read(Uint8List buf) {
-    return LiftRetVal(
-        buf.buffer.asByteData(buf.offsetInBytes).getFloat64(0), 8);
-  }
-
-  static double lower(double value) => value;
-  static int allocationSize([double value = 0]) {
-    return 8;
-  }
-
-  static int write(double value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setFloat64(0, value);
-    return FfiConverterDouble64.allocationSize();
-  }
-}
-
-class FfiConverterOptionalBool {
-  static bool? lift(RustBuffer buf) {
-    return FfiConverterOptionalBool.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<bool?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterBool.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<bool?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([bool? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterBool.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(bool? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalBool.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalBool.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(bool? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterBool.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceCondition {
-  static List<Condition> lift(RustBuffer buf) {
-    return FfiConverterSequenceCondition.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Condition>> read(Uint8List buf) {
-    List<Condition> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterCondition.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Condition> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterCondition.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Condition> value) {
-    return value
-            .map((l) => FfiConverterCondition.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Condition> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterOptionalSignOptions {
-  static SignOptions? lift(RustBuffer buf) {
-    return FfiConverterOptionalSignOptions.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<SignOptions?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterSignOptions.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<SignOptions?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([SignOptions? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterSignOptions.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(SignOptions? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalSignOptions.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalSignOptions.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(SignOptions? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterSignOptions.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
 class FfiConverterSequenceTxOut {
   static List<TxOut> lift(RustBuffer buf) {
     return FfiConverterSequenceTxOut.read(buf.asUint8List()).value;
@@ -20947,77 +23296,158 @@ class FfiConverterSequenceTxOut {
   }
 }
 
-class FfiConverterOptionalPolicy {
-  static Policy? lift(RustBuffer buf) {
-    return FfiConverterOptionalPolicy.read(buf.asUint8List()).value;
+class FfiConverterOptionalSequencePsbtFinalizeError {
+  static List<PsbtFinalizeException>? lift(RustBuffer buf) {
+    return FfiConverterOptionalSequencePsbtFinalizeError.read(buf.asUint8List())
+        .value;
   }
 
-  static LiftRetVal<Policy?> read(Uint8List buf) {
+  static LiftRetVal<List<PsbtFinalizeException>?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result =
-        Policy.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Policy?>(result.value, result.bytesRead + 1);
+    final result = FfiConverterSequencePsbtFinalizeError.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<List<PsbtFinalizeException>?>(
+        result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([Policy? value]) {
+  static int allocationSize([List<PsbtFinalizeException>? value]) {
     if (value == null) {
       return 1;
     }
-    return Policy.allocationSize(value) + 1;
+    return FfiConverterSequencePsbtFinalizeError.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(Policy? value) {
+  static RustBuffer lower(List<PsbtFinalizeException>? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
-    final length = FfiConverterOptionalPolicy.allocationSize(value);
+
+    final length =
+        FfiConverterOptionalSequencePsbtFinalizeError.allocationSize(value);
+
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
-    FfiConverterOptionalPolicy.write(value, buf);
+
+    FfiConverterOptionalSequencePsbtFinalizeError.write(value, buf);
+
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
     bytes.ref.data = frameData;
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(Policy? value, Uint8List buf) {
+  static int write(List<PsbtFinalizeException>? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
     }
+
     buf[0] = 1;
-    return Policy.write(
+
+    return FfiConverterSequencePsbtFinalizeError.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
 }
 
-class FfiConverterBool {
-  static bool lift(int value) {
-    return value == 1;
+class FfiConverterOptionalKeychainAndIndex {
+  static KeychainAndIndex? lift(RustBuffer buf) {
+    return FfiConverterOptionalKeychainAndIndex.read(buf.asUint8List()).value;
   }
 
-  static int lower(bool value) {
-    return value ? 1 : 0;
+  static LiftRetVal<KeychainAndIndex?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterKeychainAndIndex.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<KeychainAndIndex?>(result.value, result.bytesRead + 1);
   }
 
-  static LiftRetVal<bool> read(Uint8List buf) {
-    return LiftRetVal(FfiConverterBool.lift(buf.first), 1);
+  static int allocationSize([KeychainAndIndex? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterKeychainAndIndex.allocationSize(value) + 1;
   }
 
-  static RustBuffer lowerIntoRustBuffer(bool value) {
-    return toRustBuffer(Uint8List.fromList([FfiConverterBool.lower(value)]));
+  static RustBuffer lower(KeychainAndIndex? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalKeychainAndIndex.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalKeychainAndIndex.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int allocationSize([bool value = false]) {
-    return 1;
+  static int write(KeychainAndIndex? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterKeychainAndIndex.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterDouble64 {
+  static double lift(double value) => value;
+
+  static LiftRetVal<double> read(Uint8List buf) {
+    return LiftRetVal(
+        buf.buffer.asByteData(buf.offsetInBytes).getFloat64(0), 8);
   }
 
-  static int write(bool value, Uint8List buf) {
-    buf.setAll(0, [value ? 1 : 0]);
-    return allocationSize();
+  static double lower(double value) => value;
+
+  static int allocationSize([double value = 0]) {
+    return 8;
+  }
+
+  static int write(double value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setFloat64(0, value);
+    return FfiConverterDouble64.allocationSize();
+  }
+}
+
+class FfiConverterString {
+  static String lift(RustBuffer buf) {
+    return utf8.decoder.convert(buf.asUint8List());
+  }
+
+  static RustBuffer lower(String value) {
+    return toRustBuffer(Utf8Encoder().convert(value));
+  }
+
+  static LiftRetVal<String> read(Uint8List buf) {
+    final end = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0) + 4;
+    return LiftRetVal(utf8.decoder.convert(buf, 4, end), end);
+  }
+
+  static int allocationSize([String value = ""]) {
+    return utf8.encoder.convert(value).length + 4;
+  }
+
+  static int write(String value, Uint8List buf) {
+    final list = utf8.encoder.convert(value);
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, list.length);
+    buf.setAll(4, list);
+    return list.length + 4;
   }
 }
 
@@ -21071,132 +23501,56 @@ class FfiConverterMapSequenceUInt32ToSequenceCondition {
   }
 }
 
-class FfiConverterMapHashableOutPointToTxOut {
-  static Map<HashableOutPoint, TxOut> lift(RustBuffer buf) {
-    return FfiConverterMapHashableOutPointToTxOut.read(buf.asUint8List()).value;
+class FfiConverterOptionalTransaction {
+  static Transaction? lift(RustBuffer buf) {
+    return FfiConverterOptionalTransaction.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<Map<HashableOutPoint, TxOut>> read(Uint8List buf) {
-    final map = <HashableOutPoint, TxOut>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = HashableOutPoint.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterTxOut.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
+  static LiftRetVal<Transaction?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
     }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
+    final result =
+        Transaction.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Transaction?>(result.value, result.bytesRead + 1);
   }
 
-  static int write(Map<HashableOutPoint, TxOut> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset +=
-          HashableOutPoint.write(entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterTxOut.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
+  static int allocationSize([Transaction? value]) {
+    if (value == null) {
+      return 1;
     }
-    return offset - buf.offsetInBytes;
+    return Transaction.allocationSize(value) + 1;
   }
 
-  static int allocationSize(Map<HashableOutPoint, TxOut> value) {
-    return value.entries
-        .map((e) =>
-            HashableOutPoint.allocationSize(e.key) +
-            FfiConverterTxOut.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<HashableOutPoint, TxOut> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceCanonicalTx {
-  static List<CanonicalTx> lift(RustBuffer buf) {
-    return FfiConverterSequenceCanonicalTx.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<CanonicalTx>> read(Uint8List buf) {
-    List<CanonicalTx> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterCanonicalTx.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
+  static RustBuffer lower(Transaction? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
     }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
+
+    final length = FfiConverterOptionalTransaction.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalTransaction.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(List<CanonicalTx> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterCanonicalTx.write(
-          value[i], Uint8List.view(buf.buffer, offset));
+  static int write(Transaction? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
     }
-    return offset - buf.offsetInBytes;
-  }
 
-  static int allocationSize(List<CanonicalTx> value) {
-    return value
-            .map((l) => FfiConverterCanonicalTx.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
+    buf[0] = 1;
 
-  static RustBuffer lower(List<CanonicalTx> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceOutPoint {
-  static List<OutPoint> lift(RustBuffer buf) {
-    return FfiConverterSequenceOutPoint.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<OutPoint>> read(Uint8List buf) {
-    List<OutPoint> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterOutPoint.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<OutPoint> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterOutPoint.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<OutPoint> value) {
-    return value
-            .map((l) => FfiConverterOutPoint.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<OutPoint> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
+    return Transaction.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
   }
 }
 
@@ -21224,10 +23578,14 @@ class FfiConverterOptionalTxid {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
+
     final length = FfiConverterOptionalTxid.allocationSize(value);
+
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
+
     FfiConverterOptionalTxid.write(value, buf);
+
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
     bytes.ref.data = frameData;
@@ -21239,191 +23597,169 @@ class FfiConverterOptionalTxid {
       buf[0] = 0;
       return 1;
     }
+
     buf[0] = 1;
+
     return Txid.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
 }
 
-class FfiConverterSequenceEvictedTx {
-  static List<EvictedTx> lift(RustBuffer buf) {
-    return FfiConverterSequenceEvictedTx.read(buf.asUint8List()).value;
+class FfiConverterOptionalDouble32 {
+  static double? lift(RustBuffer buf) {
+    return FfiConverterOptionalDouble32.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<List<EvictedTx>> read(Uint8List buf) {
-    List<EvictedTx> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterEvictedTx.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
+  static LiftRetVal<double?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
     }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
+    final result = FfiConverterDouble32.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<double?>(result.value, result.bytesRead + 1);
   }
 
-  static int write(List<EvictedTx> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterEvictedTx.write(
-          value[i], Uint8List.view(buf.buffer, offset));
+  static int allocationSize([double? value]) {
+    if (value == null) {
+      return 1;
     }
-    return offset - buf.offsetInBytes;
+    return FfiConverterDouble32.allocationSize(value) + 1;
   }
 
-  static int allocationSize(List<EvictedTx> value) {
-    return value
-            .map((l) => FfiConverterEvictedTx.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
+  static RustBuffer lower(double? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalDouble32.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalDouble32.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static RustBuffer lower(List<EvictedTx> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
+  static int write(double? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterDouble32.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
   }
 }
 
-class FfiConverterOptionalTx {
-  static Tx? lift(RustBuffer buf) {
-    return FfiConverterOptionalTx.read(buf.asUint8List()).value;
+class FfiConverterOptionalInt64 {
+  static int? lift(RustBuffer buf) {
+    return FfiConverterOptionalInt64.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<Tx?> read(Uint8List buf) {
+  static LiftRetVal<int?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterInt64.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([int? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterInt64.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(int? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalInt64.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalInt64.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(int? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterInt64.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalPolicy {
+  static Policy? lift(RustBuffer buf) {
+    return FfiConverterOptionalPolicy.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Policy?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
     final result =
-        FfiConverterTx.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Tx?>(result.value, result.bytesRead + 1);
+        Policy.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Policy?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([Tx? value]) {
+  static int allocationSize([Policy? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterTx.allocationSize(value) + 1;
+    return Policy.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(Tx? value) {
+  static RustBuffer lower(Policy? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
-    final length = FfiConverterOptionalTx.allocationSize(value);
+
+    final length = FfiConverterOptionalPolicy.allocationSize(value);
+
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
-    FfiConverterOptionalTx.write(value, buf);
+
+    FfiConverterOptionalPolicy.write(value, buf);
+
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
     bytes.ref.data = frameData;
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(Tx? value, Uint8List buf) {
+  static int write(Policy? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
     }
+
     buf[0] = 1;
-    return FfiConverterTx.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
 
-class FfiConverterOptionalLockTime {
-  static LockTime? lift(RustBuffer buf) {
-    return FfiConverterOptionalLockTime.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<LockTime?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterLockTime.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<LockTime?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([LockTime? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterLockTime.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(LockTime? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalLockTime.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalLockTime.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(LockTime? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterLockTime.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalNetwork {
-  static Network? lift(RustBuffer buf) {
-    return FfiConverterOptionalNetwork.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Network?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterNetwork.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Network?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Network? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterNetwork.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Network? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalNetwork.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalNetwork.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Network? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterNetwork.write(
+    return Policy.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
@@ -21431,11 +23767,13 @@ class FfiConverterOptionalNetwork {
 
 class FfiConverterInt64 {
   static int lift(int value) => value;
+
   static LiftRetVal<int> read(Uint8List buf) {
     return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt64(0), 8);
   }
 
   static int lower(int value) => value;
+
   static int allocationSize([int value = 0]) {
     return 8;
   }
@@ -21446,216 +23784,236 @@ class FfiConverterInt64 {
   }
 }
 
-class FfiConverterInt32 {
-  static int lift(int value) => value;
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt32(0), 4);
+class FfiConverterOptionalCanonicalTx {
+  static CanonicalTx? lift(RustBuffer buf) {
+    return FfiConverterOptionalCanonicalTx.read(buf.asUint8List()).value;
   }
 
-  static int lower(int value) => value;
-  static int allocationSize([int value = 0]) {
-    return 4;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value);
-    return FfiConverterInt32.allocationSize();
-  }
-}
-
-class FfiConverterOptionalKeychainAndIndex {
-  static KeychainAndIndex? lift(RustBuffer buf) {
-    return FfiConverterOptionalKeychainAndIndex.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<KeychainAndIndex?> read(Uint8List buf) {
+  static LiftRetVal<CanonicalTx?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterKeychainAndIndex.read(
+    final result = FfiConverterCanonicalTx.read(
         Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<KeychainAndIndex?>(result.value, result.bytesRead + 1);
+    return LiftRetVal<CanonicalTx?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([KeychainAndIndex? value]) {
+  static int allocationSize([CanonicalTx? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterKeychainAndIndex.allocationSize(value) + 1;
+    return FfiConverterCanonicalTx.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(KeychainAndIndex? value) {
+  static RustBuffer lower(CanonicalTx? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
-    final length = FfiConverterOptionalKeychainAndIndex.allocationSize(value);
+
+    final length = FfiConverterOptionalCanonicalTx.allocationSize(value);
+
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
-    FfiConverterOptionalKeychainAndIndex.write(value, buf);
+
+    FfiConverterOptionalCanonicalTx.write(value, buf);
+
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
     bytes.ref.data = frameData;
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(KeychainAndIndex? value, Uint8List buf) {
+  static int write(CanonicalTx? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
     }
+
     buf[0] = 1;
-    return FfiConverterKeychainAndIndex.write(
+
+    return FfiConverterCanonicalTx.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
 }
 
-class FfiConverterMapStringToSequenceUInt64 {
-  static Map<String, List<int>> lift(RustBuffer buf) {
-    return FfiConverterMapStringToSequenceUInt64.read(buf.asUint8List()).value;
+class FfiConverterUInt32 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint32(0), 4);
   }
 
-  static LiftRetVal<Map<String, List<int>>> read(Uint8List buf) {
-    final map = <String, List<int>>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = FfiConverterString.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v =
-          FfiConverterSequenceUInt64.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
+  static int lower(int value) => value;
 
-  static int write(Map<String, List<int>> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterString.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterSequenceUInt64.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<String, List<int>> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterString.allocationSize(e.key) +
-            FfiConverterSequenceUInt64.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<String, List<int>> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceLocalOutput {
-  static List<LocalOutput> lift(RustBuffer buf) {
-    return FfiConverterSequenceLocalOutput.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<LocalOutput>> read(Uint8List buf) {
-    List<LocalOutput> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterLocalOutput.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<LocalOutput> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterLocalOutput.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<LocalOutput> value) {
-    return value
-            .map((l) => FfiConverterLocalOutput.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<LocalOutput> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceAddressInfo {
-  static List<AddressInfo> lift(RustBuffer buf) {
-    return FfiConverterSequenceAddressInfo.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<AddressInfo>> read(Uint8List buf) {
-    List<AddressInfo> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterAddressInfo.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<AddressInfo> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterAddressInfo.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<AddressInfo> value) {
-    return value
-            .map((l) => FfiConverterAddressInfo.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<AddressInfo> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterDouble32 {
-  static double lift(double value) => value;
-  static LiftRetVal<double> read(Uint8List buf) {
-    return LiftRetVal(
-        buf.buffer.asByteData(buf.offsetInBytes).getFloat32(0), 4);
-  }
-
-  static double lower(double value) => value;
-  static int allocationSize([double value = 0]) {
+  static int allocationSize([int value = 0]) {
     return 4;
   }
 
-  static int write(double value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setFloat32(0, value);
-    return FfiConverterDouble32.allocationSize();
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint32(0, value);
+    return FfiConverterUInt32.allocationSize();
+  }
+}
+
+class FfiConverterBool {
+  static bool lift(int value) {
+    return value == 1;
+  }
+
+  static int lower(bool value) {
+    return value ? 1 : 0;
+  }
+
+  static LiftRetVal<bool> read(Uint8List buf) {
+    return LiftRetVal(FfiConverterBool.lift(buf.first), 1);
+  }
+
+  static RustBuffer lowerIntoRustBuffer(bool value) {
+    return toRustBuffer(Uint8List.fromList([FfiConverterBool.lower(value)]));
+  }
+
+  static int allocationSize([bool value = false]) {
+    return 1;
+  }
+
+  static int write(bool value, Uint8List buf) {
+    buf.setAll(0, [value ? 1 : 0]);
+    return allocationSize();
+  }
+}
+
+class FfiConverterSequenceUInt32 {
+  static List<int> lift(RustBuffer buf) {
+    return FfiConverterSequenceUInt32.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<int>> read(Uint8List buf) {
+    List<int> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<int> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterUInt32.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<int> value) {
+    return value
+            .map((l) => FfiConverterUInt32.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<int> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalString {
+  static String? lift(RustBuffer buf) {
+    return FfiConverterOptionalString.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<String?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterString.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<String?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([String? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterString.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(String? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalString.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalString.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(String? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterString.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceTransaction {
+  static List<Transaction> lift(RustBuffer buf) {
+    return FfiConverterSequenceTransaction.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Transaction>> read(Uint8List buf) {
+    List<Transaction> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = Transaction.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Transaction> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += Transaction.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Transaction> value) {
+    return value
+            .map((l) => Transaction.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Transaction> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
@@ -21701,50 +24059,43 @@ class FfiConverterSequenceUint8List {
   }
 }
 
-class FfiConverterOptionalLocalOutput {
-  static LocalOutput? lift(RustBuffer buf) {
-    return FfiConverterOptionalLocalOutput.read(buf.asUint8List()).value;
+class FfiConverterSequenceDescriptor {
+  static List<Descriptor> lift(RustBuffer buf) {
+    return FfiConverterSequenceDescriptor.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<LocalOutput?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
+  static LiftRetVal<List<Descriptor>> read(Uint8List buf) {
+    List<Descriptor> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = Descriptor.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
     }
-    final result = FfiConverterLocalOutput.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<LocalOutput?>(result.value, result.bytesRead + 1);
+    return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int allocationSize([LocalOutput? value]) {
-    if (value == null) {
-      return 1;
+  static int write(List<Descriptor> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += Descriptor.write(value[i], Uint8List.view(buf.buffer, offset));
     }
-    return FfiConverterLocalOutput.allocationSize(value) + 1;
+    return offset - buf.offsetInBytes;
   }
 
-  static RustBuffer lower(LocalOutput? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalLocalOutput.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalLocalOutput.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
+  static int allocationSize(List<Descriptor> value) {
+    return value
+            .map((l) => Descriptor.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
   }
 
-  static int write(LocalOutput? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterLocalOutput.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
+  static RustBuffer lower(List<Descriptor> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
@@ -21785,6 +24136,112 @@ class FfiConverterSequenceIpAddress {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalTxDetails {
+  static TxDetails? lift(RustBuffer buf) {
+    return FfiConverterOptionalTxDetails.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<TxDetails?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterTxDetails.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<TxDetails?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([TxDetails? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterTxDetails.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(TxDetails? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalTxDetails.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalTxDetails.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(TxDetails? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterTxDetails.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalBool {
+  static bool? lift(RustBuffer buf) {
+    return FfiConverterOptionalBool.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<bool?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterBool.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<bool?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([bool? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterBool.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(bool? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalBool.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalBool.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(bool? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterBool.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
   }
 }
 
@@ -21829,16 +24286,16 @@ class FfiConverterSequenceUInt64 {
   }
 }
 
-class FfiConverterOptionalUInt32 {
+class FfiConverterOptionalUInt16 {
   static int? lift(RustBuffer buf) {
-    return FfiConverterOptionalUInt32.read(buf.asUint8List()).value;
+    return FfiConverterOptionalUInt16.read(buf.asUint8List()).value;
   }
 
   static LiftRetVal<int?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterUInt32.read(
+    final result = FfiConverterUInt16.read(
         Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
     return LiftRetVal<int?>(result.value, result.bytesRead + 1);
   }
@@ -21847,17 +24304,21 @@ class FfiConverterOptionalUInt32 {
     if (value == null) {
       return 1;
     }
-    return FfiConverterUInt32.allocationSize(value) + 1;
+    return FfiConverterUInt16.allocationSize(value) + 1;
   }
 
   static RustBuffer lower(int? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
-    final length = FfiConverterOptionalUInt32.allocationSize(value);
+
+    final length = FfiConverterOptionalUInt16.allocationSize(value);
+
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
-    FfiConverterOptionalUInt32.write(value, buf);
+
+    FfiConverterOptionalUInt16.write(value, buf);
+
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
     bytes.ref.data = frameData;
@@ -21869,214 +24330,10 @@ class FfiConverterOptionalUInt32 {
       buf[0] = 0;
       return 1;
     }
+
     buf[0] = 1;
-    return FfiConverterUInt32.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
 
-class FfiConverterMapUInt16ToDouble64 {
-  static Map<int, double> lift(RustBuffer buf) {
-    return FfiConverterMapUInt16ToDouble64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<int, double>> read(Uint8List buf) {
-    final map = <int, double>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = FfiConverterUInt16.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterDouble64.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<int, double> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterUInt16.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterDouble64.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<int, double> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterUInt16.allocationSize(e.key) +
-            FfiConverterDouble64.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<int, double> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceTransaction {
-  static List<Transaction> lift(RustBuffer buf) {
-    return FfiConverterSequenceTransaction.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Transaction>> read(Uint8List buf) {
-    List<Transaction> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = Transaction.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Transaction> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += Transaction.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Transaction> value) {
-    return value
-            .map((l) => Transaction.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Transaction> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterString {
-  static String lift(RustBuffer buf) {
-    return utf8.decoder.convert(buf.asUint8List());
-  }
-
-  static RustBuffer lower(String value) {
-    return toRustBuffer(Utf8Encoder().convert(value));
-  }
-
-  static LiftRetVal<String> read(Uint8List buf) {
-    final end = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0) + 4;
-    return LiftRetVal(utf8.decoder.convert(buf, 4, end), end);
-  }
-
-  static int allocationSize([String value = ""]) {
-    return utf8.encoder.convert(value).length + 4;
-  }
-
-  static int write(String value, Uint8List buf) {
-    final list = utf8.encoder.convert(value);
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, list.length);
-    buf.setAll(4, list);
-    return list.length + 4;
-  }
-}
-
-class FfiConverterOptionalCanonicalTx {
-  static CanonicalTx? lift(RustBuffer buf) {
-    return FfiConverterOptionalCanonicalTx.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<CanonicalTx?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterCanonicalTx.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<CanonicalTx?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([CanonicalTx? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterCanonicalTx.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(CanonicalTx? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalCanonicalTx.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalCanonicalTx.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(CanonicalTx? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterCanonicalTx.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalUInt64 {
-  static int? lift(RustBuffer buf) {
-    return FfiConverterOptionalUInt64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<int?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterUInt64.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([int? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterUInt64.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(int? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalUInt64.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalUInt64.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(int? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterUInt64.write(
+    return FfiConverterUInt16.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
@@ -22123,615 +24380,11 @@ class FfiConverterSequencePkOrF {
   }
 }
 
-class FfiConverterOptionalDouble32 {
-  static double? lift(RustBuffer buf) {
-    return FfiConverterOptionalDouble32.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<double?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterDouble32.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<double?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([double? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterDouble32.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(double? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalDouble32.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalDouble32.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(double? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterDouble32.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceUInt32 {
-  static List<int> lift(RustBuffer buf) {
-    return FfiConverterSequenceUInt32.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<int>> read(Uint8List buf) {
-    List<int> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<int> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterUInt32.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<int> value) {
-    return value
-            .map((l) => FfiConverterUInt32.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<int> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterOptionalTxDetails {
-  static TxDetails? lift(RustBuffer buf) {
-    return FfiConverterOptionalTxDetails.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<TxDetails?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterTxDetails.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<TxDetails?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([TxDetails? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterTxDetails.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(TxDetails? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalTxDetails.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalTxDetails.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(TxDetails? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterTxDetails.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterUInt64 {
-  static int lift(int value) => value;
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint64(0), 8);
-  }
-
-  static int lower(int value) => value;
-  static int allocationSize([int value = 0]) {
-    return 8;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint64(0, value);
-    return FfiConverterUInt64.allocationSize();
-  }
-}
-
-class FfiConverterOptionalInt64 {
-  static int? lift(RustBuffer buf) {
-    return FfiConverterOptionalInt64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<int?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterInt64.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([int? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterInt64.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(int? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalInt64.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalInt64.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(int? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return FfiConverterInt64.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterMapUInt32ToSequenceCondition {
-  static Map<int, List<Condition>> lift(RustBuffer buf) {
-    return FfiConverterMapUInt32ToSequenceCondition.read(buf.asUint8List())
-        .value;
-  }
-
-  static LiftRetVal<Map<int, List<Condition>>> read(Uint8List buf) {
-    final map = <int, List<Condition>>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterSequenceCondition.read(
-          Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<int, List<Condition>> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterUInt32.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterSequenceCondition.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<int, List<Condition>> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterUInt32.allocationSize(e.key) +
-            FfiConverterSequenceCondition.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<int, List<Condition>> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequencePolicy {
-  static List<Policy> lift(RustBuffer buf) {
-    return FfiConverterSequencePolicy.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Policy>> read(Uint8List buf) {
-    List<Policy> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = Policy.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Policy> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += Policy.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Policy> value) {
-    return value.map((l) => Policy.allocationSize(l)).fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Policy> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceChainChange {
-  static List<ChainChange> lift(RustBuffer buf) {
-    return FfiConverterSequenceChainChange.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<ChainChange>> read(Uint8List buf) {
-    List<ChainChange> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterChainChange.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<ChainChange> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterChainChange.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<ChainChange> value) {
-    return value
-            .map((l) => FfiConverterChainChange.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<ChainChange> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterUInt16 {
-  static int lift(int value) => value;
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint16(0), 2);
-  }
-
-  static int lower(int value) => value;
-  static int allocationSize([int value = 0]) {
-    return 2;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint16(0, value);
-    return FfiConverterUInt16.allocationSize();
-  }
-}
-
-class FfiConverterSequenceDescriptor {
-  static List<Descriptor> lift(RustBuffer buf) {
-    return FfiConverterSequenceDescriptor.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Descriptor>> read(Uint8List buf) {
-    List<Descriptor> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = Descriptor.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Descriptor> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += Descriptor.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Descriptor> value) {
-    return value
-            .map((l) => Descriptor.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Descriptor> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequencePeer {
-  static List<Peer> lift(RustBuffer buf) {
-    return FfiConverterSequencePeer.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Peer>> read(Uint8List buf) {
-    List<Peer> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterPeer.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Peer> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset +=
-          FfiConverterPeer.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Peer> value) {
-    return value
-            .map((l) => FfiConverterPeer.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Peer> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterMapDescriptorIdToUInt32 {
-  static Map<DescriptorId, int> lift(RustBuffer buf) {
-    return FfiConverterMapDescriptorIdToUInt32.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<DescriptorId, int>> read(Uint8List buf) {
-    final map = <DescriptorId, int>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = DescriptorId.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<DescriptorId, int> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset +=
-          DescriptorId.write(entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterUInt32.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<DescriptorId, int> value) {
-    return value.entries
-        .map((e) =>
-            DescriptorId.allocationSize(e.key) +
-            FfiConverterUInt32.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<DescriptorId, int> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterOptionalTransaction {
-  static Transaction? lift(RustBuffer buf) {
-    return FfiConverterOptionalTransaction.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Transaction?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        Transaction.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Transaction?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Transaction? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return Transaction.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Transaction? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalTransaction.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalTransaction.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Transaction? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return Transaction.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalDescriptor {
-  static Descriptor? lift(RustBuffer buf) {
-    return FfiConverterOptionalDescriptor.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Descriptor?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        Descriptor.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Descriptor?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Descriptor? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return Descriptor.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Descriptor? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-    final length = FfiConverterOptionalDescriptor.allocationSize(value);
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-    FfiConverterOptionalDescriptor.write(value, buf);
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Descriptor? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-    buf[0] = 1;
-    return Descriptor.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceAnchor {
-  static List<Anchor> lift(RustBuffer buf) {
-    return FfiConverterSequenceAnchor.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Anchor>> read(Uint8List buf) {
-    List<Anchor> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterAnchor.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Anchor> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterAnchor.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Anchor> value) {
-    return value
-            .map((l) => FfiConverterAnchor.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Anchor> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
 const int UNIFFI_RUST_FUTURE_POLL_READY = 0;
 const int UNIFFI_RUST_FUTURE_POLL_MAYBE_READY = 1;
+
 typedef UniffiRustFutureContinuationCallback = Void Function(Uint64, Int8);
+
 Future<T> uniffiRustCallAsync<T, F>(
   Pointer<Void> Function() rustFutureFunc,
   void Function(
@@ -22746,7 +24399,9 @@ Future<T> uniffiRustCallAsync<T, F>(
 ]) async {
   final rustFuture = rustFutureFunc();
   final completer = Completer<int>();
+
   late final NativeCallable<UniffiRustFutureContinuationCallback> callback;
+
   void poll() {
     pollFunc(
       rustFuture,
@@ -22765,13 +24420,16 @@ Future<T> uniffiRustCallAsync<T, F>(
 
   callback =
       NativeCallable<UniffiRustFutureContinuationCallback>.listener(onResponse);
+
   try {
     poll();
     await completer.future;
     callback.close();
+
     final status = calloc<RustCallStatus>();
     try {
       final result = completeFunc(rustFuture, status);
+
       return liftFunc(result);
     } finally {
       calloc.free(status);
@@ -22784,6 +24442,7 @@ Future<T> uniffiRustCallAsync<T, F>(
 class UniffiHandleMap<T> {
   final Map<int, T> _map = {};
   int _counter = 0;
+
   int insert(T obj) {
     final handle = _counter++;
     _map[handle] = obj;
@@ -22809,21 +24468,23 @@ class UniffiHandleMap<T> {
 
 class _UniffiLib {
   _UniffiLib._();
+
   static final DynamicLibrary _dylib = _open();
+
   static DynamicLibrary _open() {
     if (Platform.isAndroid)
       return DynamicLibrary.open("${Directory.current.path}/libbdkffi.so");
     if (Platform.isIOS) return DynamicLibrary.executable();
     if (Platform.isLinux)
       return DynamicLibrary.open("${Directory.current.path}/libbdkffi.so");
-    if (Platform.isMacOS)
-      return DynamicLibrary.open("${Directory.current.path}/libbdkffi.dylib");
+    if (Platform.isMacOS) return DynamicLibrary.open("libbdkffi.dylib");
     if (Platform.isWindows) return DynamicLibrary.open("bdkffi.dll");
     throw UnsupportedError(
         "Unsupported platform: \${Platform.operatingSystem}");
   }
 
   static final _UniffiLib instance = _UniffiLib._();
+
   late final Pointer<Void> Function(Pointer<Void>, Pointer<RustCallStatus>)
       uniffi_bdkffi_fn_clone_address = _dylib.lookupFunction<
           Pointer<Void> Function(Pointer<Void>, Pointer<RustCallStatus>),
@@ -23102,6 +24763,14 @@ class _UniffiLib {
           "uniffi_bdkffi_fn_method_cbfbuilder_dns_resolver");
   late final Pointer<Void> Function(
           Pointer<Void>, RustBuffer, Pointer<RustCallStatus>)
+      uniffi_bdkffi_fn_method_cbfbuilder_log_level = _dylib.lookupFunction<
+              Pointer<Void> Function(
+                  Pointer<Void>, RustBuffer, Pointer<RustCallStatus>),
+              Pointer<Void> Function(
+                  Pointer<Void>, RustBuffer, Pointer<RustCallStatus>)>(
+          "uniffi_bdkffi_fn_method_cbfbuilder_log_level");
+  late final Pointer<Void> Function(
+          Pointer<Void>, RustBuffer, Pointer<RustCallStatus>)
       uniffi_bdkffi_fn_method_cbfbuilder_peers = _dylib.lookupFunction<
               Pointer<Void> Function(
                   Pointer<Void>, RustBuffer, Pointer<RustCallStatus>),
@@ -23206,6 +24875,15 @@ class _UniffiLib {
       Pointer<Void> Function(
         Pointer<Void>,
       )>("uniffi_bdkffi_fn_method_cbfclient_next_info");
+  late final Pointer<Void> Function(
+    Pointer<Void>,
+  ) uniffi_bdkffi_fn_method_cbfclient_next_log = _dylib.lookupFunction<
+      Pointer<Void> Function(
+        Pointer<Void>,
+      ),
+      Pointer<Void> Function(
+        Pointer<Void>,
+      )>("uniffi_bdkffi_fn_method_cbfclient_next_log");
   late final Pointer<Void> Function(
     Pointer<Void>,
   ) uniffi_bdkffi_fn_method_cbfclient_next_warning = _dylib.lookupFunction<
@@ -23443,11 +25121,6 @@ class _UniffiLib {
               Pointer<Void> Function(Pointer<Void>, RustBuffer, RustBuffer,
                   RustBuffer, Pointer<RustCallStatus>)>(
           "uniffi_bdkffi_fn_constructor_descriptor_new_bip86_public");
-  late final RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>)
-      uniffi_bdkffi_fn_method_descriptor_desc_type = _dylib.lookupFunction<
-              RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>),
-              RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>)>(
-          "uniffi_bdkffi_fn_method_descriptor_desc_type");
   late final Pointer<Void> Function(Pointer<Void>, Pointer<RustCallStatus>)
       uniffi_bdkffi_fn_method_descriptor_descriptor_id = _dylib.lookupFunction<
               Pointer<Void> Function(Pointer<Void>, Pointer<RustCallStatus>),
@@ -24221,12 +25894,6 @@ class _UniffiLib {
               RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>),
               RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>)>(
           "uniffi_bdkffi_fn_method_script_to_bytes");
-  late final RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>)
-      uniffi_bdkffi_fn_method_script_uniffi_trait_display =
-      _dylib.lookupFunction<
-              RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>),
-              RustBuffer Function(Pointer<Void>, Pointer<RustCallStatus>)>(
-          "uniffi_bdkffi_fn_method_script_uniffi_trait_display");
   late final Pointer<Void> Function(Pointer<Void>, Pointer<RustCallStatus>)
       uniffi_bdkffi_fn_clone_syncrequest = _dylib.lookupFunction<
           Pointer<Void> Function(Pointer<Void>, Pointer<RustCallStatus>),
@@ -24708,33 +26375,15 @@ class _UniffiLib {
           Void Function(Pointer<Void>, Pointer<RustCallStatus>),
           void Function(Pointer<Void>,
               Pointer<RustCallStatus>)>("uniffi_bdkffi_fn_free_wallet");
-  late final Pointer<Void> Function(Pointer<Void>, RustBuffer, Pointer<Void>,
-          int, Pointer<RustCallStatus>)
-      uniffi_bdkffi_fn_constructor_wallet_create_from_two_path_descriptor =
-      _dylib.lookupFunction<
-              Pointer<Void> Function(Pointer<Void>, RustBuffer, Pointer<Void>,
-                  Uint32, Pointer<RustCallStatus>),
-              Pointer<Void> Function(Pointer<Void>, RustBuffer, Pointer<Void>,
-                  int, Pointer<RustCallStatus>)>(
-          "uniffi_bdkffi_fn_constructor_wallet_create_from_two_path_descriptor");
-  late final Pointer<Void> Function(Pointer<Void>, RustBuffer, Pointer<Void>,
-          int, Pointer<RustCallStatus>)
-      uniffi_bdkffi_fn_constructor_wallet_create_single = _dylib.lookupFunction<
-              Pointer<Void> Function(Pointer<Void>, RustBuffer, Pointer<Void>,
-                  Uint32, Pointer<RustCallStatus>),
-              Pointer<Void> Function(Pointer<Void>, RustBuffer, Pointer<Void>,
-                  int, Pointer<RustCallStatus>)>(
-          "uniffi_bdkffi_fn_constructor_wallet_create_single");
-  late final Pointer<Void> Function(Pointer<Void>, Pointer<Void>, Pointer<Void>,
-          int, Pointer<RustCallStatus>)
+  late final Pointer<Void> Function(
+          Pointer<Void>, Pointer<Void>, Pointer<Void>, Pointer<RustCallStatus>)
       uniffi_bdkffi_fn_constructor_wallet_load = _dylib.lookupFunction<
           Pointer<Void> Function(Pointer<Void>, Pointer<Void>, Pointer<Void>,
-              Uint32, Pointer<RustCallStatus>),
+              Pointer<RustCallStatus>),
           Pointer<Void> Function(
               Pointer<Void>,
               Pointer<Void>,
               Pointer<Void>,
-              int,
               Pointer<
                   RustCallStatus>)>("uniffi_bdkffi_fn_constructor_wallet_load");
   late final Pointer<Void> Function(Pointer<Void>, Pointer<Void>, RustBuffer,
@@ -24745,12 +26394,6 @@ class _UniffiLib {
               Pointer<Void> Function(Pointer<Void>, Pointer<Void>, RustBuffer,
                   Pointer<Void>, int, Pointer<RustCallStatus>)>(
           "uniffi_bdkffi_fn_constructor_wallet_new");
-  late final void Function(Pointer<Void>, RustBuffer, Pointer<RustCallStatus>)
-      uniffi_bdkffi_fn_method_wallet_apply_evicted_txs = _dylib.lookupFunction<
-              Void Function(Pointer<Void>, RustBuffer, Pointer<RustCallStatus>),
-              void Function(
-                  Pointer<Void>, RustBuffer, Pointer<RustCallStatus>)>(
-          "uniffi_bdkffi_fn_method_wallet_apply_evicted_txs");
   late final void Function(Pointer<Void>, RustBuffer, Pointer<RustCallStatus>)
       uniffi_bdkffi_fn_method_wallet_apply_unconfirmed_txs =
       _dylib.lookupFunction<
@@ -25629,6 +27272,9 @@ class _UniffiLib {
       uniffi_bdkffi_checksum_method_cbfbuilder_dns_resolver =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_method_cbfbuilder_dns_resolver");
+  late final int Function() uniffi_bdkffi_checksum_method_cbfbuilder_log_level =
+      _dylib.lookupFunction<Uint16 Function(), int Function()>(
+          "uniffi_bdkffi_checksum_method_cbfbuilder_log_level");
   late final int Function() uniffi_bdkffi_checksum_method_cbfbuilder_peers =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_method_cbfbuilder_peers");
@@ -25667,6 +27313,9 @@ class _UniffiLib {
   late final int Function() uniffi_bdkffi_checksum_method_cbfclient_next_info =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_method_cbfclient_next_info");
+  late final int Function() uniffi_bdkffi_checksum_method_cbfclient_next_log =
+      _dylib.lookupFunction<Uint16 Function(), int Function()>(
+          "uniffi_bdkffi_checksum_method_cbfclient_next_log");
   late final int Function()
       uniffi_bdkffi_checksum_method_cbfclient_next_warning =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
@@ -25702,9 +27351,6 @@ class _UniffiLib {
       uniffi_bdkffi_checksum_method_changeset_tx_graph_changeset =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_method_changeset_tx_graph_changeset");
-  late final int Function() uniffi_bdkffi_checksum_method_descriptor_desc_type =
-      _dylib.lookupFunction<Uint16 Function(), int Function()>(
-          "uniffi_bdkffi_checksum_method_descriptor_desc_type");
   late final int Function()
       uniffi_bdkffi_checksum_method_descriptor_descriptor_id =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
@@ -26051,10 +27697,6 @@ class _UniffiLib {
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_method_txid_serialize");
   late final int Function()
-      uniffi_bdkffi_checksum_method_wallet_apply_evicted_txs =
-      _dylib.lookupFunction<Uint16 Function(), int Function()>(
-          "uniffi_bdkffi_checksum_method_wallet_apply_evicted_txs");
-  late final int Function()
       uniffi_bdkffi_checksum_method_wallet_apply_unconfirmed_txs =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_method_wallet_apply_unconfirmed_txs");
@@ -26370,14 +28012,6 @@ class _UniffiLib {
       uniffi_bdkffi_checksum_constructor_txid_from_string =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_constructor_txid_from_string");
-  late final int Function()
-      uniffi_bdkffi_checksum_constructor_wallet_create_from_two_path_descriptor =
-      _dylib.lookupFunction<Uint16 Function(), int Function()>(
-          "uniffi_bdkffi_checksum_constructor_wallet_create_from_two_path_descriptor");
-  late final int Function()
-      uniffi_bdkffi_checksum_constructor_wallet_create_single =
-      _dylib.lookupFunction<Uint16 Function(), int Function()>(
-          "uniffi_bdkffi_checksum_constructor_wallet_create_single");
   late final int Function() uniffi_bdkffi_checksum_constructor_wallet_load =
       _dylib.lookupFunction<Uint16 Function(), int Function()>(
           "uniffi_bdkffi_checksum_constructor_wallet_load");
@@ -26395,6 +28029,7 @@ class _UniffiLib {
   late final int Function() ffi_bdkffi_uniffi_contract_version =
       _dylib.lookupFunction<Uint32 Function(), int Function()>(
           "ffi_bdkffi_uniffi_contract_version");
+
   static void _checkApiVersion() {
     final bindingsVersion = 29;
     final scaffoldingVersion =
@@ -26492,6 +28127,11 @@ class _UniffiLib {
         20074) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
     }
+    if (_UniffiLib.instance
+            .uniffi_bdkffi_checksum_method_cbfbuilder_log_level() !=
+        53476) {
+      throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
+    }
     if (_UniffiLib.instance.uniffi_bdkffi_checksum_method_cbfbuilder_peers() !=
         54701) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
@@ -26542,7 +28182,12 @@ class _UniffiLib {
     }
     if (_UniffiLib.instance
             .uniffi_bdkffi_checksum_method_cbfclient_next_info() !=
-        61206) {
+        22000) {
+      throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
+    }
+    if (_UniffiLib.instance
+            .uniffi_bdkffi_checksum_method_cbfclient_next_log() !=
+        8685) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
     }
     if (_UniffiLib.instance
@@ -26590,11 +28235,6 @@ class _UniffiLib {
     if (_UniffiLib.instance
             .uniffi_bdkffi_checksum_method_changeset_tx_graph_changeset() !=
         51559) {
-      throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
-    }
-    if (_UniffiLib.instance
-            .uniffi_bdkffi_checksum_method_descriptor_desc_type() !=
-        22274) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
     }
     if (_UniffiLib.instance
@@ -27057,11 +28697,6 @@ class _UniffiLib {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
     }
     if (_UniffiLib.instance
-            .uniffi_bdkffi_checksum_method_wallet_apply_evicted_txs() !=
-        47441) {
-      throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
-    }
-    if (_UniffiLib.instance
             .uniffi_bdkffi_checksum_method_wallet_apply_unconfirmed_txs() !=
         61391) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
@@ -27480,18 +29115,8 @@ class _UniffiLib {
         39405) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
     }
-    if (_UniffiLib.instance
-            .uniffi_bdkffi_checksum_constructor_wallet_create_from_two_path_descriptor() !=
-        35837) {
-      throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
-    }
-    if (_UniffiLib.instance
-            .uniffi_bdkffi_checksum_constructor_wallet_create_single() !=
-        50616) {
-      throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
-    }
     if (_UniffiLib.instance.uniffi_bdkffi_checksum_constructor_wallet_load() !=
-        23009) {
+        21534) {
       throw UniffiInternalError.panicked("UniFFI API checksum mismatch");
     }
     if (_UniffiLib.instance.uniffi_bdkffi_checksum_constructor_wallet_new() !=

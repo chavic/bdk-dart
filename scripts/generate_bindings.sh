@@ -19,11 +19,14 @@ fi
 
 # Run from the specific crate inside the embedded submodule
 cd ./bdk-ffi/bdk-ffi/
-echo "Building bdk-ffi crate and (skipping uniffi dart codegen in this CLI)..."
+echo "Building bdk-ffi crate and generating Dart bindings..."
 cargo build --profile dev -p bdk-ffi
 # NOTE: The current uniffi-bindgen CLI in this toolchain does not support '--language dart'.
 # We keep the previously generated Dart bindings checked in under ../lib/bdk.dart.
 # To regenerate Dart bindings, run the appropriate generator from a toolchain that supports Dart.
+
+# Generate Dart bindings using local uniffi-bindgen wrapper
+(cd ../../ && cargo run --profile dev --bin uniffi-bindgen -- --language dart --library bdk-ffi/bdk-ffi/target/debug/$LIBNAME --out-dir lib/)
 
 if [[ "$OS" == "Darwin" ]]; then
     echo "Generating native binaries..."
