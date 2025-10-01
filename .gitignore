@@ -23,3 +23,8 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Native libs built locally
+libbdkffi.*
+test_output.txt
+test output.txt

@@ -1,4 +1,4 @@
-import '../dart_bindings/bdk.dart';
+import 'package:bdk_dart/bdk.dart';
 
 void main() {
   // Create a NetworkExample instance
