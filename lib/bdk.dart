@@ -51,7 +51,7 @@ class FfiConverterAddressInfo {
   static RustBuffer lower(AddressInfo value) {
     final total_length = FfiConverterUInt32.allocationSize(value.index) +
         Address.allocationSize(value.address) +
-        FfiConverterKeychainKind.allocationSize(value.keychain) +
+        x.allocationSize(value.keychain) +
         0;
     final buf = Uint8List(total_length);
     write(value, buf);
