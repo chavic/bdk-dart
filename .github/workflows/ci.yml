@@ -43,7 +43,7 @@ jobs:
       - name: Analyze
         run: dart analyze --fatal-infos --fatal-warnings || true
 
-      - name: Run tests (allow failures until bindings fixed)
+      - name: Run tests (expected to fail until bindings fixed)
         run: |
-          dart test || true
+          dart test
 
