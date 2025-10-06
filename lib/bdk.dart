@@ -51,7 +51,7 @@ class FfiConverterAddressInfo {
   static RustBuffer lower(AddressInfo value) {
     final total_length = FfiConverterUInt32.allocationSize(value.index) +
         Address.allocationSize(value.address) +
-        x.allocationSize(value.keychain) +
+        FfiConverterKeychainKind.allocationSize(value.keychain) +
         0;
     final buf = Uint8List(total_length);
     write(value, buf);
@@ -626,8 +626,9 @@ class FfiConverterFinalizedPsbtResult {
         FfiConverterBool.read(Uint8List.view(buf.buffer, new_offset));
     final couldFinalize = couldFinalize_lifted.value;
     new_offset += couldFinalize_lifted.bytesRead;
-    final errors_lifted = FfiConverterOptionalSequencePsbtFinalizeError.read(
-        Uint8List.view(buf.buffer, new_offset));
+    final errors_lifted =
+        FfiConverterOptionalSequencePsbtFinalizeException.read(
+            Uint8List.view(buf.buffer, new_offset));
     final errors = errors_lifted.value;
     new_offset += errors_lifted.bytesRead;
     return LiftRetVal(
@@ -642,7 +643,7 @@ class FfiConverterFinalizedPsbtResult {
   static RustBuffer lower(FinalizedPsbtResult value) {
     final total_length = Psbt.allocationSize(value.psbt) +
         FfiConverterBool.allocationSize(value.couldFinalize) +
-        FfiConverterOptionalSequencePsbtFinalizeError.allocationSize(
+        FfiConverterOptionalSequencePsbtFinalizeException.allocationSize(
             value.errors) +
         0;
     final buf = Uint8List(total_length);
@@ -657,7 +658,7 @@ class FfiConverterFinalizedPsbtResult {
         Psbt.write(value.psbt, Uint8List.view(buf.buffer, new_offset));
     new_offset += FfiConverterBool.write(
         value.couldFinalize, Uint8List.view(buf.buffer, new_offset));
-    new_offset += FfiConverterOptionalSequencePsbtFinalizeError.write(
+    new_offset += FfiConverterOptionalSequencePsbtFinalizeException.write(
         value.errors, Uint8List.view(buf.buffer, new_offset));
     return new_offset - buf.offsetInBytes;
   }
@@ -665,7 +666,7 @@ class FfiConverterFinalizedPsbtResult {
   static int allocationSize(FinalizedPsbtResult value) {
     return Psbt.allocationSize(value.psbt) +
         FfiConverterBool.allocationSize(value.couldFinalize) +
-        FfiConverterOptionalSequencePsbtFinalizeError.allocationSize(
+        FfiConverterOptionalSequencePsbtFinalizeException.allocationSize(
             value.errors) +
         0;
   }
@@ -4484,23 +4485,45 @@ enum ChangeSpendPolicy {
 }
 
 class FfiConverterChangeSpendPolicy {
-  static ChangeSpendPolicy lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+  static LiftRetVal<ChangeSpendPolicy> read(Uint8List buf) {
+    final index = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     switch (index) {
       case 1:
-        return ChangeSpendPolicy.changeAllowed;
+        return LiftRetVal(
+          ChangeSpendPolicy.changeAllowed,
+          4,
+        );
       case 2:
-        return ChangeSpendPolicy.onlyChange;
+        return LiftRetVal(
+          ChangeSpendPolicy.onlyChange,
+          4,
+        );
       case 3:
-        return ChangeSpendPolicy.changeForbidden;
+        return LiftRetVal(
+          ChangeSpendPolicy.changeForbidden,
+          4,
+        );
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
     }
   }
 
+  static ChangeSpendPolicy lift(RustBuffer buffer) {
+    return FfiConverterChangeSpendPolicy.read(buffer.asUint8List()).value;
+  }
+
   static RustBuffer lower(ChangeSpendPolicy input) {
     return toRustBuffer(createUint8ListFromInt(input.index + 1));
+  }
+
+  static int allocationSize(ChangeSpendPolicy _value) {
+    return 4;
+  }
+
+  static int write(ChangeSpendPolicy value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.index + 1);
+    return 4;
   }
 }
 
@@ -9506,21 +9529,40 @@ enum KeychainKind {
 }
 
 class FfiConverterKeychainKind {
-  static KeychainKind lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+  static LiftRetVal<KeychainKind> read(Uint8List buf) {
+    final index = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     switch (index) {
       case 1:
-        return KeychainKind.external_;
+        return LiftRetVal(
+          KeychainKind.external_,
+          4,
+        );
       case 2:
-        return KeychainKind.internal;
+        return LiftRetVal(
+          KeychainKind.internal,
+          4,
+        );
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
     }
   }
 
+  static KeychainKind lift(RustBuffer buffer) {
+    return FfiConverterKeychainKind.read(buffer.asUint8List()).value;
+  }
+
   static RustBuffer lower(KeychainKind input) {
     return toRustBuffer(createUint8ListFromInt(input.index + 1));
+  }
+
+  static int allocationSize(KeychainKind _value) {
+    return 4;
+  }
+
+  static int write(KeychainKind value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.index + 1);
+    return 4;
   }
 }
 
@@ -9868,23 +9910,45 @@ enum LogLevel {
 }
 
 class FfiConverterLogLevel {
-  static LogLevel lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+  static LiftRetVal<LogLevel> read(Uint8List buf) {
+    final index = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     switch (index) {
       case 1:
-        return LogLevel.debug;
+        return LiftRetVal(
+          LogLevel.debug,
+          4,
+        );
       case 2:
-        return LogLevel.info;
+        return LiftRetVal(
+          LogLevel.info,
+          4,
+        );
       case 3:
-        return LogLevel.warning;
+        return LiftRetVal(
+          LogLevel.warning,
+          4,
+        );
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
     }
   }
 
+  static LogLevel lift(RustBuffer buffer) {
+    return FfiConverterLogLevel.read(buffer.asUint8List()).value;
+  }
+
   static RustBuffer lower(LogLevel input) {
     return toRustBuffer(createUint8ListFromInt(input.index + 1));
+  }
+
+  static int allocationSize(LogLevel _value) {
+    return 4;
+  }
+
+  static int write(LogLevel value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.index + 1);
+    return 4;
   }
 }
 
@@ -11715,27 +11779,55 @@ enum Network {
 }
 
 class FfiConverterNetwork {
-  static Network lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+  static LiftRetVal<Network> read(Uint8List buf) {
+    final index = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     switch (index) {
       case 1:
-        return Network.bitcoin;
+        return LiftRetVal(
+          Network.bitcoin,
+          4,
+        );
       case 2:
-        return Network.testnet;
+        return LiftRetVal(
+          Network.testnet,
+          4,
+        );
       case 3:
-        return Network.signet;
+        return LiftRetVal(
+          Network.signet,
+          4,
+        );
       case 4:
-        return Network.regtest;
+        return LiftRetVal(
+          Network.regtest,
+          4,
+        );
       case 5:
-        return Network.testnet4;
+        return LiftRetVal(
+          Network.testnet4,
+          4,
+        );
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
     }
   }
 
+  static Network lift(RustBuffer buffer) {
+    return FfiConverterNetwork.read(buffer.asUint8List()).value;
+  }
+
   static RustBuffer lower(Network input) {
     return toRustBuffer(createUint8ListFromInt(input.index + 1));
+  }
+
+  static int allocationSize(Network _value) {
+    return 4;
+  }
+
+  static int write(Network value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.index + 1);
+    return 4;
   }
 }
 
@@ -11749,27 +11841,55 @@ enum NodeState {
 }
 
 class FfiConverterNodeState {
-  static NodeState lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+  static LiftRetVal<NodeState> read(Uint8List buf) {
+    final index = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     switch (index) {
       case 1:
-        return NodeState.behind;
+        return LiftRetVal(
+          NodeState.behind,
+          4,
+        );
       case 2:
-        return NodeState.headersSynced;
+        return LiftRetVal(
+          NodeState.headersSynced,
+          4,
+        );
       case 3:
-        return NodeState.filterHeadersSynced;
+        return LiftRetVal(
+          NodeState.filterHeadersSynced,
+          4,
+        );
       case 4:
-        return NodeState.filtersSynced;
+        return LiftRetVal(
+          NodeState.filtersSynced,
+          4,
+        );
       case 5:
-        return NodeState.transactionsSynced;
+        return LiftRetVal(
+          NodeState.transactionsSynced,
+          4,
+        );
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
     }
   }
 
+  static NodeState lift(RustBuffer buffer) {
+    return FfiConverterNodeState.read(buffer.asUint8List()).value;
+  }
+
   static RustBuffer lower(NodeState input) {
     return toRustBuffer(createUint8ListFromInt(input.index + 1));
+  }
+
+  static int allocationSize(NodeState _value) {
+    return 4;
+  }
+
+  static int write(NodeState value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.index + 1);
+    return 4;
   }
 }
 
@@ -17319,28 +17439,63 @@ enum WordCount {
 }
 
 class FfiConverterWordCount {
-  static WordCount lift(RustBuffer buffer) {
-    final index = buffer.asUint8List().buffer.asByteData().getInt32(0);
+  static LiftRetVal<WordCount> read(Uint8List buf) {
+    final index = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     switch (index) {
       case 1:
-        return WordCount.words12;
+        return LiftRetVal(
+          WordCount.words12,
+          4,
+        );
       case 2:
-        return WordCount.words15;
+        return LiftRetVal(
+          WordCount.words15,
+          4,
+        );
       case 3:
-        return WordCount.words18;
+        return LiftRetVal(
+          WordCount.words18,
+          4,
+        );
       case 4:
-        return WordCount.words21;
+        return LiftRetVal(
+          WordCount.words21,
+          4,
+        );
       case 5:
-        return WordCount.words24;
+        return LiftRetVal(
+          WordCount.words24,
+          4,
+        );
       default:
         throw UniffiInternalError(UniffiInternalError.unexpectedEnumCase,
             "Unable to determine enum variant");
     }
   }
 
+  static WordCount lift(RustBuffer buffer) {
+    return FfiConverterWordCount.read(buffer.asUint8List()).value;
+  }
+
   static RustBuffer lower(WordCount input) {
     return toRustBuffer(createUint8ListFromInt(input.index + 1));
   }
+
+  static int allocationSize(WordCount _value) {
+    return 4;
+  }
+
+  static int write(WordCount value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.index + 1);
+    return 4;
+  }
+}
+
+abstract class AddressInterface {
+  bool isValidForNetwork(Network network);
+  Script scriptPubkey();
+  AddressData toAddressData();
+  String toQrUri();
 }
 
 final _AddressFinalizer = Finalizer<Pointer<Void>>((ptr) {
@@ -17348,7 +17503,7 @@ final _AddressFinalizer = Finalizer<Pointer<Void>>((ptr) {
       _UniffiLib.instance.uniffi_bdkffi_fn_free_address(ptr, status));
 });
 
-class Address {
+class Address implements AddressInterface {
   late final Pointer<Void> _ptr;
 
   Address._(this._ptr) {
@@ -17415,6 +17570,30 @@ class Address {
         _UniffiLib.instance.uniffi_bdkffi_fn_free_address(_ptr, status));
   }
 
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_address_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Address) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_address_uniffi_trait_eq_eq(
+                uniffiClonePointer(), Address.lower(other), status)),
+        null);
+  }
+
   bool isValidForNetwork(
     Network network,
   ) {
@@ -17452,12 +17631,17 @@ class Address {
   }
 }
 
+abstract class AmountInterface {
+  double toBtc();
+  int toSat();
+}
+
 final _AmountFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_amount(ptr, status));
 });
 
-class Amount {
+class Amount implements AmountInterface {
   late final Pointer<Void> _ptr;
 
   Amount._(this._ptr) {
@@ -17533,12 +17717,16 @@ class Amount {
   }
 }
 
+abstract class BlockHashInterface {
+  Uint8List serialize();
+}
+
 final _BlockHashFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_blockhash(ptr, status));
 });
 
-class BlockHash {
+class BlockHash implements BlockHashInterface {
   late final Pointer<Void> _ptr;
 
   BlockHash._(this._ptr) {
@@ -17599,6 +17787,39 @@ class BlockHash {
         _UniffiLib.instance.uniffi_bdkffi_fn_free_blockhash(_ptr, status));
   }
 
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_blockhash_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! BlockHash) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_blockhash_uniffi_trait_eq_eq(
+                uniffiClonePointer(), BlockHash.lower(other), status)),
+        null);
+  }
+
+  @override
+  int get hashCode {
+    return rustCall(
+        (status) => FfiConverterUInt64.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_blockhash_uniffi_trait_hash(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   Uint8List serialize() {
     return rustCall(
         (status) => FfiConverterUint8List.lift(_UniffiLib.instance
@@ -17608,12 +17829,21 @@ class BlockHash {
   }
 }
 
+abstract class BumpFeeTxBuilderInterface {
+  BumpFeeTxBuilder allowDust(bool allowDust);
+  BumpFeeTxBuilder currentHeight(int height);
+  Psbt finish(Wallet wallet);
+  BumpFeeTxBuilder nlocktime(LockTime locktime);
+  BumpFeeTxBuilder setExactSequence(int nsequence);
+  BumpFeeTxBuilder version(int version);
+}
+
 final _BumpFeeTxBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_bumpfeetxbuilder(ptr, status));
 });
 
-class BumpFeeTxBuilder {
+class BumpFeeTxBuilder implements BumpFeeTxBuilderInterface {
   late final Pointer<Void> _ptr;
 
   BumpFeeTxBuilder._(this._ptr) {
@@ -17731,12 +17961,24 @@ class BumpFeeTxBuilder {
   }
 }
 
+abstract class CbfBuilderInterface {
+  CbfComponents build(Wallet wallet);
+  CbfBuilder configureTimeoutMillis(int handshake, int response);
+  CbfBuilder connections(int connections);
+  CbfBuilder dataDir(String dataDir);
+  CbfBuilder dnsResolver(IpAddress dnsResolver);
+  CbfBuilder logLevel(LogLevel logLevel);
+  CbfBuilder peers(List<Peer> peers);
+  CbfBuilder scanType(ScanType scanType);
+  CbfBuilder socks5Proxy(Socks5Proxy proxy);
+}
+
 final _CbfBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_cbfbuilder(ptr, status));
 });
 
-class CbfBuilder {
+class CbfBuilder implements CbfBuilderInterface {
   late final Pointer<Void> _ptr;
 
   CbfBuilder._(this._ptr) {
@@ -17880,12 +18122,27 @@ class CbfBuilder {
   }
 }
 
+abstract class CbfClientInterface {
+  void addRevealedScripts(Wallet wallet);
+  Future<FeeRate> averageFeeRate(BlockHash blockhash);
+  void broadcast(Transaction transaction);
+  void connect(Peer peer);
+  bool isRunning();
+  Future<List<IpAddress>> lookupHost(String hostname);
+  Future<FeeRate> minBroadcastFeerate();
+  Future<Info> nextInfo();
+  Future<String> nextLog();
+  Future<Warning> nextWarning();
+  void shutdown();
+  Future<Update> update();
+}
+
 final _CbfClientFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_cbfclient(ptr, status));
 });
 
-class CbfClient {
+class CbfClient implements CbfClientInterface {
   late final Pointer<Void> _ptr;
 
   CbfClient._(this._ptr) {
@@ -18070,12 +18327,16 @@ class CbfClient {
   }
 }
 
+abstract class CbfNodeInterface {
+  void run();
+}
+
 final _CbfNodeFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_cbfnode(ptr, status));
 });
 
-class CbfNode {
+class CbfNode implements CbfNodeInterface {
   late final Pointer<Void> _ptr;
 
   CbfNode._(this._ptr) {
@@ -18125,12 +18386,21 @@ class CbfNode {
   }
 }
 
+abstract class ChangeSetInterface {
+  Descriptor? changeDescriptor();
+  Descriptor? descriptor();
+  IndexerChangeSet indexerChangeset();
+  LocalChainChangeSet localchainChangeset();
+  Network? network();
+  TxGraphChangeSet txGraphChangeset();
+}
+
 final _ChangeSetFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_changeset(ptr, status));
 });
 
-class ChangeSet {
+class ChangeSet implements ChangeSetInterface {
   late final Pointer<Void> _ptr;
 
   ChangeSet._(this._ptr) {
@@ -18302,12 +18572,14 @@ class ChangeSet {
   }
 }
 
+abstract class DerivationPathInterface {}
+
 final _DerivationPathFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_derivationpath(ptr, status));
 });
 
-class DerivationPath {
+class DerivationPath implements DerivationPathInterface {
   late final Pointer<Void> _ptr;
 
   DerivationPath._(this._ptr) {
@@ -18360,12 +18632,20 @@ class DerivationPath {
   }
 }
 
+abstract class DescriptorInterface {
+  DescriptorId descriptorId();
+  bool isMultipath();
+  int maxWeightToSatisfy();
+  List<Descriptor> toSingleDescriptors();
+  String toStringWithSecret();
+}
+
 final _DescriptorFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_descriptor(ptr, status));
 });
 
-class Descriptor {
+class Descriptor implements DescriptorInterface {
   late final Pointer<Void> _ptr;
 
   Descriptor._(this._ptr) {
@@ -18540,6 +18820,23 @@ class Descriptor {
         _UniffiLib.instance.uniffi_bdkffi_fn_free_descriptor(_ptr, status));
   }
 
+  String debugString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptor_uniffi_trait_debug(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptor_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   DescriptorId descriptorId() {
     return rustCall(
         (status) => DescriptorId.lift(_UniffiLib.instance
@@ -18581,12 +18878,16 @@ class Descriptor {
   }
 }
 
+abstract class DescriptorIdInterface {
+  Uint8List serialize();
+}
+
 final _DescriptorIdFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_descriptorid(ptr, status));
 });
 
-class DescriptorId {
+class DescriptorId implements DescriptorIdInterface {
   late final Pointer<Void> _ptr;
 
   DescriptorId._(this._ptr) {
@@ -18647,6 +18948,39 @@ class DescriptorId {
         _UniffiLib.instance.uniffi_bdkffi_fn_free_descriptorid(_ptr, status));
   }
 
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorid_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! DescriptorId) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorid_uniffi_trait_eq_eq(
+                uniffiClonePointer(), DescriptorId.lower(other), status)),
+        null);
+  }
+
+  @override
+  int get hashCode {
+    return rustCall(
+        (status) => FfiConverterUInt64.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorid_uniffi_trait_hash(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   Uint8List serialize() {
     return rustCall(
         (status) => FfiConverterUint8List.lift(_UniffiLib.instance
@@ -18656,12 +18990,19 @@ class DescriptorId {
   }
 }
 
+abstract class DescriptorPublicKeyInterface {
+  DescriptorPublicKey derive(DerivationPath path);
+  DescriptorPublicKey extend(DerivationPath path);
+  bool isMultipath();
+  String masterFingerprint();
+}
+
 final _DescriptorPublicKeyFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) => _UniffiLib.instance
       .uniffi_bdkffi_fn_free_descriptorpublickey(ptr, status));
 });
 
-class DescriptorPublicKey {
+class DescriptorPublicKey implements DescriptorPublicKeyInterface {
   late final Pointer<Void> _ptr;
 
   DescriptorPublicKey._(this._ptr) {
@@ -18713,6 +19054,23 @@ class DescriptorPublicKey {
         .uniffi_bdkffi_fn_free_descriptorpublickey(_ptr, status));
   }
 
+  String debugString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorpublickey_uniffi_trait_debug(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorpublickey_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   DescriptorPublicKey derive(
     DerivationPath path,
   ) {
@@ -18750,12 +19108,19 @@ class DescriptorPublicKey {
   }
 }
 
+abstract class DescriptorSecretKeyInterface {
+  DescriptorPublicKey asPublic();
+  DescriptorSecretKey derive(DerivationPath path);
+  DescriptorSecretKey extend(DerivationPath path);
+  Uint8List secretBytes();
+}
+
 final _DescriptorSecretKeyFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) => _UniffiLib.instance
       .uniffi_bdkffi_fn_free_descriptorsecretkey(ptr, status));
 });
 
-class DescriptorSecretKey {
+class DescriptorSecretKey implements DescriptorSecretKeyInterface {
   late final Pointer<Void> _ptr;
 
   DescriptorSecretKey._(this._ptr) {
@@ -18821,6 +19186,23 @@ class DescriptorSecretKey {
         .uniffi_bdkffi_fn_free_descriptorsecretkey(_ptr, status));
   }
 
+  String debugString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorsecretkey_uniffi_trait_debug(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_descriptorsecretkey_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   DescriptorPublicKey asPublic() {
     return rustCall(
         (status) => DescriptorPublicKey.lift(_UniffiLib.instance
@@ -18858,12 +19240,23 @@ class DescriptorSecretKey {
   }
 }
 
+abstract class ElectrumClientInterface {
+  HeaderNotification blockHeadersSubscribe();
+  double estimateFee(int number);
+  Update fullScan(FullScanRequest request, int stopGap, int batchSize,
+      bool fetchPrevTxouts);
+  void ping();
+  ServerFeaturesRes serverFeatures();
+  Update sync_(SyncRequest request, int batchSize, bool fetchPrevTxouts);
+  Txid transactionBroadcast(Transaction tx);
+}
+
 final _ElectrumClientFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_electrumclient(ptr, status));
 });
 
-class ElectrumClient {
+class ElectrumClient implements ElectrumClientInterface {
   late final Pointer<Void> _ptr;
 
   ElectrumClient._(this._ptr) {
@@ -18996,12 +19389,24 @@ class ElectrumClient {
   }
 }
 
+abstract class EsploraClientInterface {
+  void broadcast(Transaction transaction);
+  Update fullScan(FullScanRequest request, int stopGap, int parallelRequests);
+  BlockHash getBlockHash(int blockHeight);
+  Map<int, double> getFeeEstimates();
+  int getHeight();
+  Transaction? getTx(Txid txid);
+  Tx? getTxInfo(Txid txid);
+  TxStatus getTxStatus(Txid txid);
+  Update sync_(SyncRequest request, int parallelRequests);
+}
+
 final _EsploraClientFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_esploraclient(ptr, status));
 });
 
-class EsploraClient {
+class EsploraClient implements EsploraClientInterface {
   late final Pointer<Void> _ptr;
 
   EsploraClient._(this._ptr) {
@@ -19149,12 +19554,18 @@ class EsploraClient {
   }
 }
 
+abstract class FeeRateInterface {
+  int toSatPerKwu();
+  int toSatPerVbCeil();
+  int toSatPerVbFloor();
+}
+
 final _FeeRateFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_feerate(ptr, status));
 });
 
-class FeeRate {
+class FeeRate implements FeeRateInterface {
   late final Pointer<Void> _ptr;
 
   FeeRate._(this._ptr) {
@@ -19240,12 +19651,14 @@ class FeeRate {
   }
 }
 
+abstract class FullScanRequestInterface {}
+
 final _FullScanRequestFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_fullscanrequest(ptr, status));
 });
 
-class FullScanRequest {
+class FullScanRequest implements FullScanRequestInterface {
   late final Pointer<Void> _ptr;
 
   FullScanRequest._(this._ptr) {
@@ -19288,12 +19701,18 @@ class FullScanRequest {
   }
 }
 
+abstract class FullScanRequestBuilderInterface {
+  FullScanRequest build();
+  FullScanRequestBuilder inspectSpksForAllKeychains(
+      FullScanScriptInspector inspector);
+}
+
 final _FullScanRequestBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) => _UniffiLib.instance
       .uniffi_bdkffi_fn_free_fullscanrequestbuilder(ptr, status));
 });
 
-class FullScanRequestBuilder {
+class FullScanRequestBuilder implements FullScanRequestBuilderInterface {
   late final Pointer<Void> _ptr;
 
   FullScanRequestBuilder._(this._ptr) {
@@ -19350,9 +19769,8 @@ class FullScanRequestBuilder {
         (status) => FullScanRequestBuilder.lift(_UniffiLib.instance
             .uniffi_bdkffi_fn_method_fullscanrequestbuilder_inspect_spks_for_all_keychains(
                 uniffiClonePointer(),
-                Pointer<Void>.fromAddress(
-                    FfiConverterCallbackInterfaceFullScanScriptInspector.lower(
-                        inspector)),
+                FfiConverterCallbackInterfaceFullScanScriptInspector.lower(
+                    inspector),
                 status)),
         requestBuilderExceptionErrorHandler);
   }
@@ -19370,13 +19788,14 @@ class FfiConverterCallbackInterfaceFullScanScriptInspector {
   static final _handleMap = UniffiHandleMap<FullScanScriptInspector>();
   static bool _vtableInitialized = false;
 
-  static FullScanScriptInspector lift(int handle) {
-    return _handleMap.get(handle);
+  static FullScanScriptInspector lift(Pointer<Void> handle) {
+    return _handleMap.get(handle.address);
   }
 
-  static int lower(FullScanScriptInspector value) {
+  static Pointer<Void> lower(FullScanScriptInspector value) {
     _ensureVTableInitialized();
-    return _handleMap.insert(value);
+    final handle = _handleMap.insert(value);
+    return Pointer<Void>.fromAddress(handle);
   }
 
   static void _ensureVTableInitialized() {
@@ -19388,12 +19807,13 @@ class FfiConverterCallbackInterfaceFullScanScriptInspector {
 
   static LiftRetVal<FullScanScriptInspector> read(Uint8List buf) {
     final handle = buf.buffer.asByteData(buf.offsetInBytes).getInt64(0);
-    return LiftRetVal(lift(handle), 8);
+    final pointer = Pointer<Void>.fromAddress(handle);
+    return LiftRetVal(lift(pointer), 8);
   }
 
   static int write(FullScanScriptInspector value, Uint8List buf) {
     final handle = lower(value);
-    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, handle);
+    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, handle.address);
     return 8;
   }
 
@@ -19429,16 +19849,17 @@ final class UniffiVTableCallbackInterfaceFullScanScriptInspector
 
 void fullScanScriptInspectorInspect(
     int uniffiHandle,
-    KeychainKind keychain,
+    int keychain,
     int index,
-    Script script,
+    Pointer<Void> script,
     Pointer<Void> outReturn,
     Pointer<RustCallStatus> callStatus) {
   final status = callStatus.ref;
   try {
     final obj = FfiConverterCallbackInterfaceFullScanScriptInspector._handleMap
         .get(uniffiHandle);
-    final arg0 = FfiConverterKeychainKind.lift(keychain);
+    final arg0 =
+        FfiConverterKeychainKind.read(createUint8ListFromInt(keychain)).value;
     final arg1 = FfiConverterUInt32.lift(index);
     final arg2 = Script.lift(script);
     obj.inspect(
@@ -19488,7 +19909,7 @@ void initFullScanScriptInspectorVTable() {
 
   rustCall((status) {
     _UniffiLib.instance
-        .uniffi_bdk_fn_init_callback_vtable_fullscanscriptinspector(
+        .uniffi_bdkffi_fn_init_callback_vtable_fullscanscriptinspector(
       fullScanScriptInspectorVTable,
     );
     checkCallStatus(NullRustCallStatusErrorHandler(), status);
@@ -19498,12 +19919,16 @@ void initFullScanScriptInspectorVTable() {
       true;
 }
 
+abstract class HashableOutPointInterface {
+  OutPoint outpoint();
+}
+
 final _HashableOutPointFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_hashableoutpoint(ptr, status));
 });
 
-class HashableOutPoint {
+class HashableOutPoint implements HashableOutPointInterface {
   late final Pointer<Void> _ptr;
 
   HashableOutPoint._(this._ptr) {
@@ -19555,6 +19980,38 @@ class HashableOutPoint {
         .uniffi_bdkffi_fn_free_hashableoutpoint(_ptr, status));
   }
 
+  String debugString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_hashableoutpoint_uniffi_trait_debug(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! HashableOutPoint) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_hashableoutpoint_uniffi_trait_eq_eq(
+                uniffiClonePointer(), HashableOutPoint.lower(other), status)),
+        null);
+  }
+
+  @override
+  int get hashCode {
+    return rustCall(
+        (status) => FfiConverterUInt64.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_hashableoutpoint_uniffi_trait_hash(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   OutPoint outpoint() {
     return rustCall(
         (status) => FfiConverterOutPoint.lift(_UniffiLib.instance
@@ -19564,12 +20021,14 @@ class HashableOutPoint {
   }
 }
 
+abstract class IpAddressInterface {}
+
 final _IpAddressFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_ipaddress(ptr, status));
 });
 
-class IpAddress {
+class IpAddress implements IpAddressInterface {
   late final Pointer<Void> _ptr;
 
   IpAddress._(this._ptr) {
@@ -19641,12 +20100,14 @@ class IpAddress {
   }
 }
 
+abstract class MnemonicInterface {}
+
 final _MnemonicFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_mnemonic(ptr, status));
 });
 
-class Mnemonic {
+class Mnemonic implements MnemonicInterface {
   late final Pointer<Void> _ptr;
 
   Mnemonic._(this._ptr) {
@@ -19715,6 +20176,15 @@ class Mnemonic {
     rustCall((status) =>
         _UniffiLib.instance.uniffi_bdkffi_fn_free_mnemonic(_ptr, status));
   }
+
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_mnemonic_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
 }
 
 abstract class Persistence {
@@ -19728,13 +20198,14 @@ class FfiConverterCallbackInterfacePersistence {
   static final _handleMap = UniffiHandleMap<Persistence>();
   static bool _vtableInitialized = false;
 
-  static Persistence lift(int handle) {
-    return _handleMap.get(handle);
+  static Persistence lift(Pointer<Void> handle) {
+    return _handleMap.get(handle.address);
   }
 
-  static int lower(Persistence value) {
+  static Pointer<Void> lower(Persistence value) {
     _ensureVTableInitialized();
-    return _handleMap.insert(value);
+    final handle = _handleMap.insert(value);
+    return Pointer<Void>.fromAddress(handle);
   }
 
   static void _ensureVTableInitialized() {
@@ -19746,12 +20217,13 @@ class FfiConverterCallbackInterfacePersistence {
 
   static LiftRetVal<Persistence> read(Uint8List buf) {
     final handle = buf.buffer.asByteData(buf.offsetInBytes).getInt64(0);
-    return LiftRetVal(lift(handle), 8);
+    final pointer = Pointer<Void>.fromAddress(handle);
+    return LiftRetVal(lift(pointer), 8);
   }
 
   static int write(Persistence value, Uint8List buf) {
     final handle = lower(value);
-    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, handle);
+    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, handle.address);
     return 8;
   }
 
@@ -19780,14 +20252,14 @@ final class UniffiVTableCallbackInterfacePersistence extends Struct {
       uniffiFree;
 }
 
-void persistenceInitialize(int uniffiHandle, Pointer<RustBuffer> outReturn,
+void persistenceInitialize(int uniffiHandle, Pointer<Pointer<Void>> outReturn,
     Pointer<RustCallStatus> callStatus) {
   final status = callStatus.ref;
   try {
     final obj =
         FfiConverterCallbackInterfacePersistence._handleMap.get(uniffiHandle);
     final result = obj.initialize();
-    outReturn.ref = ChangeSet.lower(result);
+    outReturn.value = ChangeSet.lower(result);
   } catch (e) {
     status.code = CALL_UNEXPECTED_ERROR;
     status.errorBuf = FfiConverterString.lower(e.toString());
@@ -19798,7 +20270,7 @@ final Pointer<NativeFunction<UniffiCallbackInterfacePersistenceMethod0>>
     persistenceInitializePointer =
     Pointer.fromFunction<UniffiCallbackInterfacePersistenceMethod0>(
         persistenceInitialize);
-void persistencePersist(int uniffiHandle, ChangeSet changeset,
+void persistencePersist(int uniffiHandle, Pointer<Void> changeset,
     Pointer<Void> outReturn, Pointer<RustCallStatus> callStatus) {
   final status = callStatus.ref;
   try {
@@ -19843,7 +20315,7 @@ void initPersistenceVTable() {
   persistenceVTable.ref.uniffiFree = persistenceFreePointer;
 
   rustCall((status) {
-    _UniffiLib.instance.uniffi_bdk_fn_init_callback_vtable_persistence(
+    _UniffiLib.instance.uniffi_bdkffi_fn_init_callback_vtable_persistence(
       persistenceVTable,
     );
     checkCallStatus(NullRustCallStatusErrorHandler(), status);
@@ -19852,12 +20324,14 @@ void initPersistenceVTable() {
   FfiConverterCallbackInterfacePersistence._vtableInitialized = true;
 }
 
+abstract class PersisterInterface {}
+
 final _PersisterFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_persister(ptr, status));
 });
 
-class Persister {
+class Persister implements PersisterInterface {
   late final Pointer<Void> _ptr;
 
   Persister._(this._ptr) {
@@ -19927,12 +20401,21 @@ class Persister {
   }
 }
 
+abstract class PolicyInterface {
+  String asString();
+  Satisfaction contribution();
+  String id();
+  SatisfiableItem item();
+  bool requiresPath();
+  Satisfaction satisfaction();
+}
+
 final _PolicyFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_policy(ptr, status));
 });
 
-class Policy {
+class Policy implements PolicyInterface {
   late final Pointer<Void> _ptr;
 
   Policy._(this._ptr) {
@@ -20021,12 +20504,23 @@ class Policy {
   }
 }
 
+abstract class PsbtInterface {
+  Psbt combine(Psbt other);
+  Transaction extractTx();
+  int fee();
+  FinalizedPsbtResult finalize();
+  String jsonSerialize();
+  String serialize();
+  String spendUtxo(int inputIndex);
+  void writeToFile(String path);
+}
+
 final _PsbtFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall(
       (status) => _UniffiLib.instance.uniffi_bdkffi_fn_free_psbt(ptr, status));
 });
 
-class Psbt {
+class Psbt implements PsbtInterface {
   late final Pointer<Void> _ptr;
 
   Psbt._(this._ptr) {
@@ -20165,12 +20659,16 @@ class Psbt {
   }
 }
 
+abstract class ScriptInterface {
+  Uint8List toBytes();
+}
+
 final _ScriptFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_script(ptr, status));
 });
 
-class Script {
+class Script implements ScriptInterface {
   late final Pointer<Void> _ptr;
 
   Script._(this._ptr) {
@@ -20231,12 +20729,14 @@ class Script {
   }
 }
 
+abstract class SyncRequestInterface {}
+
 final _SyncRequestFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_syncrequest(ptr, status));
 });
 
-class SyncRequest {
+class SyncRequest implements SyncRequestInterface {
   late final Pointer<Void> _ptr;
 
   SyncRequest._(this._ptr) {
@@ -20279,12 +20779,17 @@ class SyncRequest {
   }
 }
 
+abstract class SyncRequestBuilderInterface {
+  SyncRequest build();
+  SyncRequestBuilder inspectSpks(SyncScriptInspector inspector);
+}
+
 final _SyncRequestBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) => _UniffiLib.instance
       .uniffi_bdkffi_fn_free_syncrequestbuilder(ptr, status));
 });
 
-class SyncRequestBuilder {
+class SyncRequestBuilder implements SyncRequestBuilderInterface {
   late final Pointer<Void> _ptr;
 
   SyncRequestBuilder._(this._ptr) {
@@ -20341,9 +20846,8 @@ class SyncRequestBuilder {
         (status) => SyncRequestBuilder.lift(_UniffiLib.instance
             .uniffi_bdkffi_fn_method_syncrequestbuilder_inspect_spks(
                 uniffiClonePointer(),
-                Pointer<Void>.fromAddress(
-                    FfiConverterCallbackInterfaceSyncScriptInspector.lower(
-                        inspector)),
+                FfiConverterCallbackInterfaceSyncScriptInspector.lower(
+                    inspector),
                 status)),
         requestBuilderExceptionErrorHandler);
   }
@@ -20360,13 +20864,14 @@ class FfiConverterCallbackInterfaceSyncScriptInspector {
   static final _handleMap = UniffiHandleMap<SyncScriptInspector>();
   static bool _vtableInitialized = false;
 
-  static SyncScriptInspector lift(int handle) {
-    return _handleMap.get(handle);
+  static SyncScriptInspector lift(Pointer<Void> handle) {
+    return _handleMap.get(handle.address);
   }
 
-  static int lower(SyncScriptInspector value) {
+  static Pointer<Void> lower(SyncScriptInspector value) {
     _ensureVTableInitialized();
-    return _handleMap.insert(value);
+    final handle = _handleMap.insert(value);
+    return Pointer<Void>.fromAddress(handle);
   }
 
   static void _ensureVTableInitialized() {
@@ -20378,12 +20883,13 @@ class FfiConverterCallbackInterfaceSyncScriptInspector {
 
   static LiftRetVal<SyncScriptInspector> read(Uint8List buf) {
     final handle = buf.buffer.asByteData(buf.offsetInBytes).getInt64(0);
-    return LiftRetVal(lift(handle), 8);
+    final pointer = Pointer<Void>.fromAddress(handle);
+    return LiftRetVal(lift(pointer), 8);
   }
 
   static int write(SyncScriptInspector value, Uint8List buf) {
     final handle = lower(value);
-    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, handle);
+    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, handle.address);
     return 8;
   }
 
@@ -20408,8 +20914,8 @@ final class UniffiVTableCallbackInterfaceSyncScriptInspector extends Struct {
       uniffiFree;
 }
 
-void syncScriptInspectorInspect(int uniffiHandle, Script script, int total,
-    Pointer<Void> outReturn, Pointer<RustCallStatus> callStatus) {
+void syncScriptInspectorInspect(int uniffiHandle, Pointer<Void> script,
+    int total, Pointer<Void> outReturn, Pointer<RustCallStatus> callStatus) {
   final status = callStatus.ref;
   try {
     final obj = FfiConverterCallbackInterfaceSyncScriptInspector._handleMap
@@ -20456,7 +20962,8 @@ void initSyncScriptInspectorVTable() {
   syncScriptInspectorVTable.ref.uniffiFree = syncScriptInspectorFreePointer;
 
   rustCall((status) {
-    _UniffiLib.instance.uniffi_bdk_fn_init_callback_vtable_syncscriptinspector(
+    _UniffiLib.instance
+        .uniffi_bdkffi_fn_init_callback_vtable_syncscriptinspector(
       syncScriptInspectorVTable,
     );
     checkCallStatus(NullRustCallStatusErrorHandler(), status);
@@ -20465,12 +20972,28 @@ void initSyncScriptInspectorVTable() {
   FfiConverterCallbackInterfaceSyncScriptInspector._vtableInitialized = true;
 }
 
+abstract class TransactionInterface {
+  Txid computeTxid();
+  Wtxid computeWtxid();
+  List<TxIn> input();
+  bool isCoinbase();
+  bool isExplicitlyRbf();
+  bool isLockTimeEnabled();
+  int lockTime();
+  List<TxOut> output();
+  Uint8List serialize();
+  int totalSize();
+  int version();
+  int vsize();
+  int weight();
+}
+
 final _TransactionFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_transaction(ptr, status));
 });
 
-class Transaction {
+class Transaction implements TransactionInterface {
   late final Pointer<Void> _ptr;
 
   Transaction._(this._ptr) {
@@ -20520,6 +21043,30 @@ class Transaction {
     _TransactionFinalizer.detach(this);
     rustCall((status) =>
         _UniffiLib.instance.uniffi_bdkffi_fn_free_transaction(_ptr, status));
+  }
+
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_transaction_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Transaction) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_transaction_uniffi_trait_eq_eq(
+                uniffiClonePointer(), Transaction.lower(other), status)),
+        null);
   }
 
   Txid computeTxid() {
@@ -20627,12 +21174,39 @@ class Transaction {
   }
 }
 
+abstract class TxBuilderInterface {
+  TxBuilder addData(Uint8List data);
+  TxBuilder addGlobalXpubs();
+  TxBuilder addRecipient(Script script, Amount amount);
+  TxBuilder addUnspendable(OutPoint unspendable);
+  TxBuilder addUtxo(OutPoint outpoint);
+  TxBuilder addUtxos(List<OutPoint> outpoints);
+  TxBuilder allowDust(bool allowDust);
+  TxBuilder changePolicy(ChangeSpendPolicy changePolicy);
+  TxBuilder currentHeight(int height);
+  TxBuilder doNotSpendChange();
+  TxBuilder drainTo(Script script);
+  TxBuilder drainWallet();
+  TxBuilder feeAbsolute(Amount feeAmount);
+  TxBuilder feeRate(FeeRate feeRate);
+  Psbt finish(Wallet wallet);
+  TxBuilder manuallySelectedOnly();
+  TxBuilder nlocktime(LockTime locktime);
+  TxBuilder onlySpendChange();
+  TxBuilder policyPath(
+      Map<String, List<int>> policyPath, KeychainKind keychain);
+  TxBuilder setExactSequence(int nsequence);
+  TxBuilder setRecipients(List<ScriptAmount> recipients);
+  TxBuilder unspendable(List<OutPoint> unspendable);
+  TxBuilder version(int version);
+}
+
 final _TxBuilderFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_txbuilder(ptr, status));
 });
 
-class TxBuilder {
+class TxBuilder implements TxBuilderInterface {
   late final Pointer<Void> _ptr;
 
   TxBuilder._(this._ptr) {
@@ -20917,12 +21491,16 @@ class TxBuilder {
   }
 }
 
+abstract class TxMerkleNodeInterface {
+  Uint8List serialize();
+}
+
 final _TxMerkleNodeFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_txmerklenode(ptr, status));
 });
 
-class TxMerkleNode {
+class TxMerkleNode implements TxMerkleNodeInterface {
   late final Pointer<Void> _ptr;
 
   TxMerkleNode._(this._ptr) {
@@ -20983,6 +21561,39 @@ class TxMerkleNode {
         _UniffiLib.instance.uniffi_bdkffi_fn_free_txmerklenode(_ptr, status));
   }
 
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_txmerklenode_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! TxMerkleNode) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_txmerklenode_uniffi_trait_eq_eq(
+                uniffiClonePointer(), TxMerkleNode.lower(other), status)),
+        null);
+  }
+
+  @override
+  int get hashCode {
+    return rustCall(
+        (status) => FfiConverterUInt64.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_txmerklenode_uniffi_trait_hash(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   Uint8List serialize() {
     return rustCall(
         (status) => FfiConverterUint8List.lift(_UniffiLib.instance
@@ -20992,12 +21603,16 @@ class TxMerkleNode {
   }
 }
 
+abstract class TxidInterface {
+  Uint8List serialize();
+}
+
 final _TxidFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall(
       (status) => _UniffiLib.instance.uniffi_bdkffi_fn_free_txid(ptr, status));
 });
 
-class Txid {
+class Txid implements TxidInterface {
   late final Pointer<Void> _ptr;
 
   Txid._(this._ptr) {
@@ -21058,6 +21673,39 @@ class Txid {
         _UniffiLib.instance.uniffi_bdkffi_fn_free_txid(_ptr, status));
   }
 
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_txid_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Txid) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_txid_uniffi_trait_eq_eq(
+                uniffiClonePointer(), Txid.lower(other), status)),
+        null);
+  }
+
+  @override
+  int get hashCode {
+    return rustCall(
+        (status) => FfiConverterUInt64.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_txid_uniffi_trait_hash(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
   Uint8List serialize() {
     return rustCall(
         (status) => FfiConverterUint8List.lift(_UniffiLib.instance
@@ -21067,12 +21715,14 @@ class Txid {
   }
 }
 
+abstract class UpdateInterface {}
+
 final _UpdateFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_update(ptr, status));
 });
 
-class Update {
+class Update implements UpdateInterface {
   late final Pointer<Void> _ptr;
 
   Update._(this._ptr) {
@@ -21115,12 +21765,48 @@ class Update {
   }
 }
 
+abstract class WalletInterface {
+  void applyUnconfirmedTxs(List<UnconfirmedTx> unconfirmedTxs);
+  void applyUpdate(Update update);
+  Balance balance();
+  Amount calculateFee(Transaction tx);
+  FeeRate calculateFeeRate(Transaction tx);
+  void cancelTx(Transaction tx);
+  int? derivationIndex(KeychainKind keychain);
+  KeychainAndIndex? derivationOfSpk(Script spk);
+  String descriptorChecksum(KeychainKind keychain);
+  bool finalizePsbt(Psbt psbt, SignOptions? signOptions);
+  CanonicalTx? getTx(Txid txid);
+  LocalOutput? getUtxo(OutPoint op);
+  bool isMine(Script script);
+  BlockId latestCheckpoint();
+  List<LocalOutput> listOutput();
+  List<LocalOutput> listUnspent();
+  List<AddressInfo> listUnusedAddresses(KeychainKind keychain);
+  bool markUsed(KeychainKind keychain, int index);
+  Network network();
+  int nextDerivationIndex(KeychainKind keychain);
+  AddressInfo nextUnusedAddress(KeychainKind keychain);
+  AddressInfo peekAddress(KeychainKind keychain, int index);
+  bool persist(Persister persister);
+  Policy? policies(KeychainKind keychain);
+  String publicDescriptor(KeychainKind keychain);
+  List<AddressInfo> revealAddressesTo(KeychainKind keychain, int index);
+  AddressInfo revealNextAddress(KeychainKind keychain);
+  SentAndReceivedValues sentAndReceived(Transaction tx);
+  bool sign(Psbt psbt, SignOptions? signOptions);
+  FullScanRequestBuilder startFullScan();
+  SyncRequestBuilder startSyncWithRevealedSpks();
+  List<CanonicalTx> transactions();
+  TxDetails? txDetails(Txid txid);
+}
+
 final _WalletFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall((status) =>
       _UniffiLib.instance.uniffi_bdkffi_fn_free_wallet(ptr, status));
 });
 
-class Wallet {
+class Wallet implements WalletInterface {
   late final Pointer<Void> _ptr;
 
   Wallet._(this._ptr) {
@@ -21538,12 +22224,16 @@ class Wallet {
   }
 }
 
+abstract class WtxidInterface {
+  Uint8List serialize();
+}
+
 final _WtxidFinalizer = Finalizer<Pointer<Void>>((ptr) {
   rustCall(
       (status) => _UniffiLib.instance.uniffi_bdkffi_fn_free_wtxid(ptr, status));
 });
 
-class Wtxid {
+class Wtxid implements WtxidInterface {
   late final Pointer<Void> _ptr;
 
   Wtxid._(this._ptr) {
@@ -21602,6 +22292,39 @@ class Wtxid {
     _WtxidFinalizer.detach(this);
     rustCall((status) =>
         _UniffiLib.instance.uniffi_bdkffi_fn_free_wtxid(_ptr, status));
+  }
+
+  @override
+  String toString() {
+    return rustCall(
+        (status) => FfiConverterString.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_wtxid_uniffi_trait_display(
+                uniffiClonePointer(), status)),
+        null);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    }
+    if (other is! Wtxid) {
+      return false;
+    }
+    return rustCall(
+        (status) => FfiConverterBool.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_wtxid_uniffi_trait_eq_eq(
+                uniffiClonePointer(), Wtxid.lower(other), status)),
+        null);
+  }
+
+  @override
+  int get hashCode {
+    return rustCall(
+        (status) => FfiConverterUInt64.lift(_UniffiLib.instance
+            .uniffi_bdkffi_fn_method_wtxid_uniffi_trait_hash(
+                uniffiClonePointer(), status)),
+        null);
   }
 
   Uint8List serialize() {
@@ -21823,41 +22546,248 @@ Uint8List createUint8ListFromInt(int value) {
   return uint8List;
 }
 
-class FfiConverterUInt64 {
-  static int lift(int value) => value;
-
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint64(0), 8);
+class FfiConverterOptionalKeychainAndIndex {
+  static KeychainAndIndex? lift(RustBuffer buf) {
+    return FfiConverterOptionalKeychainAndIndex.read(buf.asUint8List()).value;
   }
 
-  static int lower(int value) => value;
-
-  static int allocationSize([int value = 0]) {
-    return 8;
+  static LiftRetVal<KeychainAndIndex?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterKeychainAndIndex.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<KeychainAndIndex?>(result.value, result.bytesRead + 1);
   }
 
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint64(0, value);
-    return FfiConverterUInt64.allocationSize();
+  static int allocationSize([KeychainAndIndex? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterKeychainAndIndex.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(KeychainAndIndex? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalKeychainAndIndex.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalKeychainAndIndex.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(KeychainAndIndex? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterKeychainAndIndex.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
   }
 }
 
-class FfiConverterInt32 {
-  static int lift(int value) => value;
-
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt32(0), 4);
+class FfiConverterMapUInt32ToSequenceCondition {
+  static Map<int, List<Condition>> lift(RustBuffer buf) {
+    return FfiConverterMapUInt32ToSequenceCondition.read(buf.asUint8List())
+        .value;
   }
 
-  static int lower(int value) => value;
-
-  static int allocationSize([int value = 0]) {
-    return 4;
+  static LiftRetVal<Map<int, List<Condition>>> read(Uint8List buf) {
+    final map = <int, List<Condition>>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterSequenceCondition.read(
+          Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
   }
 
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value);
-    return FfiConverterInt32.allocationSize();
+  static int write(Map<int, List<Condition>> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += FfiConverterUInt32.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterSequenceCondition.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<int, List<Condition>> value) {
+    return value.entries
+        .map((e) =>
+            FfiConverterUInt32.allocationSize(e.key) +
+            FfiConverterSequenceCondition.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<int, List<Condition>> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalNetwork {
+  static Network? lift(RustBuffer buf) {
+    return FfiConverterOptionalNetwork.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Network?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterNetwork.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Network?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Network? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterNetwork.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Network? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalNetwork.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalNetwork.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Network? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterNetwork.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalDescriptor {
+  static Descriptor? lift(RustBuffer buf) {
+    return FfiConverterOptionalDescriptor.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Descriptor?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        Descriptor.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Descriptor?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Descriptor? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return Descriptor.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Descriptor? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalDescriptor.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalDescriptor.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Descriptor? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return Descriptor.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequencePolicy {
+  static List<Policy> lift(RustBuffer buf) {
+    return FfiConverterSequencePolicy.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Policy>> read(Uint8List buf) {
+    List<Policy> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = Policy.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Policy> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += Policy.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Policy> value) {
+    return value.map((l) => Policy.allocationSize(l)).fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Policy> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
@@ -21956,42 +22886,418 @@ class FfiConverterOptionalSignOptions {
   }
 }
 
-class FfiConverterSequenceCanonicalTx {
-  static List<CanonicalTx> lift(RustBuffer buf) {
-    return FfiConverterSequenceCanonicalTx.read(buf.asUint8List()).value;
+class FfiConverterSequenceUInt64 {
+  static List<int> lift(RustBuffer buf) {
+    return FfiConverterSequenceUInt64.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<List<CanonicalTx>> read(Uint8List buf) {
-    List<CanonicalTx> res = [];
+  static LiftRetVal<List<int>> read(Uint8List buf) {
+    List<int> res = [];
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterCanonicalTx.read(Uint8List.view(buf.buffer, offset));
+      final ret = FfiConverterUInt64.read(Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<CanonicalTx> value, Uint8List buf) {
+  static int write(List<int> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterCanonicalTx.write(
+      offset += FfiConverterUInt64.write(
           value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<CanonicalTx> value) {
+  static int allocationSize(List<int> value) {
     return value
-            .map((l) => FfiConverterCanonicalTx.allocationSize(l))
+            .map((l) => FfiConverterUInt64.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<CanonicalTx> value) {
+  static RustBuffer lower(List<int> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceDescriptor {
+  static List<Descriptor> lift(RustBuffer buf) {
+    return FfiConverterSequenceDescriptor.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Descriptor>> read(Uint8List buf) {
+    List<Descriptor> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = Descriptor.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Descriptor> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += Descriptor.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Descriptor> value) {
+    return value
+            .map((l) => Descriptor.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Descriptor> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceTxIn {
+  static List<TxIn> lift(RustBuffer buf) {
+    return FfiConverterSequenceTxIn.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<TxIn>> read(Uint8List buf) {
+    List<TxIn> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterTxIn.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<TxIn> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset +=
+          FfiConverterTxIn.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<TxIn> value) {
+    return value
+            .map((l) => FfiConverterTxIn.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<TxIn> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalLocalOutput {
+  static LocalOutput? lift(RustBuffer buf) {
+    return FfiConverterOptionalLocalOutput.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<LocalOutput?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterLocalOutput.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<LocalOutput?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([LocalOutput? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterLocalOutput.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(LocalOutput? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalLocalOutput.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalLocalOutput.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(LocalOutput? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterLocalOutput.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalAmount {
+  static Amount? lift(RustBuffer buf) {
+    return FfiConverterOptionalAmount.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Amount?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        Amount.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Amount?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Amount? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return Amount.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Amount? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalAmount.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalAmount.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Amount? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return Amount.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceUint8List {
+  static List<Uint8List> lift(RustBuffer buf) {
+    return FfiConverterSequenceUint8List.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Uint8List>> read(Uint8List buf) {
+    List<Uint8List> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterUint8List.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Uint8List> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterUint8List.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Uint8List> value) {
+    return value
+            .map((l) => FfiConverterUint8List.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Uint8List> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalBool {
+  static bool? lift(RustBuffer buf) {
+    return FfiConverterOptionalBool.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<bool?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterBool.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<bool?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([bool? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterBool.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(bool? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalBool.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalBool.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(bool? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterBool.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterOptionalPolicy {
+  static Policy? lift(RustBuffer buf) {
+    return FfiConverterOptionalPolicy.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Policy?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result =
+        Policy.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Policy?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Policy? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return Policy.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Policy? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalPolicy.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalPolicy.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Policy? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return Policy.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterSequenceCondition {
+  static List<Condition> lift(RustBuffer buf) {
+    return FfiConverterSequenceCondition.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<Condition>> read(Uint8List buf) {
+    List<Condition> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterCondition.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Condition> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterCondition.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Condition> value) {
+    return value
+            .map((l) => FfiConverterCondition.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Condition> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
@@ -22051,137 +23357,152 @@ class FfiConverterOptionalLockTime {
   }
 }
 
-class FfiConverterOptionalLocalOutput {
-  static LocalOutput? lift(RustBuffer buf) {
-    return FfiConverterOptionalLocalOutput.read(buf.asUint8List()).value;
+class FfiConverterMapSequenceUInt32ToSequenceCondition {
+  static Map<List<int>, List<Condition>> lift(RustBuffer buf) {
+    return FfiConverterMapSequenceUInt32ToSequenceCondition.read(
+            buf.asUint8List())
+        .value;
   }
 
-  static LiftRetVal<LocalOutput?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterLocalOutput.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<LocalOutput?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([LocalOutput? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterLocalOutput.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(LocalOutput? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalLocalOutput.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalLocalOutput.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(LocalOutput? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return FfiConverterLocalOutput.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterMapDescriptorIdToUInt32 {
-  static Map<DescriptorId, int> lift(RustBuffer buf) {
-    return FfiConverterMapDescriptorIdToUInt32.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<DescriptorId, int>> read(Uint8List buf) {
-    final map = <DescriptorId, int>{};
+  static LiftRetVal<Map<List<int>, List<Condition>>> read(Uint8List buf) {
+    final map = <List<int>, List<Condition>>{};
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final k = DescriptorId.read(Uint8List.view(buf.buffer, offset));
+      final k =
+          FfiConverterSequenceUInt32.read(Uint8List.view(buf.buffer, offset));
       offset += k.bytesRead;
-      final v = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
+      final v = FfiConverterSequenceCondition.read(
+          Uint8List.view(buf.buffer, offset));
       offset += v.bytesRead;
       map[k.value] = v.value;
     }
     return LiftRetVal(map, offset - buf.offsetInBytes);
   }
 
-  static int write(Map<DescriptorId, int> value, Uint8List buf) {
+  static int write(Map<List<int>, List<Condition>> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (final entry in value.entries) {
-      offset +=
-          DescriptorId.write(entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterUInt32.write(
+      offset += FfiConverterSequenceUInt32.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterSequenceCondition.write(
           entry.value, Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(Map<DescriptorId, int> value) {
+  static int allocationSize(Map<List<int>, List<Condition>> value) {
     return value.entries
         .map((e) =>
-            DescriptorId.allocationSize(e.key) +
-            FfiConverterUInt32.allocationSize(e.value))
+            FfiConverterSequenceUInt32.allocationSize(e.key) +
+            FfiConverterSequenceCondition.allocationSize(e.value))
         .fold(4, (a, b) => a + b);
   }
 
-  static RustBuffer lower(Map<DescriptorId, int> value) {
+  static RustBuffer lower(Map<List<int>, List<Condition>> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
   }
 }
 
-class FfiConverterOptionalAmount {
-  static Amount? lift(RustBuffer buf) {
-    return FfiConverterOptionalAmount.read(buf.asUint8List()).value;
+class FfiConverterMapTxidToUInt64 {
+  static Map<Txid, int> lift(RustBuffer buf) {
+    return FfiConverterMapTxidToUInt64.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<Amount?> read(Uint8List buf) {
+  static LiftRetVal<Map<Txid, int>> read(Uint8List buf) {
+    final map = <Txid, int>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = Txid.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterUInt64.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<Txid, int> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += Txid.write(entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterUInt64.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<Txid, int> value) {
+    return value.entries
+        .map((e) =>
+            Txid.allocationSize(e.key) +
+            FfiConverterUInt64.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<Txid, int> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterUInt8 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint8(0), 1);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 1;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint8(0, value);
+    return FfiConverterUInt8.allocationSize();
+  }
+}
+
+class FfiConverterOptionalUInt16 {
+  static int? lift(RustBuffer buf) {
+    return FfiConverterOptionalUInt16.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<int?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result =
-        Amount.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Amount?>(result.value, result.bytesRead + 1);
+    final result = FfiConverterUInt16.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([Amount? value]) {
+  static int allocationSize([int? value]) {
     if (value == null) {
       return 1;
     }
-    return Amount.allocationSize(value) + 1;
+    return FfiConverterUInt16.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(Amount? value) {
+  static RustBuffer lower(int? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
 
-    final length = FfiConverterOptionalAmount.allocationSize(value);
+    final length = FfiConverterOptionalUInt16.allocationSize(value);
 
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
 
-    FfiConverterOptionalAmount.write(value, buf);
+    FfiConverterOptionalUInt16.write(value, buf);
 
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
@@ -22189,7 +23510,7 @@ class FfiConverterOptionalAmount {
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(Amount? value, Uint8List buf) {
+  static int write(int? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
@@ -22197,9 +23518,139 @@ class FfiConverterOptionalAmount {
 
     buf[0] = 1;
 
-    return Amount.write(
+    return FfiConverterUInt16.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
+  }
+}
+
+class FfiConverterMapUInt16ToDouble64 {
+  static Map<int, double> lift(RustBuffer buf) {
+    return FfiConverterMapUInt16ToDouble64.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Map<int, double>> read(Uint8List buf) {
+    final map = <int, double>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = FfiConverterUInt16.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterDouble64.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<int, double> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += FfiConverterUInt16.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterDouble64.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<int, double> value) {
+    return value.entries
+        .map((e) =>
+            FfiConverterUInt16.allocationSize(e.key) +
+            FfiConverterDouble64.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<int, double> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceUnconfirmedTx {
+  static List<UnconfirmedTx> lift(RustBuffer buf) {
+    return FfiConverterSequenceUnconfirmedTx.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<UnconfirmedTx>> read(Uint8List buf) {
+    List<UnconfirmedTx> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterUnconfirmedTx.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<UnconfirmedTx> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterUnconfirmedTx.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<UnconfirmedTx> value) {
+    return value
+            .map((l) => FfiConverterUnconfirmedTx.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<UnconfirmedTx> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceLocalOutput {
+  static List<LocalOutput> lift(RustBuffer buf) {
+    return FfiConverterSequenceLocalOutput.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<LocalOutput>> read(Uint8List buf) {
+    List<LocalOutput> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterLocalOutput.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<LocalOutput> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterLocalOutput.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<LocalOutput> value) {
+    return value
+            .map((l) => FfiConverterLocalOutput.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<LocalOutput> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
@@ -22238,356 +23689,6 @@ class FfiConverterSequenceAnchor {
   }
 
   static RustBuffer lower(List<Anchor> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterMapStringToSequenceUInt64 {
-  static Map<String, List<int>> lift(RustBuffer buf) {
-    return FfiConverterMapStringToSequenceUInt64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<String, List<int>>> read(Uint8List buf) {
-    final map = <String, List<int>>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = FfiConverterString.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v =
-          FfiConverterSequenceUInt64.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<String, List<int>> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterString.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterSequenceUInt64.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<String, List<int>> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterString.allocationSize(e.key) +
-            FfiConverterSequenceUInt64.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<String, List<int>> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterUInt8 {
-  static int lift(int value) => value;
-
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint8(0), 1);
-  }
-
-  static int lower(int value) => value;
-
-  static int allocationSize([int value = 0]) {
-    return 1;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint8(0, value);
-    return FfiConverterUInt8.allocationSize();
-  }
-}
-
-class FfiConverterOptionalBlockHash {
-  static BlockHash? lift(RustBuffer buf) {
-    return FfiConverterOptionalBlockHash.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<BlockHash?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        BlockHash.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<BlockHash?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([BlockHash? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return BlockHash.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(BlockHash? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalBlockHash.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalBlockHash.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(BlockHash? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return BlockHash.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalDescriptor {
-  static Descriptor? lift(RustBuffer buf) {
-    return FfiConverterOptionalDescriptor.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Descriptor?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        Descriptor.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Descriptor?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Descriptor? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return Descriptor.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Descriptor? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalDescriptor.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalDescriptor.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Descriptor? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return Descriptor.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceAddressInfo {
-  static List<AddressInfo> lift(RustBuffer buf) {
-    return FfiConverterSequenceAddressInfo.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<AddressInfo>> read(Uint8List buf) {
-    List<AddressInfo> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterAddressInfo.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<AddressInfo> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterAddressInfo.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<AddressInfo> value) {
-    return value
-            .map((l) => FfiConverterAddressInfo.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<AddressInfo> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterOptionalTx {
-  static Tx? lift(RustBuffer buf) {
-    return FfiConverterOptionalTx.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Tx?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        FfiConverterTx.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Tx?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Tx? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterTx.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Tx? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalTx.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalTx.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Tx? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return FfiConverterTx.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceCondition {
-  static List<Condition> lift(RustBuffer buf) {
-    return FfiConverterSequenceCondition.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Condition>> read(Uint8List buf) {
-    List<Condition> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterCondition.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Condition> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterCondition.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Condition> value) {
-    return value
-            .map((l) => FfiConverterCondition.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Condition> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceTxIn {
-  static List<TxIn> lift(RustBuffer buf) {
-    return FfiConverterSequenceTxIn.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<TxIn>> read(Uint8List buf) {
-    List<TxIn> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterTxIn.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<TxIn> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset +=
-          FfiConverterTxIn.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<TxIn> value) {
-    return value
-            .map((l) => FfiConverterTxIn.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<TxIn> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
@@ -22647,138 +23748,38 @@ class FfiConverterOptionalUInt32 {
   }
 }
 
-class FfiConverterSequenceUnconfirmedTx {
-  static List<UnconfirmedTx> lift(RustBuffer buf) {
-    return FfiConverterSequenceUnconfirmedTx.read(buf.asUint8List()).value;
+class FfiConverterOptionalString {
+  static String? lift(RustBuffer buf) {
+    return FfiConverterOptionalString.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<List<UnconfirmedTx>> read(Uint8List buf) {
-    List<UnconfirmedTx> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterUnconfirmedTx.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<UnconfirmedTx> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterUnconfirmedTx.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<UnconfirmedTx> value) {
-    return value
-            .map((l) => FfiConverterUnconfirmedTx.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<UnconfirmedTx> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequencePolicy {
-  static List<Policy> lift(RustBuffer buf) {
-    return FfiConverterSequencePolicy.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Policy>> read(Uint8List buf) {
-    List<Policy> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = Policy.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Policy> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += Policy.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Policy> value) {
-    return value.map((l) => Policy.allocationSize(l)).fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Policy> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterDouble32 {
-  static double lift(double value) => value;
-
-  static LiftRetVal<double> read(Uint8List buf) {
-    return LiftRetVal(
-        buf.buffer.asByteData(buf.offsetInBytes).getFloat32(0), 4);
-  }
-
-  static double lower(double value) => value;
-
-  static int allocationSize([double value = 0]) {
-    return 4;
-  }
-
-  static int write(double value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setFloat32(0, value);
-    return FfiConverterDouble32.allocationSize();
-  }
-}
-
-class FfiConverterOptionalNetwork {
-  static Network? lift(RustBuffer buf) {
-    return FfiConverterOptionalNetwork.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Network?> read(Uint8List buf) {
+  static LiftRetVal<String?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterNetwork.read(
+    final result = FfiConverterString.read(
         Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Network?>(result.value, result.bytesRead + 1);
+    return LiftRetVal<String?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([Network? value]) {
+  static int allocationSize([String? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterNetwork.allocationSize(value) + 1;
+    return FfiConverterString.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(Network? value) {
+  static RustBuffer lower(String? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
 
-    final length = FfiConverterOptionalNetwork.allocationSize(value);
+    final length = FfiConverterOptionalString.allocationSize(value);
 
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
 
-    FfiConverterOptionalNetwork.write(value, buf);
+    FfiConverterOptionalString.write(value, buf);
 
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
@@ -22786,7 +23787,7 @@ class FfiConverterOptionalNetwork {
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(Network? value, Uint8List buf) {
+  static int write(String? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
@@ -22794,124 +23795,315 @@ class FfiConverterOptionalNetwork {
 
     buf[0] = 1;
 
-    return FfiConverterNetwork.write(
+    return FfiConverterString.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
 }
 
-class FfiConverterSequenceLocalOutput {
-  static List<LocalOutput> lift(RustBuffer buf) {
-    return FfiConverterSequenceLocalOutput.read(buf.asUint8List()).value;
+class FfiConverterSequenceChainChange {
+  static List<ChainChange> lift(RustBuffer buf) {
+    return FfiConverterSequenceChainChange.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<List<LocalOutput>> read(Uint8List buf) {
-    List<LocalOutput> res = [];
+  static LiftRetVal<List<ChainChange>> read(Uint8List buf) {
+    List<ChainChange> res = [];
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
       final ret =
-          FfiConverterLocalOutput.read(Uint8List.view(buf.buffer, offset));
+          FfiConverterChainChange.read(Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<LocalOutput> value, Uint8List buf) {
+  static int write(List<ChainChange> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterLocalOutput.write(
+      offset += FfiConverterChainChange.write(
           value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<LocalOutput> value) {
+  static int allocationSize(List<ChainChange> value) {
     return value
-            .map((l) => FfiConverterLocalOutput.allocationSize(l))
+            .map((l) => FfiConverterChainChange.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<LocalOutput> value) {
+  static RustBuffer lower(List<ChainChange> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
   }
 }
 
-class FfiConverterUint8List {
-  static Uint8List lift(RustBuffer value) {
-    return FfiConverterUint8List.read(value.asUint8List()).value;
+class FfiConverterMapDescriptorIdToUInt32 {
+  static Map<DescriptorId, int> lift(RustBuffer buf) {
+    return FfiConverterMapDescriptorIdToUInt32.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<Uint8List> read(Uint8List buf) {
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    final bytes = Uint8List.view(buf.buffer, buf.offsetInBytes + 4, length);
-    return LiftRetVal(bytes, length + 4);
-  }
-
-  static RustBuffer lower(Uint8List value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-
-  static int allocationSize([Uint8List? value]) {
-    if (value == null) {
-      return 4;
-    }
-    return 4 + value.length;
-  }
-
-  static int write(Uint8List value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    buf.setRange(offset, offset + value.length, value);
-    return 4 + value.length;
-  }
-}
-
-class FfiConverterSequencePeer {
-  static List<Peer> lift(RustBuffer buf) {
-    return FfiConverterSequencePeer.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Peer>> read(Uint8List buf) {
-    List<Peer> res = [];
+  static LiftRetVal<Map<DescriptorId, int>> read(Uint8List buf) {
+    final map = <DescriptorId, int>{};
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final ret = FfiConverterPeer.read(Uint8List.view(buf.buffer, offset));
+      final k = DescriptorId.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<DescriptorId, int> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset +=
+          DescriptorId.write(entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterUInt32.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<DescriptorId, int> value) {
+    return value.entries
+        .map((e) =>
+            DescriptorId.allocationSize(e.key) +
+            FfiConverterUInt32.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<DescriptorId, int> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterDouble64 {
+  static double lift(double value) => value;
+
+  static LiftRetVal<double> read(Uint8List buf) {
+    return LiftRetVal(
+        buf.buffer.asByteData(buf.offsetInBytes).getFloat64(0), 8);
+  }
+
+  static double lower(double value) => value;
+
+  static int allocationSize([double value = 0]) {
+    return 8;
+  }
+
+  static int write(double value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setFloat64(0, value);
+    return FfiConverterDouble64.allocationSize();
+  }
+}
+
+class FfiConverterUInt16 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint16(0), 2);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 2;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint16(0, value);
+    return FfiConverterUInt16.allocationSize();
+  }
+}
+
+class FfiConverterSequenceCanonicalTx {
+  static List<CanonicalTx> lift(RustBuffer buf) {
+    return FfiConverterSequenceCanonicalTx.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<CanonicalTx>> read(Uint8List buf) {
+    List<CanonicalTx> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret =
+          FfiConverterCanonicalTx.read(Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<Peer> value, Uint8List buf) {
+  static int write(List<CanonicalTx> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset +=
-          FfiConverterPeer.write(value[i], Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterCanonicalTx.write(
+          value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<Peer> value) {
+  static int allocationSize(List<CanonicalTx> value) {
     return value
-            .map((l) => FfiConverterPeer.allocationSize(l))
+            .map((l) => FfiConverterCanonicalTx.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<Peer> value) {
+  static RustBuffer lower(List<CanonicalTx> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterUInt64 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint64(0), 8);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 8;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint64(0, value);
+    return FfiConverterUInt64.allocationSize();
+  }
+}
+
+class FfiConverterMapStringToSequenceUInt64 {
+  static Map<String, List<int>> lift(RustBuffer buf) {
+    return FfiConverterMapStringToSequenceUInt64.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Map<String, List<int>>> read(Uint8List buf) {
+    final map = <String, List<int>>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = FfiConverterString.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v =
+          FfiConverterSequenceUInt64.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
+  }
+
+  static int write(Map<String, List<int>> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset += FfiConverterString.write(
+          entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterSequenceUInt64.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<String, List<int>> value) {
+    return value.entries
+        .map((e) =>
+            FfiConverterString.allocationSize(e.key) +
+            FfiConverterSequenceUInt64.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<String, List<int>> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalTxid {
+  static Txid? lift(RustBuffer buf) {
+    return FfiConverterOptionalTxid.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<Txid?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = Txid.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Txid?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([Txid? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return Txid.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(Txid? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalTxid.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalTxid.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(Txid? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return Txid.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterInt64 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt64(0), 8);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 8;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, value);
+    return FfiConverterInt64.allocationSize();
   }
 }
 
@@ -22968,369 +24160,78 @@ class FfiConverterOptionalUInt64 {
   }
 }
 
-class FfiConverterSequenceOutPoint {
-  static List<OutPoint> lift(RustBuffer buf) {
-    return FfiConverterSequenceOutPoint.read(buf.asUint8List()).value;
+class FfiConverterSequenceTransaction {
+  static List<Transaction> lift(RustBuffer buf) {
+    return FfiConverterSequenceTransaction.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<List<OutPoint>> read(Uint8List buf) {
-    List<OutPoint> res = [];
+  static LiftRetVal<List<Transaction>> read(Uint8List buf) {
+    List<Transaction> res = [];
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final ret = FfiConverterOutPoint.read(Uint8List.view(buf.buffer, offset));
+      final ret = Transaction.read(Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<OutPoint> value, Uint8List buf) {
+  static int write(List<Transaction> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterOutPoint.write(
-          value[i], Uint8List.view(buf.buffer, offset));
+      offset += Transaction.write(value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<OutPoint> value) {
+  static int allocationSize(List<Transaction> value) {
     return value
-            .map((l) => FfiConverterOutPoint.allocationSize(l))
+            .map((l) => Transaction.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<OutPoint> value) {
+  static RustBuffer lower(List<Transaction> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
   }
 }
 
-class FfiConverterUInt16 {
-  static int lift(int value) => value;
-
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint16(0), 2);
+class FfiConverterOptionalTx {
+  static Tx? lift(RustBuffer buf) {
+    return FfiConverterOptionalTx.read(buf.asUint8List()).value;
   }
 
-  static int lower(int value) => value;
-
-  static int allocationSize([int value = 0]) {
-    return 2;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint16(0, value);
-    return FfiConverterUInt16.allocationSize();
-  }
-}
-
-class FfiConverterMapUInt16ToDouble64 {
-  static Map<int, double> lift(RustBuffer buf) {
-    return FfiConverterMapUInt16ToDouble64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<int, double>> read(Uint8List buf) {
-    final map = <int, double>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = FfiConverterUInt16.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterDouble64.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<int, double> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterUInt16.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterDouble64.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<int, double> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterUInt16.allocationSize(e.key) +
-            FfiConverterDouble64.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<int, double> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterMapUInt32ToSequenceCondition {
-  static Map<int, List<Condition>> lift(RustBuffer buf) {
-    return FfiConverterMapUInt32ToSequenceCondition.read(buf.asUint8List())
-        .value;
-  }
-
-  static LiftRetVal<Map<int, List<Condition>>> read(Uint8List buf) {
-    final map = <int, List<Condition>>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = FfiConverterUInt32.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterSequenceCondition.read(
-          Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<int, List<Condition>> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterUInt32.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterSequenceCondition.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<int, List<Condition>> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterUInt32.allocationSize(e.key) +
-            FfiConverterSequenceCondition.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<int, List<Condition>> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterMapHashableOutPointToTxOut {
-  static Map<HashableOutPoint, TxOut> lift(RustBuffer buf) {
-    return FfiConverterMapHashableOutPointToTxOut.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<HashableOutPoint, TxOut>> read(Uint8List buf) {
-    final map = <HashableOutPoint, TxOut>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = HashableOutPoint.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterTxOut.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<HashableOutPoint, TxOut> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset +=
-          HashableOutPoint.write(entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterTxOut.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<HashableOutPoint, TxOut> value) {
-    return value.entries
-        .map((e) =>
-            HashableOutPoint.allocationSize(e.key) +
-            FfiConverterTxOut.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<HashableOutPoint, TxOut> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceChainChange {
-  static List<ChainChange> lift(RustBuffer buf) {
-    return FfiConverterSequenceChainChange.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<ChainChange>> read(Uint8List buf) {
-    List<ChainChange> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterChainChange.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<ChainChange> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterChainChange.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<ChainChange> value) {
-    return value
-            .map((l) => FfiConverterChainChange.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<ChainChange> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterMapTxidToUInt64 {
-  static Map<Txid, int> lift(RustBuffer buf) {
-    return FfiConverterMapTxidToUInt64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Map<Txid, int>> read(Uint8List buf) {
-    final map = <Txid, int>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k = Txid.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterUInt64.read(Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<Txid, int> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += Txid.write(entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterUInt64.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<Txid, int> value) {
-    return value.entries
-        .map((e) =>
-            Txid.allocationSize(e.key) +
-            FfiConverterUInt64.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<Txid, int> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceTxOut {
-  static List<TxOut> lift(RustBuffer buf) {
-    return FfiConverterSequenceTxOut.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<TxOut>> read(Uint8List buf) {
-    List<TxOut> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterTxOut.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<TxOut> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset +=
-          FfiConverterTxOut.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<TxOut> value) {
-    return value
-            .map((l) => FfiConverterTxOut.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<TxOut> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterOptionalSequencePsbtFinalizeError {
-  static List<PsbtFinalizeException>? lift(RustBuffer buf) {
-    return FfiConverterOptionalSequencePsbtFinalizeError.read(buf.asUint8List())
-        .value;
-  }
-
-  static LiftRetVal<List<PsbtFinalizeException>?> read(Uint8List buf) {
+  static LiftRetVal<Tx?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterSequencePsbtFinalizeError.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<List<PsbtFinalizeException>?>(
-        result.value, result.bytesRead + 1);
+    final result =
+        FfiConverterTx.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<Tx?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([List<PsbtFinalizeException>? value]) {
+  static int allocationSize([Tx? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterSequencePsbtFinalizeError.allocationSize(value) + 1;
+    return FfiConverterTx.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(List<PsbtFinalizeException>? value) {
+  static RustBuffer lower(Tx? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
 
-    final length =
-        FfiConverterOptionalSequencePsbtFinalizeError.allocationSize(value);
+    final length = FfiConverterOptionalTx.allocationSize(value);
 
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
 
-    FfiConverterOptionalSequencePsbtFinalizeError.write(value, buf);
+    FfiConverterOptionalTx.write(value, buf);
 
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
@@ -23338,7 +24239,7 @@ class FfiConverterOptionalSequencePsbtFinalizeError {
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(List<PsbtFinalizeException>? value, Uint8List buf) {
+  static int write(Tx? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
@@ -23346,44 +24247,44 @@ class FfiConverterOptionalSequencePsbtFinalizeError {
 
     buf[0] = 1;
 
-    return FfiConverterSequencePsbtFinalizeError.write(
+    return FfiConverterTx.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
 }
 
-class FfiConverterOptionalKeychainAndIndex {
-  static KeychainAndIndex? lift(RustBuffer buf) {
-    return FfiConverterOptionalKeychainAndIndex.read(buf.asUint8List()).value;
+class FfiConverterOptionalBlockHash {
+  static BlockHash? lift(RustBuffer buf) {
+    return FfiConverterOptionalBlockHash.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<KeychainAndIndex?> read(Uint8List buf) {
+  static LiftRetVal<BlockHash?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterKeychainAndIndex.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<KeychainAndIndex?>(result.value, result.bytesRead + 1);
+    final result =
+        BlockHash.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<BlockHash?>(result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([KeychainAndIndex? value]) {
+  static int allocationSize([BlockHash? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterKeychainAndIndex.allocationSize(value) + 1;
+    return BlockHash.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(KeychainAndIndex? value) {
+  static RustBuffer lower(BlockHash? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
 
-    final length = FfiConverterOptionalKeychainAndIndex.allocationSize(value);
+    final length = FfiConverterOptionalBlockHash.allocationSize(value);
 
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
 
-    FfiConverterOptionalKeychainAndIndex.write(value, buf);
+    FfiConverterOptionalBlockHash.write(value, buf);
 
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
@@ -23391,7 +24292,7 @@ class FfiConverterOptionalKeychainAndIndex {
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(KeychainAndIndex? value, Uint8List buf) {
+  static int write(BlockHash? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
@@ -23399,105 +24300,9 @@ class FfiConverterOptionalKeychainAndIndex {
 
     buf[0] = 1;
 
-    return FfiConverterKeychainAndIndex.write(
+    return BlockHash.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
-  }
-}
-
-class FfiConverterDouble64 {
-  static double lift(double value) => value;
-
-  static LiftRetVal<double> read(Uint8List buf) {
-    return LiftRetVal(
-        buf.buffer.asByteData(buf.offsetInBytes).getFloat64(0), 8);
-  }
-
-  static double lower(double value) => value;
-
-  static int allocationSize([double value = 0]) {
-    return 8;
-  }
-
-  static int write(double value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setFloat64(0, value);
-    return FfiConverterDouble64.allocationSize();
-  }
-}
-
-class FfiConverterString {
-  static String lift(RustBuffer buf) {
-    return utf8.decoder.convert(buf.asUint8List());
-  }
-
-  static RustBuffer lower(String value) {
-    return toRustBuffer(Utf8Encoder().convert(value));
-  }
-
-  static LiftRetVal<String> read(Uint8List buf) {
-    final end = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0) + 4;
-    return LiftRetVal(utf8.decoder.convert(buf, 4, end), end);
-  }
-
-  static int allocationSize([String value = ""]) {
-    return utf8.encoder.convert(value).length + 4;
-  }
-
-  static int write(String value, Uint8List buf) {
-    final list = utf8.encoder.convert(value);
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, list.length);
-    buf.setAll(4, list);
-    return list.length + 4;
-  }
-}
-
-class FfiConverterMapSequenceUInt32ToSequenceCondition {
-  static Map<List<int>, List<Condition>> lift(RustBuffer buf) {
-    return FfiConverterMapSequenceUInt32ToSequenceCondition.read(
-            buf.asUint8List())
-        .value;
-  }
-
-  static LiftRetVal<Map<List<int>, List<Condition>>> read(Uint8List buf) {
-    final map = <List<int>, List<Condition>>{};
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final k =
-          FfiConverterSequenceUInt32.read(Uint8List.view(buf.buffer, offset));
-      offset += k.bytesRead;
-      final v = FfiConverterSequenceCondition.read(
-          Uint8List.view(buf.buffer, offset));
-      offset += v.bytesRead;
-      map[k.value] = v.value;
-    }
-    return LiftRetVal(map, offset - buf.offsetInBytes);
-  }
-
-  static int write(Map<List<int>, List<Condition>> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (final entry in value.entries) {
-      offset += FfiConverterSequenceUInt32.write(
-          entry.key, Uint8List.view(buf.buffer, offset));
-      offset += FfiConverterSequenceCondition.write(
-          entry.value, Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(Map<List<int>, List<Condition>> value) {
-    return value.entries
-        .map((e) =>
-            FfiConverterSequenceUInt32.allocationSize(e.key) +
-            FfiConverterSequenceCondition.allocationSize(e.value))
-        .fold(4, (a, b) => a + b);
-  }
-
-  static RustBuffer lower(Map<List<int>, List<Condition>> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
   }
 }
 
@@ -23554,233 +24359,30 @@ class FfiConverterOptionalTransaction {
   }
 }
 
-class FfiConverterOptionalTxid {
-  static Txid? lift(RustBuffer buf) {
-    return FfiConverterOptionalTxid.read(buf.asUint8List()).value;
+class FfiConverterBool {
+  static bool lift(int value) {
+    return value == 1;
   }
 
-  static LiftRetVal<Txid?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = Txid.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Txid?>(result.value, result.bytesRead + 1);
+  static int lower(bool value) {
+    return value ? 1 : 0;
   }
 
-  static int allocationSize([Txid? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return Txid.allocationSize(value) + 1;
+  static LiftRetVal<bool> read(Uint8List buf) {
+    return LiftRetVal(FfiConverterBool.lift(buf.first), 1);
   }
 
-  static RustBuffer lower(Txid? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalTxid.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalTxid.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
+  static RustBuffer lowerIntoRustBuffer(bool value) {
+    return toRustBuffer(Uint8List.fromList([FfiConverterBool.lower(value)]));
   }
 
-  static int write(Txid? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return Txid.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalDouble32 {
-  static double? lift(RustBuffer buf) {
-    return FfiConverterOptionalDouble32.read(buf.asUint8List()).value;
+  static int allocationSize([bool value = false]) {
+    return 1;
   }
 
-  static LiftRetVal<double?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterDouble32.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<double?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([double? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterDouble32.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(double? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalDouble32.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalDouble32.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(double? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return FfiConverterDouble32.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalInt64 {
-  static int? lift(RustBuffer buf) {
-    return FfiConverterOptionalInt64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<int?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterInt64.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([int? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterInt64.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(int? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalInt64.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalInt64.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(int? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return FfiConverterInt64.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterOptionalPolicy {
-  static Policy? lift(RustBuffer buf) {
-    return FfiConverterOptionalPolicy.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<Policy?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result =
-        Policy.read(Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<Policy?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([Policy? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return Policy.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(Policy? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalPolicy.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalPolicy.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(Policy? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return Policy.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterInt64 {
-  static int lift(int value) => value;
-
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt64(0), 8);
-  }
-
-  static int lower(int value) => value;
-
-  static int allocationSize([int value = 0]) {
-    return 8;
-  }
-
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt64(0, value);
-    return FfiConverterInt64.allocationSize();
+  static int write(bool value, Uint8List buf) {
+    buf.setAll(0, [value ? 1 : 0]);
+    return allocationSize();
   }
 }
 
@@ -23837,49 +24439,89 @@ class FfiConverterOptionalCanonicalTx {
   }
 }
 
-class FfiConverterUInt32 {
-  static int lift(int value) => value;
-
-  static LiftRetVal<int> read(Uint8List buf) {
-    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint32(0), 4);
+class FfiConverterMapHashableOutPointToTxOut {
+  static Map<HashableOutPoint, TxOut> lift(RustBuffer buf) {
+    return FfiConverterMapHashableOutPointToTxOut.read(buf.asUint8List()).value;
   }
 
-  static int lower(int value) => value;
-
-  static int allocationSize([int value = 0]) {
-    return 4;
+  static LiftRetVal<Map<HashableOutPoint, TxOut>> read(Uint8List buf) {
+    final map = <HashableOutPoint, TxOut>{};
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final k = HashableOutPoint.read(Uint8List.view(buf.buffer, offset));
+      offset += k.bytesRead;
+      final v = FfiConverterTxOut.read(Uint8List.view(buf.buffer, offset));
+      offset += v.bytesRead;
+      map[k.value] = v.value;
+    }
+    return LiftRetVal(map, offset - buf.offsetInBytes);
   }
 
-  static int write(int value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setUint32(0, value);
-    return FfiConverterUInt32.allocationSize();
+  static int write(Map<HashableOutPoint, TxOut> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (final entry in value.entries) {
+      offset +=
+          HashableOutPoint.write(entry.key, Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterTxOut.write(
+          entry.value, Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(Map<HashableOutPoint, TxOut> value) {
+    return value.entries
+        .map((e) =>
+            HashableOutPoint.allocationSize(e.key) +
+            FfiConverterTxOut.allocationSize(e.value))
+        .fold(4, (a, b) => a + b);
+  }
+
+  static RustBuffer lower(Map<HashableOutPoint, TxOut> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
-class FfiConverterBool {
-  static bool lift(int value) {
-    return value == 1;
+class FfiConverterSequenceIpAddress {
+  static List<IpAddress> lift(RustBuffer buf) {
+    return FfiConverterSequenceIpAddress.read(buf.asUint8List()).value;
   }
 
-  static int lower(bool value) {
-    return value ? 1 : 0;
+  static LiftRetVal<List<IpAddress>> read(Uint8List buf) {
+    List<IpAddress> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = IpAddress.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static LiftRetVal<bool> read(Uint8List buf) {
-    return LiftRetVal(FfiConverterBool.lift(buf.first), 1);
+  static int write(List<IpAddress> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += IpAddress.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
   }
 
-  static RustBuffer lowerIntoRustBuffer(bool value) {
-    return toRustBuffer(Uint8List.fromList([FfiConverterBool.lower(value)]));
+  static int allocationSize(List<IpAddress> value) {
+    return value
+            .map((l) => IpAddress.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
   }
 
-  static int allocationSize([bool value = false]) {
-    return 1;
-  }
-
-  static int write(bool value, Uint8List buf) {
-    buf.setAll(0, [value ? 1 : 0]);
-    return allocationSize();
+  static RustBuffer lower(List<IpAddress> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
   }
 }
 
@@ -23924,38 +24566,165 @@ class FfiConverterSequenceUInt32 {
   }
 }
 
-class FfiConverterOptionalString {
-  static String? lift(RustBuffer buf) {
-    return FfiConverterOptionalString.read(buf.asUint8List()).value;
+class FfiConverterSequencePeer {
+  static List<Peer> lift(RustBuffer buf) {
+    return FfiConverterSequencePeer.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<String?> read(Uint8List buf) {
+  static LiftRetVal<List<Peer>> read(Uint8List buf) {
+    List<Peer> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterPeer.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<Peer> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset +=
+          FfiConverterPeer.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<Peer> value) {
+    return value
+            .map((l) => FfiConverterPeer.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<Peer> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceOutPoint {
+  static List<OutPoint> lift(RustBuffer buf) {
+    return FfiConverterSequenceOutPoint.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<OutPoint>> read(Uint8List buf) {
+    List<OutPoint> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterOutPoint.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<OutPoint> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset += FfiConverterOutPoint.write(
+          value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<OutPoint> value) {
+    return value
+            .map((l) => FfiConverterOutPoint.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<OutPoint> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterSequenceTxOut {
+  static List<TxOut> lift(RustBuffer buf) {
+    return FfiConverterSequenceTxOut.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<TxOut>> read(Uint8List buf) {
+    List<TxOut> res = [];
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < length; i++) {
+      final ret = FfiConverterTxOut.read(Uint8List.view(buf.buffer, offset));
+      offset += ret.bytesRead;
+      res.add(ret.value);
+    }
+    return LiftRetVal(res, offset - buf.offsetInBytes);
+  }
+
+  static int write(List<TxOut> value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    for (var i = 0; i < value.length; i++) {
+      offset +=
+          FfiConverterTxOut.write(value[i], Uint8List.view(buf.buffer, offset));
+    }
+    return offset - buf.offsetInBytes;
+  }
+
+  static int allocationSize(List<TxOut> value) {
+    return value
+            .map((l) => FfiConverterTxOut.allocationSize(l))
+            .fold(0, (a, b) => a + b) +
+        4;
+  }
+
+  static RustBuffer lower(List<TxOut> value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+}
+
+class FfiConverterOptionalSequencePsbtFinalizeException {
+  static List<PsbtFinalizeException>? lift(RustBuffer buf) {
+    return FfiConverterOptionalSequencePsbtFinalizeException.read(
+            buf.asUint8List())
+        .value;
+  }
+
+  static LiftRetVal<List<PsbtFinalizeException>?> read(Uint8List buf) {
     if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
       return LiftRetVal(null, 1);
     }
-    final result = FfiConverterString.read(
+    final result = FfiConverterSequencePsbtFinalizeException.read(
         Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<String?>(result.value, result.bytesRead + 1);
+    return LiftRetVal<List<PsbtFinalizeException>?>(
+        result.value, result.bytesRead + 1);
   }
 
-  static int allocationSize([String? value]) {
+  static int allocationSize([List<PsbtFinalizeException>? value]) {
     if (value == null) {
       return 1;
     }
-    return FfiConverterString.allocationSize(value) + 1;
+    return FfiConverterSequencePsbtFinalizeException.allocationSize(value) + 1;
   }
 
-  static RustBuffer lower(String? value) {
+  static RustBuffer lower(List<PsbtFinalizeException>? value) {
     if (value == null) {
       return toRustBuffer(Uint8List.fromList([0]));
     }
 
-    final length = FfiConverterOptionalString.allocationSize(value);
+    final length =
+        FfiConverterOptionalSequencePsbtFinalizeException.allocationSize(value);
 
     final Pointer<Uint8> frameData = calloc<Uint8>(length);
     final buf = frameData.asTypedList(length);
 
-    FfiConverterOptionalString.write(value, buf);
+    FfiConverterOptionalSequencePsbtFinalizeException.write(value, buf);
 
     final bytes = calloc<ForeignBytes>();
     bytes.ref.len = length;
@@ -23963,7 +24732,7 @@ class FfiConverterOptionalString {
     return RustBuffer.fromBytes(bytes.ref);
   }
 
-  static int write(String? value, Uint8List buf) {
+  static int write(List<PsbtFinalizeException>? value, Uint8List buf) {
     if (value == null) {
       buf[0] = 0;
       return 1;
@@ -23971,168 +24740,354 @@ class FfiConverterOptionalString {
 
     buf[0] = 1;
 
-    return FfiConverterString.write(
+    return FfiConverterSequencePsbtFinalizeException.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
   }
 }
 
-class FfiConverterSequenceTransaction {
-  static List<Transaction> lift(RustBuffer buf) {
-    return FfiConverterSequenceTransaction.read(buf.asUint8List()).value;
+class FfiConverterSequencePsbtFinalizeException {
+  static List<PsbtFinalizeException> lift(RustBuffer buf) {
+    return FfiConverterSequencePsbtFinalizeException.read(buf.asUint8List())
+        .value;
   }
 
-  static LiftRetVal<List<Transaction>> read(Uint8List buf) {
-    List<Transaction> res = [];
+  static LiftRetVal<List<PsbtFinalizeException>> read(Uint8List buf) {
+    List<PsbtFinalizeException> res = [];
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final ret = Transaction.read(Uint8List.view(buf.buffer, offset));
+      final ret = FfiConverterPsbtFinalizeException.read(
+          Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<Transaction> value, Uint8List buf) {
+  static int write(List<PsbtFinalizeException> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset += Transaction.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<Transaction> value) {
-    return value
-            .map((l) => Transaction.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<Transaction> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterSequenceUint8List {
-  static List<Uint8List> lift(RustBuffer buf) {
-    return FfiConverterSequenceUint8List.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<Uint8List>> read(Uint8List buf) {
-    List<Uint8List> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret =
-          FfiConverterUint8List.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<Uint8List> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterUint8List.write(
+      offset += FfiConverterPsbtFinalizeException.write(
           value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<Uint8List> value) {
+  static int allocationSize(List<PsbtFinalizeException> value) {
     return value
-            .map((l) => FfiConverterUint8List.allocationSize(l))
+            .map((l) => FfiConverterPsbtFinalizeException.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<Uint8List> value) {
+  static RustBuffer lower(List<PsbtFinalizeException> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
   }
 }
 
-class FfiConverterSequenceDescriptor {
-  static List<Descriptor> lift(RustBuffer buf) {
-    return FfiConverterSequenceDescriptor.read(buf.asUint8List()).value;
+class FfiConverterSequencePkOrF {
+  static List<PkOrF> lift(RustBuffer buf) {
+    return FfiConverterSequencePkOrF.read(buf.asUint8List()).value;
   }
 
-  static LiftRetVal<List<Descriptor>> read(Uint8List buf) {
-    List<Descriptor> res = [];
+  static LiftRetVal<List<PkOrF>> read(Uint8List buf) {
+    List<PkOrF> res = [];
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final ret = Descriptor.read(Uint8List.view(buf.buffer, offset));
+      final ret = FfiConverterPkOrF.read(Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<Descriptor> value, Uint8List buf) {
+  static int write(List<PkOrF> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset += Descriptor.write(value[i], Uint8List.view(buf.buffer, offset));
+      offset +=
+          FfiConverterPkOrF.write(value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<Descriptor> value) {
+  static int allocationSize(List<PkOrF> value) {
     return value
-            .map((l) => Descriptor.allocationSize(l))
+            .map((l) => FfiConverterPkOrF.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<Descriptor> value) {
+  static RustBuffer lower(List<PkOrF> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
   }
 }
 
-class FfiConverterSequenceIpAddress {
-  static List<IpAddress> lift(RustBuffer buf) {
-    return FfiConverterSequenceIpAddress.read(buf.asUint8List()).value;
+class FfiConverterDouble32 {
+  static double lift(double value) => value;
+
+  static LiftRetVal<double> read(Uint8List buf) {
+    return LiftRetVal(
+        buf.buffer.asByteData(buf.offsetInBytes).getFloat32(0), 4);
   }
 
-  static LiftRetVal<List<IpAddress>> read(Uint8List buf) {
-    List<IpAddress> res = [];
+  static double lower(double value) => value;
+
+  static int allocationSize([double value = 0]) {
+    return 4;
+  }
+
+  static int write(double value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setFloat32(0, value);
+    return FfiConverterDouble32.allocationSize();
+  }
+}
+
+class FfiConverterUInt32 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getUint32(0), 4);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 4;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setUint32(0, value);
+    return FfiConverterUInt32.allocationSize();
+  }
+}
+
+class FfiConverterInt32 {
+  static int lift(int value) => value;
+
+  static LiftRetVal<int> read(Uint8List buf) {
+    return LiftRetVal(buf.buffer.asByteData(buf.offsetInBytes).getInt32(0), 4);
+  }
+
+  static int lower(int value) => value;
+
+  static int allocationSize([int value = 0]) {
+    return 4;
+  }
+
+  static int write(int value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value);
+    return FfiConverterInt32.allocationSize();
+  }
+}
+
+class FfiConverterOptionalDouble32 {
+  static double? lift(RustBuffer buf) {
+    return FfiConverterOptionalDouble32.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<double?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterDouble32.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<double?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([double? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterDouble32.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(double? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalDouble32.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalDouble32.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(double? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterDouble32.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterUint8List {
+  static Uint8List lift(RustBuffer value) {
+    return FfiConverterUint8List.read(value.asUint8List()).value;
+  }
+
+  static LiftRetVal<Uint8List> read(Uint8List buf) {
+    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
+    final bytes = Uint8List.view(buf.buffer, buf.offsetInBytes + 4, length);
+    return LiftRetVal(bytes, length + 4);
+  }
+
+  static RustBuffer lower(Uint8List value) {
+    final buf = Uint8List(allocationSize(value));
+    write(value, buf);
+    return toRustBuffer(buf);
+  }
+
+  static int allocationSize([Uint8List? value]) {
+    if (value == null) {
+      return 4;
+    }
+    return 4 + value.length;
+  }
+
+  static int write(Uint8List value, Uint8List buf) {
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
+    int offset = buf.offsetInBytes + 4;
+    buf.setRange(offset, offset + value.length, value);
+    return 4 + value.length;
+  }
+}
+
+class FfiConverterOptionalInt64 {
+  static int? lift(RustBuffer buf) {
+    return FfiConverterOptionalInt64.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<int?> read(Uint8List buf) {
+    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
+      return LiftRetVal(null, 1);
+    }
+    final result = FfiConverterInt64.read(
+        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
+    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
+  }
+
+  static int allocationSize([int? value]) {
+    if (value == null) {
+      return 1;
+    }
+    return FfiConverterInt64.allocationSize(value) + 1;
+  }
+
+  static RustBuffer lower(int? value) {
+    if (value == null) {
+      return toRustBuffer(Uint8List.fromList([0]));
+    }
+
+    final length = FfiConverterOptionalInt64.allocationSize(value);
+
+    final Pointer<Uint8> frameData = calloc<Uint8>(length);
+    final buf = frameData.asTypedList(length);
+
+    FfiConverterOptionalInt64.write(value, buf);
+
+    final bytes = calloc<ForeignBytes>();
+    bytes.ref.len = length;
+    bytes.ref.data = frameData;
+    return RustBuffer.fromBytes(bytes.ref);
+  }
+
+  static int write(int? value, Uint8List buf) {
+    if (value == null) {
+      buf[0] = 0;
+      return 1;
+    }
+
+    buf[0] = 1;
+
+    return FfiConverterInt64.write(
+            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
+        1;
+  }
+}
+
+class FfiConverterString {
+  static String lift(RustBuffer buf) {
+    return utf8.decoder.convert(buf.asUint8List());
+  }
+
+  static RustBuffer lower(String value) {
+    return toRustBuffer(Utf8Encoder().convert(value));
+  }
+
+  static LiftRetVal<String> read(Uint8List buf) {
+    final end = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0) + 4;
+    return LiftRetVal(utf8.decoder.convert(buf, 4, end), end);
+  }
+
+  static int allocationSize([String value = ""]) {
+    return utf8.encoder.convert(value).length + 4;
+  }
+
+  static int write(String value, Uint8List buf) {
+    final list = utf8.encoder.convert(value);
+    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, list.length);
+    buf.setAll(4, list);
+    return list.length + 4;
+  }
+}
+
+class FfiConverterSequenceAddressInfo {
+  static List<AddressInfo> lift(RustBuffer buf) {
+    return FfiConverterSequenceAddressInfo.read(buf.asUint8List()).value;
+  }
+
+  static LiftRetVal<List<AddressInfo>> read(Uint8List buf) {
+    List<AddressInfo> res = [];
     final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < length; i++) {
-      final ret = IpAddress.read(Uint8List.view(buf.buffer, offset));
+      final ret =
+          FfiConverterAddressInfo.read(Uint8List.view(buf.buffer, offset));
       offset += ret.bytesRead;
       res.add(ret.value);
     }
     return LiftRetVal(res, offset - buf.offsetInBytes);
   }
 
-  static int write(List<IpAddress> value, Uint8List buf) {
+  static int write(List<AddressInfo> value, Uint8List buf) {
     buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
     int offset = buf.offsetInBytes + 4;
     for (var i = 0; i < value.length; i++) {
-      offset += IpAddress.write(value[i], Uint8List.view(buf.buffer, offset));
+      offset += FfiConverterAddressInfo.write(
+          value[i], Uint8List.view(buf.buffer, offset));
     }
     return offset - buf.offsetInBytes;
   }
 
-  static int allocationSize(List<IpAddress> value) {
+  static int allocationSize(List<AddressInfo> value) {
     return value
-            .map((l) => IpAddress.allocationSize(l))
+            .map((l) => FfiConverterAddressInfo.allocationSize(l))
             .fold(0, (a, b) => a + b) +
         4;
   }
 
-  static RustBuffer lower(List<IpAddress> value) {
+  static RustBuffer lower(List<AddressInfo> value) {
     final buf = Uint8List(allocationSize(value));
     write(value, buf);
     return toRustBuffer(buf);
@@ -24189,194 +25144,6 @@ class FfiConverterOptionalTxDetails {
     return FfiConverterTxDetails.write(
             value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
         1;
-  }
-}
-
-class FfiConverterOptionalBool {
-  static bool? lift(RustBuffer buf) {
-    return FfiConverterOptionalBool.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<bool?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterBool.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<bool?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([bool? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterBool.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(bool? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalBool.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalBool.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(bool? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return FfiConverterBool.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequenceUInt64 {
-  static List<int> lift(RustBuffer buf) {
-    return FfiConverterSequenceUInt64.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<int>> read(Uint8List buf) {
-    List<int> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterUInt64.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<int> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset += FfiConverterUInt64.write(
-          value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<int> value) {
-    return value
-            .map((l) => FfiConverterUInt64.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<int> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
-  }
-}
-
-class FfiConverterOptionalUInt16 {
-  static int? lift(RustBuffer buf) {
-    return FfiConverterOptionalUInt16.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<int?> read(Uint8List buf) {
-    if (ByteData.view(buf.buffer, buf.offsetInBytes).getInt8(0) == 0) {
-      return LiftRetVal(null, 1);
-    }
-    final result = FfiConverterUInt16.read(
-        Uint8List.view(buf.buffer, buf.offsetInBytes + 1));
-    return LiftRetVal<int?>(result.value, result.bytesRead + 1);
-  }
-
-  static int allocationSize([int? value]) {
-    if (value == null) {
-      return 1;
-    }
-    return FfiConverterUInt16.allocationSize(value) + 1;
-  }
-
-  static RustBuffer lower(int? value) {
-    if (value == null) {
-      return toRustBuffer(Uint8List.fromList([0]));
-    }
-
-    final length = FfiConverterOptionalUInt16.allocationSize(value);
-
-    final Pointer<Uint8> frameData = calloc<Uint8>(length);
-    final buf = frameData.asTypedList(length);
-
-    FfiConverterOptionalUInt16.write(value, buf);
-
-    final bytes = calloc<ForeignBytes>();
-    bytes.ref.len = length;
-    bytes.ref.data = frameData;
-    return RustBuffer.fromBytes(bytes.ref);
-  }
-
-  static int write(int? value, Uint8List buf) {
-    if (value == null) {
-      buf[0] = 0;
-      return 1;
-    }
-
-    buf[0] = 1;
-
-    return FfiConverterUInt16.write(
-            value, Uint8List.view(buf.buffer, buf.offsetInBytes + 1)) +
-        1;
-  }
-}
-
-class FfiConverterSequencePkOrF {
-  static List<PkOrF> lift(RustBuffer buf) {
-    return FfiConverterSequencePkOrF.read(buf.asUint8List()).value;
-  }
-
-  static LiftRetVal<List<PkOrF>> read(Uint8List buf) {
-    List<PkOrF> res = [];
-    final length = buf.buffer.asByteData(buf.offsetInBytes).getInt32(0);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < length; i++) {
-      final ret = FfiConverterPkOrF.read(Uint8List.view(buf.buffer, offset));
-      offset += ret.bytesRead;
-      res.add(ret.value);
-    }
-    return LiftRetVal(res, offset - buf.offsetInBytes);
-  }
-
-  static int write(List<PkOrF> value, Uint8List buf) {
-    buf.buffer.asByteData(buf.offsetInBytes).setInt32(0, value.length);
-    int offset = buf.offsetInBytes + 4;
-    for (var i = 0; i < value.length; i++) {
-      offset +=
-          FfiConverterPkOrF.write(value[i], Uint8List.view(buf.buffer, offset));
-    }
-    return offset - buf.offsetInBytes;
-  }
-
-  static int allocationSize(List<PkOrF> value) {
-    return value
-            .map((l) => FfiConverterPkOrF.allocationSize(l))
-            .fold(0, (a, b) => a + b) +
-        4;
-  }
-
-  static RustBuffer lower(List<PkOrF> value) {
-    final buf = Uint8List(allocationSize(value));
-    write(value, buf);
-    return toRustBuffer(buf);
   }
 }
 
